@@ -1,0 +1,6 @@
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\bin\Debug\DTO.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\bin\Debug\DTO.pdb
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\obj\Debug\DTO.csprojAssemblyReference.cache
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\obj\Debug\DTO.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\SERVER\DTO\obj\Debug\DTO.pdb
