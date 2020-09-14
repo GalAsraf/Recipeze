@@ -41,10 +41,10 @@ export class AddUserComponent implements OnInit {
   }
 
   addUser() {
-  
-    this.user.UserName=this.userForm.value.name
-    this.user.Password=this.userForm.value.password
-    this.user.Email=this.userForm.value.email
+
+    this.user.UserName = this.userForm.value.name
+    this.user.Password = this.userForm.value.password
+    this.user.Email = this.userForm.value.email
     this.userService.addUser(this.user).subscribe(
       res => { console.log(res) },
       err => { console.error(err) }
