@@ -1,1 +1,13 @@
-<p>add-user works!</p>
+<form [formGroup]="myform">
+    <p class="form-group">
+        <label>User Name</label>
+        <input type="text" class="from-control" formControlName="username" placeholder="enter username">
+    </p>
+    <p class="form-group">
+        <label>Password</label>
+        <input type="password" class="from-control" formControlName="password" placeholder="enter pasword">
+    </p>
+
+    <p><input type="submit" class="btn btn-primary"></p>
+
+</form>

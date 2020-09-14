@@ -16,3 +16,15 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\DAL.dll.config
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\DAL.dll
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\DAL.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.dll
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.xml
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.dll
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.pdb

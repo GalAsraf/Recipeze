@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
+import {FormControl,FormGroup} from '@angular/forms'
 
 @Component({
   selector: 'app-add-user',
@@ -9,11 +10,19 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class AddUserComponent implements OnInit {
   user: User = new User();
+ // myform:FormGroup
+  
   
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    
+     
+    /* this.myform=new FormGroup({
+      username:new FormControl('')
+    }) */
+
+
+
     this.user.UserName = "ss";
     this.user.Password = "dd";
     
