@@ -10,7 +10,7 @@ import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms'
   //,providers:[UserService]
 })
 export class AddUserComponent implements OnInit {
-  user: User //= new User();
+  user: User = new User();
   userForm: any
 
 
