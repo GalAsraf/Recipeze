@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RecipezeModelStoreContainer" CdmEntityContainer="RecipezeEntities">
+    <EntitySetMapping Name="Allergies">
+      <EntityTypeMapping TypeName="RecipezeModel.Allergy">
+        <MappingFragment StoreEntitySet="Allergies">
+          <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
+          <ScalarProperty Name="AllergyName" ColumnName="AllergyName" />
+          <ScalarProperty Name="IsPersonal" ColumnName="IsPersonal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="RecipezeModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="MasterCategoryId" ColumnName="MasterCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KeyWordForRecipeParts">
+      <EntityTypeMapping TypeName="RecipezeModel.KeyWordForRecipePart">
+        <MappingFragment StoreEntitySet="KeyWordForRecipePart">
+          <ScalarProperty Name="KeyWordId" ColumnName="KeyWordId" />
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+          <ScalarProperty Name="TheKeyWord" ColumnName="TheKeyWord" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecipeContentParts">
+      <EntityTypeMapping TypeName="RecipezeModel.RecipeContentPart">
+        <MappingFragment StoreEntitySet="RecipeContentPart">
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+          <ScalarProperty Name="NumberOfPart" ColumnName="NumberOfPart" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RecipezeModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AllergieForUsers" TypeName="RecipezeModel.AllergieForUsers" StoreEntitySet="AllergieForUsers">
+      <EndProperty Name="Allergies">
+        <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
