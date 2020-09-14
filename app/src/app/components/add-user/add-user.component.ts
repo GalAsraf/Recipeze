@@ -10,16 +10,17 @@ import {FormControl,FormGroup} from '@angular/forms'
 })
 export class AddUserComponent implements OnInit {
   user: User = new User();
- // myform:FormGroup
+  myform:FormGroup
   
   
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
      
-    /* this.myform=new FormGroup({
-      username:new FormControl('')
-    }) */
+     this.myform=new FormGroup({
+      username:new FormControl(''),
+      password:new FormControl('')
+    }) 
 
 
 
