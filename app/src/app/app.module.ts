@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,

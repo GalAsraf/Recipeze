@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="993b7a2be264470589c6b4a01babf44e" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="RecipezeModel.Allergy" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipezeModel.KeyWordForRecipePart" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipezeModel.RecipeContentPart" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__35BCFE0A" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipezeModel.AllergieForUsers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecipezeModel.Allergy" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RecipezeModel.KeyWordForRecipePart" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="RecipezeModel.RecipeContentPart" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A" />
+        <AssociationConnector Association="RecipezeModel.AllergieForUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

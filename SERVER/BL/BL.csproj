@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryBL.cs" />
+    <Compile Include="CONVERTERS\CategoryConverter.cs" />
     <Compile Include="UserBL.cs" />
     <Compile Include="CONVERTERS\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
