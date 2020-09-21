@@ -1,1 +1,73 @@
-<p>categories works!</p>
+<br>
+
+
+<!-- 
+<form [formGroup]="form" (ngSubmit)="submit()">
+   
+    <div *ngFor="let category of categories; let i=index">
+        <div>
+            <label formArrayName="categories" >
+                <input type="checkbox" [formControlName]="i">
+    
+                <p>{{category[i].CategoryName}}</p>
+            </label>
+            <input type="checkbox" [formControlName]="i" value="{{category[i].CategoryName}}">
+            {{category[i].CategoryName}}
+        </div >
+        
+    </div>
+
+</form> -->
+
+
+<div class="custom-select" style="width:200px;">
+    <select>
+
+        <option value="202">Select category:</option>
+        <div>
+            <div *ngFor="let category of categories;let i=index ">
+                <div *ngIf="categories[i].MasterCategoryId == null">
+                    <option value=i>{{categories[i].CategoryName}}</option>
+                </div>
+            </div>
+        </div>
+
+        <option value="203">{{categories[0].CategoryName}}</option>
+
+        <option value="200">{{categories[1].CategoryName}}</option>
+        <option value="201">Audi</option>
+
+    </select>
+</div>
+<div class="custom-select" style="width:200px; ">
+    <select>
+
+        <option value="202">Select category:</option>
+        <div>
+            <div *ngFor="let category of categories;let i=index ">
+                <div *ngIf="categories[i].MasterCategoryId == null">
+                    <option value=i>{{categories[i].CategoryName}}</option>
+                </div>
+            </div>
+        </div>
+
+        <option value="203">{{categories[0].CategoryName}}</option>
+
+        <option value="200">{{categories[1].CategoryName}}</option>
+        <option value="201">Audi</option>
+
+    </select>
+</div>
+<br>
+for full tutorial on how to create and custom the select menu visit:  <br> 
+ https://www.w3schools.com/howto/howto_custom_select.asp
+
+<br>
+<h4>categories</h4>
+<p>{{categories[0].CategoryName}}</p>
+
+<div>
+    <div *ngFor="let category of categories;let i=index ">
+        <p>{{categories[i].CategoryName}} </p>
+    </div>
+</div>

@@ -1,20 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { Category } from 'src/app/shared/models/category.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
+
+
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })
+
+
 export class CategoriesComponent implements OnInit {
-categories:Category[]=[]
-  constructor(private categoryService:CategoryService) { }
+  categories: Category[] = []
+  form: FormGroup
+  
+  constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) {}
+
+
+  submit() {
+  }
 
   ngOnInit(): void {
-this.categoryService.getAllCategories().subscribe(
-  res=>this.categories=res
-)
+
+
+    this.categoryService.getAllCategories().subscribe(
+      res => this.categories = res
+    )
   }
 
 }
+
