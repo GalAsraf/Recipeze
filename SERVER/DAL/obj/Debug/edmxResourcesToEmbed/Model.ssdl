@@ -11,7 +11,7 @@
     <Key>
       <PropertyRef Name="AllergyCode" />
     </Key>
-    <Property Name="AllergyCode" Type="int" Nullable="false" />
+    <Property Name="AllergyCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="AllergyName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsPersonal" Type="bit" />
   </EntityType>
@@ -19,7 +19,7 @@
     <Key>
       <PropertyRef Name="CategoryId" />
     </Key>
-    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MasterCategoryId" Type="int" />
   </EntityType>
@@ -27,7 +27,7 @@
     <Key>
       <PropertyRef Name="KeyWordId" />
     </Key>
-    <Property Name="KeyWordId" Type="int" Nullable="false" />
+    <Property Name="KeyWordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PartId" Type="int" Nullable="false" />
     <Property Name="TheKeyWord" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
@@ -35,7 +35,7 @@
     <Key>
       <PropertyRef Name="PartId" />
     </Key>
-    <Property Name="PartId" Type="int" Nullable="false" />
+    <Property Name="PartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumberOfPart" Type="int" Nullable="false" />
     <Property Name="PartName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
@@ -43,12 +43,12 @@
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <Association Name="FK__AllergieF__Aller__2F10007B">
+  <Association Name="FK__AllergieF__Aller__4CA06362">
     <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
     <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -60,7 +60,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__AllergieF__UserI__2B3F6F97">
+  <Association Name="FK__AllergieF__UserI__49C3F6B7">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="0..1" />
     <ReferentialConstraint>
@@ -72,7 +72,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__KeyWordFo__PartI__35BCFE0A">
+  <Association Name="FK__KeyWordFo__PartI__5441852A">
     <End Role="RecipeContentPart" Type="Self.RecipeContentPart" Multiplicity="1" />
     <End Role="KeyWordForRecipePart" Type="Self.KeyWordForRecipePart" Multiplicity="*" />
     <ReferentialConstraint>
@@ -91,15 +91,15 @@
     <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__AllergieF__Aller__2F10007B" Association="Self.FK__AllergieF__Aller__2F10007B">
+    <AssociationSet Name="FK__AllergieF__Aller__4CA06362" Association="Self.FK__AllergieF__Aller__4CA06362">
       <End Role="Allergies" EntitySet="Allergies" />
       <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK__AllergieF__UserI__2B3F6F97" Association="Self.FK__AllergieF__UserI__2B3F6F97">
+    <AssociationSet Name="FK__AllergieF__UserI__49C3F6B7" Association="Self.FK__AllergieF__UserI__49C3F6B7">
       <End Role="Users" EntitySet="Users" />
       <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK__KeyWordFo__PartI__35BCFE0A" Association="Self.FK__KeyWordFo__PartI__35BCFE0A">
+    <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="Self.FK__KeyWordFo__PartI__5441852A">
       <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />
       <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipePart" />
     </AssociationSet>
