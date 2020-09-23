@@ -1,1 +1,133 @@
-<p>categories works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoies</title>
+</head>
+
+<body>
+    <br>
+
+
+    <!-- 
+<form [formGroup]="form" (ngSubmit)="submit()">
+   
+    <div *ngFor="let category of categories; let i=index">
+        <div>
+            <label formArrayName="categories" >
+                <input type="checkbox" [formControlName]="i">
+    
+                <p>{{category[i].CategoryName}}</p>
+            </label>
+            <input type="checkbox" [formControlName]="i" value="{{category[i].CategoryName}}">
+            {{category[i].CategoryName}}
+        </div >
+        
+    </div>
+
+</form> -->
+    <form>
+        <div>
+            <div class="custom-select" style="width:200px">
+                <select (change)="selectChangeHandler($event)">
+                    <option value="202">Select category:</option>
+                    <option *ngFor="let category of categories;let i=index ">
+                        <label *ngIf="category.MasterCategoryId == null">
+                            <p value=i>{{categories[i].CategoryName}}</p>
+                        </label>
+                    </option>
+                </select>
+            </div>
+        </div>
+        {{selectedFirstValue}}
+        <div>
+            <div class="custom-select" style="width:200px;">
+                <select (change)="secondSelect($event)">
+                    <option value="202">Select category:</option>
+                    <option *ngFor="let category of categories;let i=index ">
+                        <label *ngIf="category.MasterCategoryId == selectedFirstValue.CategoryId">
+                            <p value=i>{{categories[i].CategoryName}}</p>
+                        </label>
+                    </option>
+                </select>
+            </div>
+        </div>
+        {{selectedSecondValue}}
+
+        <div>
+            <div class="custom-select" style="width:200px">
+                <select (change)="thirdSelected($event)">
+                    <option value="202">Select food:</option>
+                    <option *ngFor="let category of categories;let i=index ">
+                        <label *ngIf="category.MasterCategoryId == selectedSecondValue.CategoryId">
+                            <p value=i>{{categories[i].CategoryName}}</p>
+                        </label>
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit">search</button>
+    </form>
+
+    <br>
+    for full tutorial on how to create and custom the select menu visit: <br>
+    https://www.w3schools.com/howto/howto_custom_select.asp
+
+    <br>
+    <h4>categories</h4>
+
+    <div>
+        <div *ngFor="let category of categories;let i=index ">
+            <p>{{categories[i].CategoryName}} </p>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+<!-- 
+<div>
+    <div class="custom-select" style="width:200px">
+        <select (change)="selectChangeHandler($event)">
+            <option value="202">Select category:</option>
+            <option *ngFor="let category of categories;let i=index ">
+                <label *ngIf="category.MasterCategoryId == null">
+                    <p value=i>{{categories[i].CategoryName}}</p>
+                </label>
+            </option>
+        </select>
+    </div>
+</div>
+
+<div>
+    <div class="custom-select" style="width:200px;">
+        <select (change)="secondSelect($event)">
+            <option value="202">Select category:</option>
+
+            <option *ngFor="let category of categories;let i=index ">
+                <label *ngIf="category.MasterCategoryId == selectedFirstValue.CategoryId">
+                    <p value=i>{{categories[i].CategoryName}}</p>
+                </label>
+            </option>
+        </select>
+    </div>
+</div>
+
+<div>
+    <div class="custom-select" style="width:200px">
+        <select (change)="thirdSelected($event)">
+            <option value="202">Select food:</option>
+            <option *ngFor="let category of categories;let i=index ">
+                <label *ngIf="category.MasterCategoryId == selectedSecondValue.CategoryId">
+                    <p value=i>{{categories[i].CategoryName}}</p>
+                </label>
+            </option>
+        </select>
+    </div>
+</div> -->

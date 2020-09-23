@@ -16,7 +16,7 @@ export class UserService {
   }
 
   getUserExist() : Observable<boolean>{
-    return this.http.get<boolean>(environment.url + 'user/adduser')
+    return this.http.get<boolean>(environment.url + 'user/getUserExist')
 
   }
 }
