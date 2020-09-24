@@ -189,7 +189,7 @@
           <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="0..1" />
           <End Type="RecipezeModel.User" Role="User" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
