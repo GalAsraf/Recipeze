@@ -48,3 +48,13 @@ C:\Computers\final project\final project\Recipeze\SERVER\BL\obj\Debug\BL.csproj.
 C:\Computers\final project\final project\Recipeze\SERVER\BL\obj\Debug\BL.csproj.CopyComplete
 C:\Computers\final project\final project\Recipeze\SERVER\BL\obj\Debug\BL.dll
 C:\Computers\final project\final project\Recipeze\SERVER\BL\obj\Debug\BL.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\BouncyCastle.Crypto.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\GoogleApi.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Newtonsoft.Json.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.Support.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\BouncyCastle.Crypto.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\GoogleApi.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Newtonsoft.Json.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.Support.xml

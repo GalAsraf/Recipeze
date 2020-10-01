@@ -62,6 +62,7 @@
         </div>
         {{selectedSecondValue}}
 
+
         <div>
             <div class="custom-select" style="width:200px">
                 <select (change)="thirdSelected($event)">
@@ -92,16 +93,18 @@
     <div>
         <div *ngFor="let category of categories;let i=index ">
             <p>{{categories[i].CategoryName}} </p>
+            
         </div>
     </div>
 
+    {{categories[0].CategoryName}}
+</body>
+</html>
 
 
 
 
-
-
-    <script async src="https://cse.google.com/cse.js?cx=000888210889775888983:y9tkcjel090">
+    <!-- <script async src="https://cse.google.com/cse.js?cx=000888210889775888983:y9tkcjel090">
         const myInitCallback = function () {
             if (document.readyState == 'complete') {
                 // Document is ready when Search Element is initialized.
@@ -130,15 +133,15 @@
             parsetags: 'explicit',
             initializationCallback: myInitCallback
         };
-    </script>
-    <div class="gcse-search"></div>
+    </script> -->
+   <!--  <div class="gcse-search"></div>
     <div class="gcse-searchbox-only" data-resultsUrl="http://www.google.com" data-newWindow="true"
         data-queryParameterName="search">
         <div class="gcse-searchbox" data-enableHistory="true" data-autoCompleteMaxCompletions="5"
             data-autoCompleteMatchType='any'>
             <div class="gcse-searchresults" data-refinementStyle="link">
 
-                <div id="test"></div>
+                <div id="test"></div> -->
 
                 <!-- 
 </body>
