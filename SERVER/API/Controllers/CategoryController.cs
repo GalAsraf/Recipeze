@@ -24,6 +24,7 @@ namespace API.Controllers
         //trying to get an array that contains the selected categories, how do I use it.
         public IHttpActionResult GetSelectedCategories()
         {
+            
             //how do add web reference?
             //licence key?
             //com.google.api.GoogleSearchService s = new TestGoogle.com.google.api.GoogleSearchService();
