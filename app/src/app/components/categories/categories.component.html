@@ -33,11 +33,14 @@
             <div class="custom-select" style="width:200px">
                 <select (change)="selectChangeHandler($event)">
                     <option value="202">Select category:</option>
-                    <option *ngFor="let category of categories;let i=index ">
-                        <label *ngIf="category.MasterCategoryId == null">
-                            <p value=i>{{categories[i].CategoryName}}</p>
-                        </label>
-                    </option>
+                    <div *ngFor="let category of categories;let i=index ">
+                        <option *ngIf="category.MasterCategoryId == null">
+                            <label>
+                                <p value=i>{{categories[i].CategoryName}}</p>
+                            </label>
+                        </option>
+                        <option>Gal</option>
+                    </div>
                 </select>
             </div>
         </div>
@@ -46,11 +49,14 @@
             <div class="custom-select" style="width:200px;">
                 <select (change)="secondSelect($event)">
                     <option value="202">Select category:</option>
-                    <option *ngFor="let category of categories;let i=index ">
-                        <label *ngIf="category.MasterCategoryId == selectedFirstValue.CategoryId">
-                            <p value=i>{{categories[i].CategoryName}}</p>
-                        </label>
-                    </option>
+                    <div *ngFor="let category of categories;let i=index ">
+                        <option *ngIf="category.MasterCategoryId == selectedFirstValue.CategoryId">
+                            <label>
+                                <p value=i>{{categories[i].CategoryName}}</p>
+                            </label>
+                        </option>
+                        <option>Leah</option>
+                    </div>
                 </select>
             </div>
         </div>
@@ -69,7 +75,11 @@
             </div>
         </div>
 
-        <button type="submit">search</button>
+        <!-- I put the search button in google's link-->
+        <script async src="https://cse.google.com/cse.js?cx=685741d92eef1307f"></script>
+        <div class="gcse-search">
+            <button type="submit">search</button>
+        </div>
     </form>
 
     <br>
