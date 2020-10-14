@@ -15,13 +15,14 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 
 export class CategoriesComponent implements OnInit {
   categories: Category[] = []
+  baseCategories: Category[] = []
   form: FormGroup
   selectedFirstValue: Category
   selectedSecondValue: Category
   selectedThirdValue: Category
 
   selectedCategories: Category[]=[]
-
+  categoriesToSelect:Category[][]=[];
 
   constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) { }
 
@@ -33,12 +34,15 @@ export class CategoriesComponent implements OnInit {
 
 
     this.categoryService.getAllCategories().subscribe(
-      res => this.categories = res
+      res => {this.categories = res;
+     this.selectSubCategories(null);
+      }
     )
   }
   //saves the selected value of the first combobox
-  selectChangeHandler(event: any) {
-    this.selectedFirstValue = event.target.value;
+  selectChangeHandler(event: any,index:number) {
+     
+    this.selectSubCategories(event.target.value)
     // this.selectedFirstValue = this.categories.filter(m => m.MasterCategoryId == event.target.value);
   }
   secondSelect(event: any) {
@@ -61,6 +65,13 @@ export class CategoriesComponent implements OnInit {
       res => { console.log(res) },
       err => { console.error(err) }
     )
+  }
+
+  selectSubCategories(id:number)
+  {
+    let sub=this.categories.filter(c=>c.MasterCategoryId==id);
+    if(sub.length>0)
+    this.categoriesToSelect.push(sub);
   }
 }
 
