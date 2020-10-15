@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { Allergy } from 'src/app/shared/models/allergy.model';
 import { Category } from 'src/app/shared/models/category.model';
+import { AllergyService } from 'src/app/shared/services/allergy.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 //import { ListboxModule } from 'primeng/listbox';
 
@@ -24,14 +26,22 @@ export class CategoriesComponent implements OnInit {
   selectedCategories: Category[]=[]
   categoriesToSelect:Category[][]=[];
 
-  constructor(private categoryService: CategoryService, private formBuilder: FormBuilder) { }
+
+  allergies : Allergy[] = []
+
+
+  constructor(private categoryService: CategoryService, private allergiesService: AllergyService, private formBuilder: FormBuilder) { }
 
 
   submit() {
   }
 
   ngOnInit(): void {
-
+    this.allergiesService.getAllAllergies().subscribe(
+      res => {this.allergies = res;
+    // this.selectSubCategories(null);
+      }
+    )
 
     this.categoryService.getAllCategories().subscribe(
       res => {this.categories = res;

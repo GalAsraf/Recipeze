@@ -11,14 +11,13 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories():Observable<Category[]>
-  {
-    return this.http.get<Category[]>(environment.url+"category/getAllCategories")
+  getAllCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(environment.url + "category/getAllCategories")
   }
 
-  
+
   googleSearch(categories: Category[]): Observable<boolean> {
     return this.http.post<boolean>(environment.url + 'category/getSelectedCategories', categories)
-   }
+  }
 
 }
