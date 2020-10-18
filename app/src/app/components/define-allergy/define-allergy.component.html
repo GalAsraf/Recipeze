@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Define your Allergies and sensitives</title>
+</head>
+<body>
+    <h1>welcome (the name of the user)! let's add your allergies</h1>
+    <h4>allergies</h4>
+    <div>
+        <ul *ngFor="let allergy of allergies;let i=index ">
+            <li>{{allergies[i].AllergyName}} </li>
+        </ul>
+    </div>
+</body>
+</html>

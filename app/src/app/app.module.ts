@@ -9,6 +9,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { DefineAllergyComponent } from './components/define-allergy/define-allergy.component';
+import { AllergyService } from './shared/services/allergy.service';
+import { CategoryService } from './shared/services/category.service';
+import { UserService } from './shared/services/user.service';
 
 //import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 //import {MenuItem} from 'primeng/api';                  //api
@@ -18,6 +22,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
     AppComponent,
     AddUserComponent,
     CategoriesComponent,
+    DefineAllergyComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent,AddUserComponent]
+  providers: [AllergyService, CategoryService, UserService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -80,7 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllergyBL.cs" />
     <Compile Include="CategoryBL.cs" />
+    <Compile Include="CONVERTERS\AllergyConverter.cs" />
     <Compile Include="CONVERTERS\CategoryConverter.cs" />
     <Compile Include="UserBL.cs" />
     <Compile Include="CONVERTERS\UserConverter.cs" />

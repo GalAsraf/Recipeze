@@ -16,6 +16,6 @@ namespace BL
             {
                 return CONVERTERS.CategoryConverter.ConvertCategoryListToDTO(db.Categories);
             }
-            }
+        }
     }
 }
