@@ -32,6 +32,6 @@ import { UserService } from './shared/services/user.service';
     HttpClientModule
   ],
   providers: [AllergyService, CategoryService, UserService],
-  bootstrap: [AppComponent,AddUserComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
