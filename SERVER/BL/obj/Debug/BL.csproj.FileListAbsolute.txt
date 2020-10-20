@@ -91,3 +91,8 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\WebDriver.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\WebDriver.Support.xml
 >>>>>>> 73b90b5f051006800f1cb4717dcc870df8ba9075
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\HtmlAgilityPack.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Nancy.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\HtmlAgilityPack.xml
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Nancy.xml

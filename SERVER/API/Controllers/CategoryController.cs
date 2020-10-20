@@ -22,7 +22,7 @@ namespace API.Controllers
         {
             //BL.CategoryBL.GetSelectedCategories(selectedCategory)
             //BL.CategoryBL.GoogleSearchString(selectedCategory)
-
+            BL.WebScraping.GoogleSearch.CustomSearch(selectedCategory);
             return Ok(selectedCategory);
 
 
