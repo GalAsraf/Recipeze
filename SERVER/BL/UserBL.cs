@@ -18,5 +18,20 @@ namespace BL
                 db.SaveChanges();
             }
         }
+
+        public static int GetUserExist(string name, string password)
+        {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                try
+                {
+                    var member = db.Users.Where(a => a.UserName== name && a.Password == password).ToList();
+                    return int.Parse(member[0].Password.ToString());
+                }
+                catch (Exception e) { return 0; }
+
+            }
+            
+        }
     }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './shared/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Recipeze';
+  isLogin: any;
+  constructor(private loginService: LoginService){
+    this.isLogin = loginService.CurrnetUser
+  }
+
+  
 }

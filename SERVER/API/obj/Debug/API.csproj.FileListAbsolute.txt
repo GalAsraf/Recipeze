@@ -200,3 +200,8 @@ C:\Computers\final project\final project\Recipeze\SERVER\API\obj\Debug\API.cspro
 C:\Computers\final project\final project\Recipeze\SERVER\API\obj\Debug\API.csproj.CopyComplete
 C:\Computers\final project\final project\Recipeze\SERVER\API\obj\Debug\API.dll
 C:\Computers\final project\final project\Recipeze\SERVER\API\obj\Debug\API.pdb
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\HtmlAgilityPack.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\Nancy.dll
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\HtmlAgilityPack.pdb
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\HtmlAgilityPack.xml
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\Nancy.xml
