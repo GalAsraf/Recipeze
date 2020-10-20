@@ -3,65 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Document</title>
 </head>
 <body>
-    <div class="container">
-        <form [formGroup]="loginForm" (submit)="getUserExist()">
-            <div class="form-group">
-                <label> user name: </label>
-                <input type="text" class="form-control" formControlName="username" required>
-                <!--  <div class="error" *ngIf="loginForm.controls['username'].errors!=null"> required field! </div> -->
-            </div>
+
     
-            <div class="form-group">
-                <label> password: </label>
-                <input type="password" class="form-control" formControlName="password" required>
-                <!--  <div class="error" *ngIf="loginForm.controls['password'].errors!=null"> required field! </div> -->
+<div class="container">
+    <h2>Registration</h2>
+    <form class="form-horizontal" [formGroup]="userForm" (submit)="addUser()">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <input class="form-control" formControlName="name" id="name" />
             </div>
-    
-            <div> <input type="submit" class="btn btn-success" value="Signed up!">
-                <a [routerLink]="['/register']" class="btn btn-success"> new user </a>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input class="form-control" formControlName="email" id="email" />
+
             </div>
-    
-            <span class="psw"> <a href="#">Forgot password?</a></span>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="password">Password:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" formControlName="password" id="password" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="confirmPassword">Confirm Password:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" formControlName="confirmPassword" id="confirmPassword" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" [disabled]="!userForm.valid" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
     
 </body>
 </html>
 
-
-
-
-
-
-<!-- <form class="modal-content animate" [formGroup]="loginForm" action="/action_page.php" (submit)="getUserExist()">
-
-
-    <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" formControlName="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" formControlName="psw" required>
-
-        <button type="submit">Sign in</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'"
-            class="cancelbtn">Cancel</button>
-       
-    </div>
-</form> -->
-
-
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -79,9 +66,29 @@
         <!--  (submit)="getUserExist()"
            take log-in process from google
         -->
+        <form class="modal-content animate" action="/action_page.php" method="post"  >
+           
 
-        <!-- method="post"-->
-        <!--   </div>
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Sign in</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+    </div>
 
     <script>
         // Get the modal
@@ -94,12 +101,13 @@
             }
         }
     </script>
+
 <div>
     to do: <br> 1.When user signs in, check if user exists. <br> 2.after signs in a page for defining his allergies should appear. <br>
 </div>
 </body>
 
-</html> -->
+</html>
 
 
 
@@ -221,3 +229,4 @@
 </body>
 
 </html> -->
+

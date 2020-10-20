@@ -58,6 +58,18 @@ C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\GoogleApi.
 C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Newtonsoft.Json.xml
 C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.xml
 C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\WebDriver.Support.xml
+<<<<<<< HEAD
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Core.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Customsearch.v1.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.PlatformServices.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Core.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Core.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Customsearch.v1.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Google.Apis.Customsearch.v1.xml
+=======
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\BouncyCastle.Crypto.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Google.Apis.Core.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Google.Apis.Customsearch.v1.dll
@@ -78,3 +90,4 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Newtonsoft.Json.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\WebDriver.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\WebDriver.Support.xml
+>>>>>>> 73b90b5f051006800f1cb4717dcc870df8ba9075
