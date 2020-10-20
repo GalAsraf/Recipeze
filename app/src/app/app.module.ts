@@ -7,12 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AddUserComponent } from './components/add-user/add-user.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { DefineAllergyComponent } from './components/define-allergy/define-allergy.component';
 import { AllergyService } from './shared/services/allergy.service';
 import { CategoryService } from './shared/services/category.service';
 import { UserService } from './shared/services/user.service';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 //import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 //import {MenuItem} from 'primeng/api';                  //api
@@ -20,9 +21,10 @@ import { UserService } from './shared/services/user.service';
 @NgModule({
   declarations: [
     AppComponent,
-    AddUserComponent,
     CategoriesComponent,
     DefineAllergyComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

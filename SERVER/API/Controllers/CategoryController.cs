@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace API.Controllers
@@ -14,11 +15,17 @@ namespace API.Controllers
             return Ok(BL.CategoryBL.GetAllCategories());
         }
 
-        [Route("GetSelectedCategories")]
-        [HttpGet]//?
+        [Route("GetSelectedCategories(string selectedCategory)")]
+        [HttpPost]//?
         //trying to get an array that contains the selected categories, how do I use it.
-        public IHttpActionResult GetSelectedCategories()
+        public IHttpActionResult GetSelectedCategories(string selectedCategory)
         {
+            //BL.CategoryBL.GetSelectedCategories(selectedCategory)
+            //BL.CategoryBL.GoogleSearchString(selectedCategory)
+
+            return Ok(selectedCategory);
+
+
 
             //how do add web reference?
             //licence key?
@@ -40,7 +47,13 @@ namespace API.Controllers
             //}
             //dataGridView1.DataSource = dtResults;
 
-            return Ok();
+            //selectedCategory
+
+        }
+
+        private object GoogleSearch(string selectedCategory)
+        {
+            throw new NotImplementedException();
         }
     }
 

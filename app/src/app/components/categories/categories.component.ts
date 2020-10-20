@@ -19,15 +19,16 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = []
   baseCategories: Category[] = []
   form: FormGroup
-  selectedFirstValue: Category
-  selectedSecondValue: Category
-  selectedThirdValue: Category
+  selected:string;
+  // selectedFirstValue: Category
+  // selectedSecondValue: Category
+  // selectedThirdValue: Category
 
   selectedCategories: Category[]=[]
   categoriesToSelect:Category[][]=[];
 
 
-  allergies : Allergy[] = []
+  
 
 
   constructor(private categoryService: CategoryService, private allergiesService: AllergyService, private formBuilder: FormBuilder) { }
@@ -37,11 +38,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allergiesService.getAllAllergies().subscribe(
-      res => {this.allergies = res;
-    // this.selectSubCategories(null);
-      }
-    )
+    
 
     this.categoryService.getAllCategories().subscribe(
       res => {this.categories = res;
@@ -51,30 +48,36 @@ export class CategoriesComponent implements OnInit {
   }
   //saves the selected value of the first combobox
   selectChangeHandler(event: any,index:number) {
-     
+    this.selected =event.target.value;
     this.selectSubCategories(event.target.value)
     // this.selectedFirstValue = this.categories.filter(m => m.MasterCategoryId == event.target.value);
   }
-  secondSelect(event: any) {
-   this.selectedSecondValue = event.target.value;
-  }
-  thirdSelected(event: any) {
-    this.selectedThirdValue = event.target.value;
+  // secondSelect(event: any) {
+  //  this.selectedSecondValue = event.target.value;
+  // }
+  // thirdSelected(event: any) {
+  //   this.selectedThirdValue = event.target.value;
    
-  }
+  // }
   // filterSubById(id) {
   //   return this.subCategories.filter(item => item.parentId === id);
   // }
 
   googleSearch(){
-    this.selectedCategories[0]=this.selectedFirstValue
-    this.selectedCategories[1]=this.selectedSecondValue
-    this.selectedCategories[2]=this.selectedThirdValue
 
-    this.categoryService.googleSearch(this.selectedCategories).subscribe(
+    this.categoryService.googleSearch(this.selected).subscribe(
       res => { console.log(res) },
       err => { console.error(err) }
     )
+
+    // this.selectedCategories[0]=this.selectedFirstValue
+    // this.selectedCategories[1]=this.selectedSecondValue
+    // this.selectedCategories[2]=this.selectedThirdValue
+
+    // this.categoryService.googleSearch(this.selectedCategories).subscribe(
+    //   res => { console.log(res) },
+    //   err => { console.error(err) }
+    // )
   }
 
   selectSubCategories(id:number)

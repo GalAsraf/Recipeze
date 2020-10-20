@@ -17,5 +17,18 @@ namespace BL
                 return CONVERTERS.CategoryConverter.ConvertCategoryListToDTO(db.Categories);
             }
         }
+
+        //public static object GoogleSearchString(string selectedCategory)
+        //{
+        //    return BL.WebScraping.GoogleSearch(selectedCategory);
+        //}
+
+        //public static List<CategoryDTO> GetSelectedCategories(string selectedCategory)
+        //{
+        //    using (RecipezeEntities db = new RecipezeEntities())
+        //    {
+        //        return CONVERTERS.CategoryConverter.ConvertCategoryToDTO(db.Categories.Select(b=>b.CategoryName==selectedCategory);
+        //    }
+        //}
     }
 }
