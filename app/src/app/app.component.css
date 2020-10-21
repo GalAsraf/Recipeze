@@ -296,3 +296,8 @@
       visibility: hidden;
     }
 } */ 
+
+body{
+  text-align: center;
+background: none;
+} 

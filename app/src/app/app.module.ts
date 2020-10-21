@@ -14,6 +14,7 @@ import { CategoryService } from './shared/services/category.service';
 import { UserService } from './shared/services/user.service';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 
 //import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 //import {MenuItem} from 'primeng/api';                  //api
@@ -25,6 +26,7 @@ import { LoginComponent } from './components/login/login.component';
     DefineAllergyComponent,
     RegisterComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

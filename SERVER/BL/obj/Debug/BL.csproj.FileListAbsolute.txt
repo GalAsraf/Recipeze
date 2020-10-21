@@ -96,3 +96,8 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\HtmlAgilityPack.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\BL\bin\Debug\Nancy.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\HtmlAgilityPack.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Nancy.dll
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\HtmlAgilityPack.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\HtmlAgilityPack.xml
+C:\Computers\final project\final project\Recipeze\SERVER\BL\bin\Debug\Nancy.xml
