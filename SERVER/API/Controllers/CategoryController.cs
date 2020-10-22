@@ -21,36 +21,16 @@ namespace API.Controllers
         //trying to get an array that contains the selected categories, how do I use it.
         public IHttpActionResult GetSelectedCategories(string selectedCategory)
         {
-            //BL.CategoryBL.GetSelectedCategories(selectedCategory)
-            //BL.CategoryBL.GoogleSearchString(selectedCategory)
-            string res = BL.WebScraping.GoogleSearch.CustomSearch(selectedCategory);
+            // var searchLine = BL.CategoryBL.GetSelectedItem(int.Parse(selectedCategory));
+            string searchLine  = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+            string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine);
             List<String> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
 
-            return Ok(selectedCategory);
+            return Ok(result);
 
 
+            //todo: we need to get the selectedCategory maybe as an object from 
 
-            //how do add web reference?
-            //licence key?
-            //com.google.api.GoogleSearchService s = new TestGoogle.com.google.api.GoogleSearchService();
-            //com.google.api.GoogleSearchResult r = s.doGoogleSearch("put your lisence key her ", Txt_Text.Text, 0, 10, false, "", true, "", "", "");
-            //int estimatedCount = r.estimatedTotalResultsCount;  //?
-
-            //DataTable dtResults = new DataTable();
-            //dtResults.Columns.Add(new DataColumn("Title", typeof(string)));
-            //dtResults.Columns.Add(new DataColumn("Summary", typeof(string)));
-            //dtResults.Columns.Add(new DataColumn("URL", typeof(string)));
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    DataRow dr = dtResults.NewRow();
-            //    dr[0] = r.resultElements[i].title;
-            //    dr[1] = r.resultElements[i].snippet;
-            //    dr[2] = r.resultElements[i].URL;
-            //    dtResults.Rows.Add(dr);
-            //}
-            //dataGridView1.DataSource = dtResults;
-
-            //selectedCategory
 
         }
 

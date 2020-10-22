@@ -41,7 +41,7 @@ namespace BL.WebScraping
             //    Console.WriteLine();
             //}
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
-            sb.Append(searchText);
+            sb.Append(searchText+" recipe");
             return webClient.DownloadString(sb.ToString());
         }
 
