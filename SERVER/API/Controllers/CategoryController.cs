@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -22,7 +23,9 @@ namespace API.Controllers
         {
             //BL.CategoryBL.GetSelectedCategories(selectedCategory)
             //BL.CategoryBL.GoogleSearchString(selectedCategory)
-            BL.WebScraping.GoogleSearch.CustomSearch(selectedCategory);
+            string res = BL.WebScraping.GoogleSearch.CustomSearch(selectedCategory);
+            List<String> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
+
             return Ok(selectedCategory);
 
 
