@@ -9,18 +9,16 @@ import { LoginService } from './shared/services/login.service';
 export class AppComponent {
   title = 'Recipeze';
   isLogin: any;
-  constructor(private loginService: LoginService){
+  constructor(private loginService: LoginService) {
     this.isLogin = loginService.CurrnetUser
   }
 
-  userLogedIn()
-  {
-    return localStorage.getItem('currentUser')!=null;
+  userLogedIn() {
+    return localStorage.getItem('currentUser') != null;
 
   }
 
-  logOut()
-  {
+  logOut() {
     localStorage.clear();
   }
 }
