@@ -205,3 +205,8 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\HtmlAgilityPack.pdb
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\HtmlAgilityPack.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\API\bin\Nancy.xml
+C:\Computers\final project\final project\Recipeze\SERVER\API\bin\HtmlAgilityPack.dll
+C:\Computers\final project\final project\Recipeze\SERVER\API\bin\Nancy.dll
+C:\Computers\final project\final project\Recipeze\SERVER\API\bin\HtmlAgilityPack.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\API\bin\HtmlAgilityPack.xml
+C:\Computers\final project\final project\Recipeze\SERVER\API\bin\Nancy.xml
