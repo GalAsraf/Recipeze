@@ -15,8 +15,8 @@ namespace API.Controllers
             return Ok(BL.CategoryBL.GetAllCategories());
         }
 
-        [Route("GetSelectedCategories(string selectedCategory)")]
-        [HttpPost]//?
+        [Route("GetSelectedCategories/{selectedCategory}")]
+        [HttpGet]//?
         //trying to get an array that contains the selected categories, how do I use it.
         public IHttpActionResult GetSelectedCategories(string selectedCategory)
         {

@@ -17,8 +17,8 @@ export class CategoryService {
 
 //  googleSearch(categories: Category[]): Observable<boolean> {
 
-  googleSearch(categories: string): Observable<boolean> {
-    return this.http.post<boolean>(environment.url + 'category/getSelectedCategories', categories)
+  googleSearch(categories: string): Observable<string> {
+    return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
   }
 
 }
