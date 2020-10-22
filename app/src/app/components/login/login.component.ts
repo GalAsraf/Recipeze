@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      'username': ['', Validators.required],
+      'email': ['', Validators.required],
       'password': ['', [Validators.required]]
     })
   }
 
   getUserExist() {
-    this.user.UserName = this.loginForm.controls.username.value
+    this.user.Email = this.loginForm.controls.email.value
     this.user.Password = this.loginForm.controls.password.value
     this.userService.getUserExist(this.user).subscribe(
       res => { console.log(res) },

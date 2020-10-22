@@ -19,16 +19,18 @@ namespace BL
             }
         }
 
-        public static int GetUserExist(string name, string password)
+        public static int GetUserExist(string email, string password)
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 try
                 {
-                    var member = db.Users.Where(a => a.UserName== name && a.Password == password).ToList();
-                    return int.Parse(member[0].Password.ToString());
+                    var member = db.Users.Where(a => a.Email== email && a.Password == password).ToList();
+                    return member[0].UserId;
                 }
-                catch (Exception e) { return 0; }
+                catch (Exception e) {
+                    return -1;
+                }
 
             }
             

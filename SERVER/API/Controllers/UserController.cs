@@ -14,13 +14,14 @@ namespace API.Controllers
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
-        [Route("GetUserExist/{username,password}"),HttpPost]
+        [Route("GetUserExist"),HttpPost]
        // public IHttpActionResult GetUserExist(string userName, string password)//User user
-        public IHttpActionResult GetUserExist(UserDTO user)
+        public IHttpActionResult GetUserExist([FromBody]UserDTO user)
         {
-            int u = BL.UserBL.GetUserExist(user.UserName, user.Password);
+            int u = BL.UserBL.GetUserExist(user.Email, user.Password);
             //todo: check if user exists in database.
             if (u != 0)
+                
                 return Ok("not exist");
             else
                 return Ok("exist");
