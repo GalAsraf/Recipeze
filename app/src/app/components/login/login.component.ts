@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.user.Email = this.loginForm.controls.email.value
     this.user.Password = this.loginForm.controls.password.value
     this.userService.getUserExist(this.user).subscribe(
-      res => { console.log(res) },
+      res => { localStorage.setItem('currentUser',res.toString()) },
       err => { console.error(err) }
     )
     this.loginUser(this.user);

@@ -13,5 +13,14 @@ export class AppComponent {
     this.isLogin = loginService.CurrnetUser
   }
 
-  
+  userLogedIn()
+  {
+    return localStorage.getItem('currentUser')!=null;
+
+  }
+
+  logOut()
+  {
+    localStorage.clear();
+  }
 }

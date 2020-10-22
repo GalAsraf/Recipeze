@@ -20,11 +20,11 @@ namespace API.Controllers
         {
             int u = BL.UserBL.GetUserExist(user.Email, user.Password);
             //todo: check if user exists in database.
-            if (u != 0)
+            if (u != -1)
                 
-                return Ok("not exist");
+                return Ok(u);
             else
-                return Ok("exist");
+                return NotFound();
         }
 
         [Route("AddUser"), HttpPost]
