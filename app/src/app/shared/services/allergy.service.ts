@@ -17,4 +17,8 @@ export class AllergyService {
     return this.http.get<Allergy[]>(environment.url+"allergy/getAllAllergies")
 
   }
+/* 
+  defineAllergies(allergies: string): Observable<string> {
+    return this.http.post<string>(environment.url + 'allergy/AddAllergie/'+allergies)
+  } */
 }
