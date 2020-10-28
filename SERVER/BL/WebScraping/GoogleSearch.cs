@@ -70,29 +70,6 @@ namespace BL.WebScraping
                 HtmlWeb hw = new HtmlWeb();
                 HtmlDocument resultdoc = hw.Load(test);
 
-
-
-                //here we have to check how we can get the link on the page using HTMLAgilityPack
-                //foreach (HtmlNode link in resultdoc.DocumentNode.SelectNodes("//a[@href]"))
-                //{
-
-                //    // do something with link here
-                //    searchResults.Add(link.InnerText);
-                //}
-
-                //var commonPosts = hw.Descendants().Where(n => n.GetAttributeValue("class", "").Equals("common-post"));
-
-                //foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//*[@id='rso']/div/div/div[1]/div/div/h3/a[@data-href]"))
-                //{
-                //    string href = link.GetAttributeValue("data-href", string.Empty);
-                //    // list.Add(href);
-                //    searchResults.Add(href);
-                //}
-                //
-                //foreach (var item in searchResults)
-                //{
-                //    Console.WriteLine(item);
-                //}
             }
 
             //  string URL = "https://www.google.com/search?safe=active&q=cookies&pli=1";
