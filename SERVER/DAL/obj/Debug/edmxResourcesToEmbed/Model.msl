@@ -54,7 +54,6 @@
       <EndProperty Name="Allergy">
         <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
       </EndProperty>
-      <Condition ColumnName="AllergyCode" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

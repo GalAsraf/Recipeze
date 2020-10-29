@@ -14,7 +14,10 @@ export class AppComponent {
   }
 
   userLogedIn() {
-    return localStorage.getItem('currentUser') != null;
+    
+
+    let user= localStorage.getItem('currentUser') != null;
+    return user;
 
   }
 

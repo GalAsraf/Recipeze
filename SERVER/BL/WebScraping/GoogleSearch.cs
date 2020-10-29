@@ -48,7 +48,7 @@ namespace BL.WebScraping
         }
 
 
-        public static List<String> ParseSearchResultHtml(string html)
+        public static List<DTO.Recipe> ParseSearchResultHtml(string html)
         {
             
             List<String> searchResults = new List<string>();
@@ -94,9 +94,9 @@ namespace BL.WebScraping
 
             Console.WriteLine(searchResults[0]);
 
-            List<String> filteredlistOfLinks = new List<string>();
+            List<string> filteredlistOfLinks = new List<string>();
             filteredlistOfLinks = FilterListOfLinks(searchResults);
-            List<String> recipesList = new List<string>();
+            List<DTO.Recipe> recipesList = new List<DTO.Recipe>();
             recipesList = RecipeScraping(filteredlistOfLinks);
 
             return recipesList;
@@ -126,9 +126,9 @@ namespace BL.WebScraping
 
         //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
         //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
-        public static List<string> RecipeScraping(List<string> links)
+        public static List<DTO.Recipe> RecipeScraping(List<string> links)
         {
-            List<string> recipes = new List<string>();
+            List < DTO.Recipe > recipes = new List<DTO.Recipe > ();
 
             //links.count
             for(var i=0; i < 4; i++)
@@ -244,12 +244,13 @@ namespace BL.WebScraping
                             string directions = parentDirectionsElement.InnerText;
                             Console.WriteLine(directions);
 
-                            string organizedDirections = directions.Replace(".", ".\n");
-                            Console.WriteLine(organizedDirections);
-
-
-                            recipes.Add(organizedIngredients);
-                            recipes.Add(organizedDirections);
+                            // string organizedDirections = directions.Replace(".", ".\n");
+                            //Console.WriteLine(organizedDirections);
+                            DTO.Recipe recipe = new DTO.Recipe();
+                            recipe.Ingredients = organizedIngredients.Split('\n').ToList();
+                            recipe.Method = directions.Split('.').ToList();
+                            recipes.Add(recipe);
+                            
 
                         }
                     }

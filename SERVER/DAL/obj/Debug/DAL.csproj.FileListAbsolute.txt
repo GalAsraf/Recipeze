@@ -23,8 +23,8 @@ C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFra
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.dll
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.xml
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.xml
-C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.dll
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.pdb
+C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache

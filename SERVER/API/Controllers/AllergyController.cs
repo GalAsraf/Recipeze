@@ -1,4 +1,5 @@
 ﻿using DTO;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -13,6 +14,14 @@ namespace API.Controllers
         public IHttpActionResult GetAllAllergies()
         {
             return Ok(BL.AllergyBL.getAllAllergies());
+        }
+
+
+        [Route("defineAllergiesForUser/{userId}")]
+        [HttpPost]
+        public IHttpActionResult DefineAllergiesForUser(int userId,List<int> allergies)
+        {
+            return Ok(BL.AllergyBL.DefineAllergiesForUser(userId,allergies));
         }
 
 

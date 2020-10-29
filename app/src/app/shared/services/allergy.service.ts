@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AllergyService {
+  
 
   constructor(private http: HttpClient) { }
   
@@ -17,6 +18,11 @@ export class AllergyService {
     return this.http.get<Allergy[]>(environment.url+"allergy/getAllAllergies")
 
   }
+  defineAllergiesForUser(selectedAllergies: number[]) :Observable<boolean>{
+    let userId=localStorage.getItem('currentUser');
+    return this.http.post<boolean>(environment.url+"allergy/defineAllergiesForUser/"+userId,selectedAllergies)
+  }
+
 /* 
   defineAllergies(allergies: string): Observable<string> {
     return this.http.post<string>(environment.url + 'allergy/AddAllergie/'+allergies)

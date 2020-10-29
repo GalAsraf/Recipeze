@@ -18,6 +18,24 @@ namespace BL
             }
         }
 
+      
+
+        public static bool DefineAllergiesForUser(int userId, List<int> allergies)
+        {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                User user = db.Users.FirstOrDefault(u => u.UserId == userId);
+                allergies.ForEach(
+                    a =>
+                    {
+                        user.Allergies.Add(db.Allergies.FirstOrDefault(al=>al.AllergyCode==a));
+                    });
+                db.SaveChanges();
+                return true;
+                
+            }
+            }
+
 
         //public static void AddAllergie(AllergyDTO allergy)
         //{
