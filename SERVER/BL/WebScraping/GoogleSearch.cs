@@ -92,7 +92,166 @@ namespace BL.WebScraping
 
             Console.WriteLine(searchResults[0]);
 
+            List<String> filteredlistOfLinks = new List<string>();
+            filteredlistOfLinks = FilterListOfLinks(searchResults);
+
             return searchResults;
+        }
+
+        public static List<string> FilterListOfLinks(List<string> listOfLinks)
+        {
+            //taking out links that appear twice or more
+            for(var i =0; i<listOfLinks.Count;i++)
+            {
+                for(var j = i+1; j < listOfLinks.Count; j++)
+                {
+                    if (listOfLinks[i] == listOfLinks[j])
+                    {
+                        listOfLinks.Remove(listOfLinks[j]);
+                    }
+                }
+            }
+
+            return listOfLinks;
+        }
+
+
+
+        //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
+        //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
+        public static List<string> RecipeScraping(List<string> links)
+        {
+            List<string> recipes = new List<string>();
+
+            
+            for(var i=0; i < links.Count; i++)
+            {
+                var htmlurl = links[i];//the link to scrape
+
+                HtmlWeb web1 = new HtmlWeb();
+
+                var htmlDoc1 = web1.Load(htmlurl);
+
+                var ingredientElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Ingredients']");
+                if(ingredientElement==null)
+                {
+                    continue;//meaning-> if ingredient element wasn't found, end this round in loop and do i++
+                }
+                Console.WriteLine("Node Name: " + ingredientElement.Name + "\n" + ingredientElement.OuterHtml + "\n" + ingredientElement.InnerText);
+
+                //this code doesn't work on allrecipes, foodnetwork, bbcgoodfoods.
+                var ingredientParentElement = ingredientElement.ParentNode;
+                bool flag = true;
+                //in reality this doesn't work accurately!
+
+                while (flag)
+                {
+                    if (ingredientElement.InnerText == ingredientParentElement.InnerText)
+                    {
+                        flag = true;
+                        ingredientParentElement = ingredientParentElement.ParentNode;
+                    }
+                    else
+                        flag = false;
+                }
+
+                string ingredients = ingredientParentElement.InnerText;
+                Console.WriteLine(ingredients);
+                string organizedIngredients = ingredients.Replace("1", "\n1");
+                organizedIngredients = organizedIngredients.Replace("2", "\n2");
+                organizedIngredients = organizedIngredients.Replace("3", "\n3");
+                organizedIngredients = organizedIngredients.Replace("4", "\n4");
+
+                organizedIngredients = organizedIngredients.Replace("1 1/3", "\n1 1/3");
+
+                organizedIngredients = organizedIngredients.Replace("/\n2", "/2");
+                organizedIngredients = organizedIngredients.Replace("/\n3", "/2");
+                organizedIngredients = organizedIngredients.Replace("/\n4", "/4");
+
+                organizedIngredients = organizedIngredients.Replace("1/2", "\n1/2");
+                organizedIngredients = organizedIngredients.Replace("1/3", "\n1/3");
+                organizedIngredients = organizedIngredients.Replace("1/4", "\n1/4");
+
+                organizedIngredients = organizedIngredients.Replace("½", "\n½");
+                organizedIngredients = organizedIngredients.Replace("¼", "\n¼");
+                organizedIngredients = organizedIngredients.Replace("⅓", "\n⅓");
+
+                organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "\n");
+
+                //the problem here is, how can I make it print 1 1/2 ?
+                organizedIngredients = organizedIngredients.Replace("1\n1/2", "1 1/2");
+
+                //organizedIngredients = organizedIngredients.Replace("\n\n\n\n", string.Empty);
+                organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
+                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
+                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
+                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
+
+
+                //still didn't take care of &...;
+                organizedIngredients = organizedIngredients.Replace("  ", string.Empty);
+                //organizedIngredients.Replace("\n", "");
+
+                Console.WriteLine(organizedIngredients);
+
+                var directionsElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Directions']");
+                if (directionsElement != null)
+                {
+                    Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
+                }
+                //Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
+                else
+                {
+                    directionsElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Instructions']");
+                    if (directionsElement != null)
+                    {
+                        Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
+                    }
+                    else
+                    {
+                        directionsElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Method']");
+                        if (directionsElement == null)
+                        {
+                            Console.WriteLine("direction element not found");
+                            continue; //leave this step in loop - i++
+                        }
+                        else
+                        {
+                            Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
+
+                            var parentDirectionsElement = directionsElement.ParentNode;
+
+                            flag = true;
+
+                            while (flag)
+                            {
+                                if (directionsElement.InnerText == parentDirectionsElement.InnerText)
+                                {
+                                    flag = true;
+                                    parentDirectionsElement = parentDirectionsElement.ParentNode;
+                                }
+                                else
+                                    flag = false;
+                            }
+
+                            string directions = parentDirectionsElement.InnerText;
+                            Console.WriteLine(directions);
+
+                            string organizedDirections = directions.Replace(".", ".\n");
+                            Console.WriteLine(organizedDirections);
+
+
+                            recipes.Add(organizedIngredients);
+                            recipes.Add(organizedDirections);
+
+                        }
+                    }
+                }
+
+
+            }
+
+            return recipes;
         }
     }
 }
