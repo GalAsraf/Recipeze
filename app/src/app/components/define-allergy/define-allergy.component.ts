@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Allergy } from 'src/app/shared/models/allergy.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
 
@@ -11,7 +12,7 @@ export class DefineAllergyComponent implements OnInit {
 
 allergies : Allergy[] = []
 selectedAllergies:number[]=[]
-  constructor(private allergiesService: AllergyService) { }
+  constructor(private allergiesService: AllergyService,private router:Router) { }
 
   ngOnInit(): void {
     this.allergiesService.getAllAllergies().subscribe(
@@ -24,6 +25,8 @@ selectedAllergies:number[]=[]
    
   defineAllergies(){
    this.allergiesService.defineAllergiesForUser(this.selectedAllergies).subscribe(res=>console.log(res));
+this.router.navigate(['/home'])
+
   } 
   toggleAllergy(AllergyCode:number)
   {
@@ -33,4 +36,5 @@ selectedAllergies:number[]=[]
     else 
      this.selectedAllergies.splice(i,1);
   }
+
 }

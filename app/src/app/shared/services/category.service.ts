@@ -17,8 +17,15 @@ export class CategoryService {
 
 //  googleSearch(categories: Category[]): Observable<boolean> {
 
+   googleSearch(categories: string): Observable<string> {
+     let userId=localStorage.getItem('currentUser');
+     return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
+   }
+/* 
   googleSearch(categories: string): Observable<string> {
-    return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
+    let userId=localStorage.getItem('currentUser');
+    return this.http.post<string>(environment.url + 'category/getSelectedCategories/'+userId,categories);
   }
-
+ */
+  
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -16,20 +17,34 @@ namespace API.Controllers
             return Ok(BL.CategoryBL.GetAllCategories());
         }
 
-        [Route("GetSelectedCategories/{selectedCategory}")]
-        [HttpGet]//?
-        //trying to get an array that contains the selected categories, how do I use it.
-        public IHttpActionResult GetSelectedCategories(string selectedCategory)
+        //[Route("GetSelectedCategories/{userId}")]
+        //[HttpPost]
+        //public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory)
+        //{
+        //    List<Allergy> allergiesForUser = BL.CategoryBL.GetAllergyForUser(userId);
+
+        //    string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+        //    string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine);
+        //    List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
+
+        //    return Ok(result);
+
+        //}
+
+        [route("getselectedcategories/{selectedcategory}")]
+        [httpget]//?
+        //trying to get an array that contains the selected categories, how do i use it.
+        public ihttpactionresult getselectedcategories(string selectedcategory)
         {
-            // var searchLine = BL.CategoryBL.GetSelectedItem(int.Parse(selectedCategory));
-            string searchLine  = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-            string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine);
-            List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
+            // var searchline = bl.categorybl.getselecteditem(int.parse(selectedcategory));
+            string searchline = bl.categorybl.getcurrentcategory(int.parse(selectedcategory));
+            string res = bl.webscraping.googlesearch.customsearch(searchline);
+            list<dto.recipe> result = bl.webscraping.googlesearch.parsesearchresulthtml(res);
 
-            return Ok(result);
+            return ok(result);
 
 
-            //todo: we need to get the selectedCategory maybe as an object from 
+            //todo: we need to get the selectedcategory maybe as an object from 
 
 
         }

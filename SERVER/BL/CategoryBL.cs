@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DTO;
+using GoogleApi.Entities.Search.Video.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,16 @@ namespace BL
             {
                 var c = db.Categories.Where(a => a.CategoryId == categoryId).ToList();
                 return c[0].CategoryName;
+            }
+        }
+
+    public static List<Allergy> GetAllergyForUser(int userId)
+    {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                var member = db.Users.Where(a => a.UserId==userId).ToList();
+                return member[0].Allergies.ToList();
+
             }
         }
 
