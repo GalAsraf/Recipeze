@@ -42,6 +42,8 @@ namespace BL.WebScraping
             //}
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
             sb.Append(searchText+" recipe");
+
+            //in addition we have to append the users allergies according to current user
             return webClient.DownloadString(sb.ToString());
         }
 
@@ -94,8 +96,10 @@ namespace BL.WebScraping
 
             List<String> filteredlistOfLinks = new List<string>();
             filteredlistOfLinks = FilterListOfLinks(searchResults);
+            List<String> recipesList = new List<string>();
+            recipesList = RecipeScraping(filteredlistOfLinks);
 
-            return searchResults;
+            return recipesList;
         }
 
         public static List<string> FilterListOfLinks(List<string> listOfLinks)
@@ -112,6 +116,9 @@ namespace BL.WebScraping
                 }
             }
 
+            //at this point RecipeScraping can be called, sending the list of links, it will return the list of recipes
+            //and the we can return the list of recipes.
+            
             return listOfLinks;
         }
 
@@ -123,8 +130,8 @@ namespace BL.WebScraping
         {
             List<string> recipes = new List<string>();
 
-            
-            for(var i=0; i < links.Count; i++)
+            //links.count
+            for(var i=0; i < 4; i++)
             {
                 var htmlurl = links[i];//the link to scrape
 
