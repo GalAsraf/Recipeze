@@ -1,9 +1,10 @@
 body {
-    background-image: url('background.png');
+    background-image: url('darkfood.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
   }
+  
 
   #logo {
     position:absolute;
@@ -13,19 +14,5 @@ body {
     padding: 0;
     margin: 0;
 }
-nav{
 
-    background-color: rgb(145, 207, 207);
-    text-align: right;
-    padding: 0;
-    margin: 0;
-    position: fixed;;
-  width: 100%;
-  display:inline-block;
-}
 
-nav li {
-    display: inline-block;
-    margin: 0 8px;
-    padding-top: 1px;
-}

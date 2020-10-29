@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using DTO;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace API.Controllers
@@ -13,6 +14,16 @@ namespace API.Controllers
         {
             return Ok(BL.AllergyBL.getAllAllergies());
         }
+
+
+        //[Route("AddAllergy"), HttpPost]
+        //public IHttpActionResult AddAllergy(AllergyDTO allergy)
+        //{
+        //    BL.AllergyBL.AddAllergy(allergy);
+        //    return Ok("run");
+        //}
+
+
     }
 
 

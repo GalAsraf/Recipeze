@@ -7,7 +7,7 @@
     <title>Categoies</title>
 </head>
 
-<body>
+<body style="background: rgba(71, 71, 71, 0.5)">
     <br>
 
     <form (submit)="googleSearch()">
@@ -15,18 +15,19 @@
             <br><br><br><br>
             <div *ngFor="let category of categoriesToSelect; let j=index" class="custom-select" style="width:200px">
                 <select (change)="selectChangeHandler($event,j)">
-                    <option value="202" disabled selected >Select category:</option>
-                    
-                        <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
-                            <label>
-                                <p>{{subCategory.CategoryName}}</p>
-                            </label>
-                        </option>                   
+                    <option value="202" disabled selected>Select category:</option>
+
+                    <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
+                        <label>
+                            <p>{{subCategory.CategoryName}}</p>
+                        </label>
+                    </option>
                 </select>
             </div>
         </div>
 
-        <button type="submit">search</button>
+        <button type="submit"
+            style="background-color:rgb(209, 113, 61) ;border-color: white; width: 100px;height:40px;border-radius: 4px;">Search</button>
         <!-- I put the search button in google's link-->
         <!-- <script async src="https://cse.google.com/cse.js?cx=685741d92eef1307f"></script>
         <div class="gcse-search">
@@ -40,16 +41,16 @@
         <input type="button" class="btn btn-primary" value="allergies" routerLink="allergies"
             routerLinkActive="activelink">
     </div> -->
-
-    <h4>categories</h4>
-
     <div>
-        <div *ngFor="let category of categories;let i=index ">
-            <p>{{categories[i].CategoryName}} </p>
+        <h4>categories</h4>
 
+        <div>
+            <div *ngFor="let category of categories;let i=index ">
+                <p>{{categories[i].CategoryName}} </p>
+
+            </div>
         </div>
     </div>
-    
 </body>
 
 </html>

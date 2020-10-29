@@ -20,5 +20,16 @@ allergies : Allergy[] = []
       }
     )
   }
-
+  
+   
+  defineAllergies(){
+    let element = <HTMLInputElement> document.getElementById("checkedbox");  
+    
+    if (element.checked) { this.allergies.push() }
+    /* 
+    this.allergiesService.defineAllergies(this.).subscribe(
+      res => { console.log(res) },
+      err => { console.error(err) }
+    ) */
+  } 
 }
