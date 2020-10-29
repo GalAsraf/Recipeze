@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user.model';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   user: User = new User();
   userForm: any
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -25,8 +26,9 @@ export class RegisterComponent implements OnInit {
       'accept': ['', [Validators.requiredTrue]]
     }
     //  { validators: CheckPassword('password', 'confirm') });
-    
-  ,)}
+
+  ,)
+  }
 
   addUser() {
 
@@ -34,7 +36,7 @@ export class RegisterComponent implements OnInit {
     this.user.Password = this.userForm.value.password
     this.user.Email = this.userForm.value.email
     this.userService.addUser(this.user).subscribe(
-      res => { console.log(res) },
+      res => { localStorage.setItem('currentUser',res.toString()) },
       err => { console.error(err) }
     )
     this.loginUser(this.user);
@@ -42,9 +44,11 @@ export class RegisterComponent implements OnInit {
 
   loginUser(user) {
     //here it's need to get the id of the current user from the services, and ot use it throw the app
-      const currentUser = user;
-      this.loginService.setCurrentUser(currentUser);
-      console.log(currentUser);
-      
+    const currentUser = user;
+    this.loginService.setCurrentUser(currentUser);
+    console.log(currentUser);
+    
+    this.router.navigate(['/allergies'])
+
   }
 }

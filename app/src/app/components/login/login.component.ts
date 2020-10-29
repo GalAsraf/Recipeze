@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user.model';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: any
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService,private router:Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
       const currentUser = user;
       this.loginService.setCurrentUser(currentUser);
       console.log(currentUser);
-      
+      this.router.navigate(['/home'])
   }
 
 }
