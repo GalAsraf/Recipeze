@@ -8,6 +8,7 @@
         <EntityType Name="AllergieForUsers">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="AllergyCode" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="AllergyCode" Type="int" Nullable="false" />
@@ -53,7 +54,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__AllergieF__Aller__4CA06362">
+        <Association Name="FK__AllergieF__Aller__5DCAEF64">
           <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
           <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -65,9 +66,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__AllergieF__UserI__49C3F6B7">
+        <Association Name="FK__AllergieF__UserI__5CD6CB2B">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="0..1" />
+          <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -96,11 +97,11 @@
           <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AllergieF__Aller__4CA06362" Association="Self.FK__AllergieF__Aller__4CA06362">
+          <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
             <End Role="Allergies" EntitySet="Allergies" />
             <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__AllergieF__UserI__49C3F6B7" Association="Self.FK__AllergieF__UserI__49C3F6B7">
+          <AssociationSet Name="FK__AllergieF__UserI__5CD6CB2B" Association="Self.FK__AllergieF__UserI__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
           </AssociationSet>
@@ -118,11 +119,11 @@
           <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
           <EntitySet Name="KeyWordForRecipeParts" EntityType="RecipezeModel.KeyWordForRecipePart" />
           <EntitySet Name="RecipeContentParts" EntityType="RecipezeModel.RecipeContentPart" />
-          <EntitySet Name="Users" EntityType="RecipezeModel.User" />
           <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A">
             <End Role="RecipeContentPart" EntitySet="RecipeContentParts" />
             <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipeParts" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="RecipezeModel.User" />
           <AssociationSet Name="AllergieForUsers" Association="RecipezeModel.AllergieForUsers">
             <End Role="Allergy" EntitySet="Allergies" />
             <End Role="User" EntitySet="Users" />
@@ -163,16 +164,6 @@
           <Property Name="PartName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KeyWordForRecipeParts" Relationship="RecipezeModel.FK__KeyWordFo__PartI__5441852A" FromRole="RecipeContentPart" ToRole="KeyWordForRecipePart" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Allergy" Relationship="RecipezeModel.AllergieForUsers" FromRole="User" ToRole="Allergy" />
-        </EntityType>
         <Association Name="FK__KeyWordFo__PartI__5441852A">
           <End Type="RecipezeModel.RecipeContentPart" Role="RecipeContentPart" Multiplicity="1" />
           <End Type="RecipezeModel.KeyWordForRecipePart" Role="KeyWordForRecipePart" Multiplicity="*" />
@@ -185,8 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Allergies" Relationship="RecipezeModel.AllergieForUsers" FromRole="User" ToRole="Allergy" />
+        </EntityType>
         <Association Name="AllergieForUsers">
-          <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="0..1" />
+          <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="*" />
           <End Type="RecipezeModel.User" Role="User" Multiplicity="*" />
         </Association>
         </Schema>
@@ -248,9 +249,8 @@
             <EndProperty Name="Allergy">
               <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
             </EndProperty>
-            <Condition ColumnName="AllergyCode" IsNull="false" />
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

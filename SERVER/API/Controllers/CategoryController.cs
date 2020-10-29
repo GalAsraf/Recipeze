@@ -24,7 +24,7 @@ namespace API.Controllers
             // var searchLine = BL.CategoryBL.GetSelectedItem(int.Parse(selectedCategory));
             string searchLine  = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine);
-            List<String> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
+            List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
 
             return Ok(result);
 

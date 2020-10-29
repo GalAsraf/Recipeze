@@ -10,7 +10,7 @@ import { AllergyService } from 'src/app/shared/services/allergy.service';
 export class DefineAllergyComponent implements OnInit {
 
 allergies : Allergy[] = []
-
+selectedAllergies:number[]=[]
   constructor(private allergiesService: AllergyService) { }
 
   ngOnInit(): void {
@@ -23,13 +23,14 @@ allergies : Allergy[] = []
   
    
   defineAllergies(){
-    let element = <HTMLInputElement> document.getElementById("checkedbox");  
-    
-    if (element.checked) { this.allergies.push() }
-    /* 
-    this.allergiesService.defineAllergies(this.).subscribe(
-      res => { console.log(res) },
-      err => { console.error(err) }
-    ) */
+   this.allergiesService.defineAllergiesForUser(this.selectedAllergies).subscribe(res=>console.log(res));
   } 
+  toggleAllergy(AllergyCode:number)
+  {
+    let i= this.selectedAllergies.findIndex(a=>a==AllergyCode);
+    if(i==-1)
+     this.selectedAllergies.push(AllergyCode);
+    else 
+     this.selectedAllergies.splice(i,1);
+  }
 }

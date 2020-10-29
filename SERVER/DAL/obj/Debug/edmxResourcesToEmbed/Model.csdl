@@ -5,11 +5,11 @@
     <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
     <EntitySet Name="KeyWordForRecipeParts" EntityType="RecipezeModel.KeyWordForRecipePart" />
     <EntitySet Name="RecipeContentParts" EntityType="RecipezeModel.RecipeContentPart" />
-    <EntitySet Name="Users" EntityType="RecipezeModel.User" />
     <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A">
       <End Role="RecipeContentPart" EntitySet="RecipeContentParts" />
       <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipeParts" />
     </AssociationSet>
+    <EntitySet Name="Users" EntityType="RecipezeModel.User" />
     <AssociationSet Name="AllergieForUsers" Association="RecipezeModel.AllergieForUsers">
       <End Role="Allergy" EntitySet="Allergies" />
       <End Role="User" EntitySet="Users" />
@@ -50,16 +50,6 @@
     <Property Name="PartName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="KeyWordForRecipeParts" Relationship="RecipezeModel.FK__KeyWordFo__PartI__5441852A" FromRole="RecipeContentPart" ToRole="KeyWordForRecipePart" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Allergy" Relationship="RecipezeModel.AllergieForUsers" FromRole="User" ToRole="Allergy" />
-  </EntityType>
   <Association Name="FK__KeyWordFo__PartI__5441852A">
     <End Type="RecipezeModel.RecipeContentPart" Role="RecipeContentPart" Multiplicity="1" />
     <End Type="RecipezeModel.KeyWordForRecipePart" Role="KeyWordForRecipePart" Multiplicity="*" />
@@ -72,8 +62,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Allergies" Relationship="RecipezeModel.AllergieForUsers" FromRole="User" ToRole="Allergy" />
+  </EntityType>
   <Association Name="AllergieForUsers">
-    <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="0..1" />
+    <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="*" />
     <End Type="RecipezeModel.User" Role="User" Multiplicity="*" />
   </Association>
 </Schema>
