@@ -31,17 +31,17 @@ namespace API.Controllers
 
         //}
 
-        [route("getselectedcategories/{selectedcategory}")]
-        [httpget]//?
+        [Route("getselectedcategories/{selectedcategory}")]
+        [HttpGet]
         //trying to get an array that contains the selected categories, how do i use it.
-        public ihttpactionresult getselectedcategories(string selectedcategory)
+        public IHttpActionResult getselectedcategories(string selectedcategory)
         {
             // var searchline = bl.categorybl.getselecteditem(int.parse(selectedcategory));
-            string searchline = bl.categorybl.getcurrentcategory(int.parse(selectedcategory));
-            string res = bl.webscraping.googlesearch.customsearch(searchline);
-            list<dto.recipe> result = bl.webscraping.googlesearch.parsesearchresulthtml(res);
+            string searchline = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedcategory));
+            string res = BL.WebScraping.GoogleSearch.CustomSearch(searchline);
+            List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
 
-            return ok(result);
+            return Ok(result);
 
 
             //todo: we need to get the selectedcategory maybe as an object from 
