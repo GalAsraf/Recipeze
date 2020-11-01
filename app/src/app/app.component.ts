@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from './shared/services/login.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { LoginService } from './shared/services/login.service';
 export class AppComponent {
   title = 'Recipeze';
   isLogin: any;
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router:Router) {
     this.isLogin = loginService.CurrnetUser
   }
 
@@ -23,5 +24,6 @@ export class AppComponent {
 
   logOut() {
     localStorage.clear();
+    this.router.navigate(['/home'])
   }
 }
