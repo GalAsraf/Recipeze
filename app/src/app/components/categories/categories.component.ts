@@ -69,11 +69,7 @@ export class CategoriesComponent implements OnInit {
 
   googleSearch(){
 
-    this.categoryService.googleSearch(this.selected).subscribe(
-      res => { console.log(res) },
-      err => { console.error(err) }
-    )
-    this.router.navigate(['/recipes']);
+    this.router.navigate(['recipes',this.selected]);
 
 
     // this.selectedCategories[0]=this.selectedFirstValue

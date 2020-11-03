@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'allergies', component: DefineAllergyComponent },
-  { path: 'recipes', component: RecipesComponent }
+  { path: 'recipes/:search', component: RecipesComponent }
 ];
 
 @NgModule({

@@ -26,28 +26,28 @@ namespace BL.WebScraping
         public static Regex extractUrl = new Regex(@"[&?](?:q|url)=([^&]+)", RegexOptions.Compiled);
 
         // first function before the changes
-        public static string CustomSearch(string searchText)
-        {
-
-            StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
-            sb.Append(searchText + " recipe");
-
-
-            //in addition we have to append the users allergies according to current user
-            return webClient.DownloadString(sb.ToString());
-        }
-
-        //public static string CustomSearch(string searchText, int userId, List<Allergy> allergiesForUser)
+        //public static string CustomSearch(string searchText)
         //{
+
         //    StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
-        //    allergiesForUser.ForEach(a =>
-        //    {
-        //        //we must check if that kind of searching works, for example: "sugar free egg free cocoa free chocolate cake recipe"
-        //        sb.Append(a.AllergyName.ToString() + " free ");
-        //    });
         //    sb.Append(searchText + " recipe");
+
+
+        //    //in addition we have to append the users allergies according to current user
         //    return webClient.DownloadString(sb.ToString());
         //}
+
+        public static string CustomSearch(string searchText, int userId, List<Allergy> allergiesForUser)
+        {
+            StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
+            allergiesForUser.ForEach(a =>
+            {
+                //we must check if that kind of searching works, for example: "sugar free egg free cocoa free chocolate cake recipe"
+                sb.Append(a.AllergyName.ToString() + " free ");
+            });
+            sb.Append(searchText + " recipe");
+            return webClient.DownloadString(sb.ToString());
+        }
 
 
         public static List<DTO.Recipe> ParseSearchResultHtml(string html)
