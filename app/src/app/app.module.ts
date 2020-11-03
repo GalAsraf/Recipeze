@@ -15,6 +15,7 @@ import { UserService } from './shared/services/user.service';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
 
 //import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 //import {MenuItem} from 'primeng/api';                  //api
@@ -27,6 +28,7 @@ import { HomeComponent } from './components/home/home.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
+    RecipesComponent,
   ],
   imports: [
     BrowserModule,

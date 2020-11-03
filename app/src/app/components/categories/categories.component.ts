@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { Allergy } from 'src/app/shared/models/allergy.model';
@@ -31,7 +32,10 @@ export class CategoriesComponent implements OnInit {
   
 
 
-  constructor(private categoryService: CategoryService, private allergiesService: AllergyService, private formBuilder: FormBuilder) { }
+  constructor(private categoryService: CategoryService,
+     private allergiesService: AllergyService,
+      private formBuilder: FormBuilder,
+      private router:Router) { }
 
 
   submit() {
@@ -69,6 +73,8 @@ export class CategoriesComponent implements OnInit {
       res => { console.log(res) },
       err => { console.error(err) }
     )
+    this.router.navigate(['/recipes']);
+
 
     // this.selectedCategories[0]=this.selectedFirstValue
     // this.selectedCategories[1]=this.selectedSecondValue

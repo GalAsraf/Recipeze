@@ -41,7 +41,8 @@ namespace BL.WebScraping
             //    Console.WriteLine();
             //}
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
-            sb.Append(searchText+" recipe");
+            sb.Append(searchText);
+            //sb.Append(" recipe");
 
             //in addition we have to append the users allergies according to current user
             return webClient.DownloadString(sb.ToString());
@@ -94,10 +95,11 @@ namespace BL.WebScraping
 
             Console.WriteLine(searchResults[0]);
 
-            List<string> filteredlistOfLinks = new List<string>();
-            filteredlistOfLinks = FilterListOfLinks(searchResults);
+            //List<string> filteredlistOfLinks = new List<string>();
+           // filteredlistOfLinks = FilterListOfLinks(searchResults);
             List<DTO.Recipe> recipesList = new List<DTO.Recipe>();
-            recipesList = RecipeScraping(filteredlistOfLinks);
+            recipesList = RecipeScraping(searchResults);
+            //filteredlistOfLinks
 
             return recipesList;
         }
@@ -109,6 +111,7 @@ namespace BL.WebScraping
             {
                 for(var j = i+1; j < listOfLinks.Count; j++)
                 {
+                    //it's not getting into the if condition because the link are never equals.
                     if (listOfLinks[i] == listOfLinks[j])
                     {
                         listOfLinks.Remove(listOfLinks[j]);
