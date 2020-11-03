@@ -34,7 +34,7 @@ namespace BL
                 return true;
                 
             }
-            }
+        }
 
 
         //public static void AddAllergie(AllergyDTO allergy)
