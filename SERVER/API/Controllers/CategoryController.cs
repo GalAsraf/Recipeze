@@ -24,11 +24,10 @@ namespace API.Controllers
         //    List<Allergy> allergiesForUser = BL.CategoryBL.GetAllergyForUser(userId);
 
         //    string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-        //    string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine);
+        //    string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
         //    List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res);
 
         //    return Ok(result);
-
         //}
 
         [Route("getselectedcategories/{selectedcategory}")]
@@ -49,10 +48,7 @@ namespace API.Controllers
 
         }
 
-        private object GoogleSearch(string selectedCategory)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 
 

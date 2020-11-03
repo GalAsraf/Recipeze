@@ -16,6 +16,7 @@ using System.Drawing.Printing;
 using HtmlAgilityPack;
 using System.Web.UI;
 using Nancy.Helpers;
+using DAL;
 
 namespace BL.WebScraping
 {
@@ -24,29 +25,29 @@ namespace BL.WebScraping
         public static WebClient webClient = new WebClient();
         public static Regex extractUrl = new Regex(@"[&?](?:q|url)=([^&]+)", RegexOptions.Compiled);
 
-
+        // first function before the changes
         public static string CustomSearch(string searchText)
         {
-            //string apiKey = "nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCu3UfnJ1xAPHlf\nyT7H+lipgXzodlh2T24VnT+OsVse/BTsdHvmDt9KjirtnxoXUMc1z4UUVbTytiK6\neGeUeNJYI8UGrejKELk0BAFOMyCiW0h5BPZD3avosluHOUYGCdru5nG2t26u+QWf\nglyINFTH54gCHBbDNWSzqdSSgIBuHPdpvytp/OCyCfMKxB+hBUSev/y8BWXmStcg\nCxZXM5ubRsDQ19bFniAkkea6QTe4ThMYRGlNOJdb1xc1Fcn0x86umnQ/eqE4aKFI\npWd0YnSMvHMzNUg2LiXuttHgHr8PZ3C9wd0CcZ4OgprfnncEM7OHpNZmlMV/r36Y\nHEVEqunrAgMBAAECggEACPDWKXEPUVbUdBvGS4yhjwPWy1scYlyr/yhBITrbXaQ0\noFbf7DgRj5IaNZSPahFT7/5pbfa9qm3zZYMq9RPJS7f07eMqe6/EGjZOqB0nVjsl\n8bMEXHKhUuPfQp9nuH7gDw2rjBvhzR8nwx07BKBDBlvUBuJBOlwov/fTrYHySARI\nkGk4jPlhcQ23qH4PYEymZkVZi9d+TLoDXJwqXPXsi+ZtRlmGvQKaDDnZ6UAm66bv\n+XLMoqGFx1DFYXhg4T5wy+6FGL13xro7YW8azUSAFtNo+dwXPuiMHFo89ldc7z9q\neLU2uHrHtwaagpgkMjN8N7ISKQPP/GTMrY2WkJpt8QKBgQDiIpNjVDi3CfqlVPIc\n1RPYUpMdc5Oz4BRZl680pqmz5VM+JeJONKTipJvsxJTE1udp0v1R93oskeUcWT06\njyFq1DhkX65B9Ns6GpxheBXlmXShQBIexjXDGudqnYUC2LUbJtPrh4MspQ5ZYSV4\nkd51v54hnZh4BBHMM7HDHTXEFwKBgQDF9UoHjE6DNleslH+hXuVq64JMeXraMU+p\nLzsB1+drZlaivxV4LRzlguwv4VAlt4MTYgdriOJcU/8IfXQuTI7+B2zMRsGWCNgp\noPwwAn+Ftxm5m/ZpBpdeOcho/54NRHA6uNtp8LTxc8TZLd2kgkgwE0xbn1wDCfG4\nZGmmierpTQKBgEICCbfCy9NSDGHaS9nysJpCcEL2i7TDweztA+2AgKTMWeIYONjP\nMRofJoyUTUCv4ljXh643aOg9pf0CZ4cCZKTEUbmq3DjQenWZcvBYlzuv8YVoKGHn\nRaYv4kESvdK44xSL3uwvYDDV9TxNyRxKp/8C8euqDulpdrB+nnLvwdP9AoGAD5ha\nY6vXB5lBYPQ19dWPB1RUaIfteMEHwJFa+bMzpQ9j5eBd5aDQNPiSeNcsRDxn1CAV\n64/WHWX0oouXmoonfbXCCXnNiG9b8DOhinq35yXcnfW+fNmrFR5CPptcrTjmCopD\npt3ys07mhCGL44jr/PWYP2OXkRm4dElc1WTqH8UCgYEAx2Xz26jySwBdSNWWWwVN\ncPDz7q5SBoXGOLj0RWNR4DdIDRCXRf31j3QCo6MPNgi2XXNbO+razCuveXV72RGi\n9x+9eheoUa1xQ3zCpVJomTv6TmKwIrn2XxUb3U+2T5vhFHP8JNmPvuQ7RHYH0Sa+\nvdXff8zYgzOpaqxJFGSxePQ=";
-            //string cx = "e565f9cc6248f12a3";
-            //string query = "cake";
 
-            //string result =new WebClient().DownloadString(String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&alt=json", apiKey, cx, query));
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //Dictionary<string, object> collection = serializer.Deserialize<Dictionary<string, object>>(result);
-            //foreach (Dictionary<string, object> item in (IEnumerable)collection["items"])
-            //{
-            //    Console.WriteLine("Title: {0}", item["title"]);
-            //    Console.WriteLine("Link: {0}", item["link"]);
-            //    Console.WriteLine();
-            //}
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
-            sb.Append(searchText);
-            //sb.Append(" recipe");
+            sb.Append(searchText + " recipe");
+
 
             //in addition we have to append the users allergies according to current user
             return webClient.DownloadString(sb.ToString());
         }
+
+        //public static string CustomSearch(string searchText, int userId, List<Allergy> allergiesForUser)
+        //{
+        //    StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
+        //    allergiesForUser.ForEach(a =>
+        //    {
+        //        //we must check if that kind of searching works, for example: "sugar free egg free cocoa free chocolate cake recipe"
+        //        sb.Append(a.AllergyName.ToString() + " free ");
+        //    });
+        //    sb.Append(searchText + " recipe");
+        //    return webClient.DownloadString(sb.ToString());
+        //}
 
 
         public static List<DTO.Recipe> ParseSearchResultHtml(string html)
@@ -102,6 +103,7 @@ namespace BL.WebScraping
             //filteredlistOfLinks
 
             return recipesList;
+            
         }
 
         public static List<string> FilterListOfLinks(List<string> listOfLinks)
@@ -136,7 +138,9 @@ namespace BL.WebScraping
             //links.count
             for(var i=0; i < 4; i++)
             {
-                var htmlurl = links[i];//the link to scrape
+                 var htmlurl = links[i];//the link to scrape
+
+                //var htmlurl = "https://addapinch.com/the-best-chocolate-cake-recipe-ever/";
 
                 HtmlWeb web1 = new HtmlWeb();
 
@@ -228,43 +232,66 @@ namespace BL.WebScraping
                         else
                         {
                             Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
-
-                            var parentDirectionsElement = directionsElement.ParentNode;
-
-                            flag = true;
-
-                            while (flag)
-                            {
-                                if (directionsElement.InnerText == parentDirectionsElement.InnerText)
-                                {
-                                    flag = true;
-                                    parentDirectionsElement = parentDirectionsElement.ParentNode;
-                                }
-                                else
-                                    flag = false;
-                            }
-
-                            string directions = parentDirectionsElement.InnerText;
-                            Console.WriteLine(directions);
-
-                            // string organizedDirections = directions.Replace(".", ".\n");
-                            //Console.WriteLine(organizedDirections);
-                            DTO.Recipe recipe = new DTO.Recipe();
-                            recipe.Ingredients = organizedIngredients.Split('\n').ToList();
-                            recipe.Method = directions.Split('.').ToList();
-                            recipes.Add(recipe);
+                        
+                            
+                            
                             
 
                         }
                     }
+                    
                 }
 
 
+                var parentDirectionsElement = directionsElement.ParentNode;
+
+                flag = true;
+
+                while (flag)
+                {
+                    if (directionsElement.InnerText == parentDirectionsElement.InnerText)
+                    {
+                        flag = true;
+                        parentDirectionsElement = parentDirectionsElement.ParentNode;
+                    }
+                    else
+                        flag = false;
+                }
+
+               string directions = parentDirectionsElement.InnerText;
+                Console.WriteLine(directions);
+
+                // string organizedDirections = directions.Replace(".", ".\n");
+                //Console.WriteLine(organizedDirections);
+
+                DTO.Recipe recipe = new DTO.Recipe();
+                recipe.Ingredients = organizedIngredients.Split('\n').ToList();
+                recipe.Method = directions.Split('.').ToList();
+                recipes.Add(recipe);
             }
 
             return recipes;
         }
+
+
+       
     }
 }
 
 
+
+
+
+//string apiKey = "nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCu3UfnJ1xAPHlf\nyT7H+lipgXzodlh2T24VnT+OsVse/BTsdHvmDt9KjirtnxoXUMc1z4UUVbTytiK6\neGeUeNJYI8UGrejKELk0BAFOMyCiW0h5BPZD3avosluHOUYGCdru5nG2t26u+QWf\nglyINFTH54gCHBbDNWSzqdSSgIBuHPdpvytp/OCyCfMKxB+hBUSev/y8BWXmStcg\nCxZXM5ubRsDQ19bFniAkkea6QTe4ThMYRGlNOJdb1xc1Fcn0x86umnQ/eqE4aKFI\npWd0YnSMvHMzNUg2LiXuttHgHr8PZ3C9wd0CcZ4OgprfnncEM7OHpNZmlMV/r36Y\nHEVEqunrAgMBAAECggEACPDWKXEPUVbUdBvGS4yhjwPWy1scYlyr/yhBITrbXaQ0\noFbf7DgRj5IaNZSPahFT7/5pbfa9qm3zZYMq9RPJS7f07eMqe6/EGjZOqB0nVjsl\n8bMEXHKhUuPfQp9nuH7gDw2rjBvhzR8nwx07BKBDBlvUBuJBOlwov/fTrYHySARI\nkGk4jPlhcQ23qH4PYEymZkVZi9d+TLoDXJwqXPXsi+ZtRlmGvQKaDDnZ6UAm66bv\n+XLMoqGFx1DFYXhg4T5wy+6FGL13xro7YW8azUSAFtNo+dwXPuiMHFo89ldc7z9q\neLU2uHrHtwaagpgkMjN8N7ISKQPP/GTMrY2WkJpt8QKBgQDiIpNjVDi3CfqlVPIc\n1RPYUpMdc5Oz4BRZl680pqmz5VM+JeJONKTipJvsxJTE1udp0v1R93oskeUcWT06\njyFq1DhkX65B9Ns6GpxheBXlmXShQBIexjXDGudqnYUC2LUbJtPrh4MspQ5ZYSV4\nkd51v54hnZh4BBHMM7HDHTXEFwKBgQDF9UoHjE6DNleslH+hXuVq64JMeXraMU+p\nLzsB1+drZlaivxV4LRzlguwv4VAlt4MTYgdriOJcU/8IfXQuTI7+B2zMRsGWCNgp\noPwwAn+Ftxm5m/ZpBpdeOcho/54NRHA6uNtp8LTxc8TZLd2kgkgwE0xbn1wDCfG4\nZGmmierpTQKBgEICCbfCy9NSDGHaS9nysJpCcEL2i7TDweztA+2AgKTMWeIYONjP\nMRofJoyUTUCv4ljXh643aOg9pf0CZ4cCZKTEUbmq3DjQenWZcvBYlzuv8YVoKGHn\nRaYv4kESvdK44xSL3uwvYDDV9TxNyRxKp/8C8euqDulpdrB+nnLvwdP9AoGAD5ha\nY6vXB5lBYPQ19dWPB1RUaIfteMEHwJFa+bMzpQ9j5eBd5aDQNPiSeNcsRDxn1CAV\n64/WHWX0oouXmoonfbXCCXnNiG9b8DOhinq35yXcnfW+fNmrFR5CPptcrTjmCopD\npt3ys07mhCGL44jr/PWYP2OXkRm4dElc1WTqH8UCgYEAx2Xz26jySwBdSNWWWwVN\ncPDz7q5SBoXGOLj0RWNR4DdIDRCXRf31j3QCo6MPNgi2XXNbO+razCuveXV72RGi\n9x+9eheoUa1xQ3zCpVJomTv6TmKwIrn2XxUb3U+2T5vhFHP8JNmPvuQ7RHYH0Sa+\nvdXff8zYgzOpaqxJFGSxePQ=";
+//string cx = "e565f9cc6248f12a3";
+//string query = "cake";
+
+//string result =new WebClient().DownloadString(String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&alt=json", apiKey, cx, query));
+//JavaScriptSerializer serializer = new JavaScriptSerializer();
+//Dictionary<string, object> collection = serializer.Deserialize<Dictionary<string, object>>(result);
+//foreach (Dictionary<string, object> item in (IEnumerable)collection["items"])
+//{
+//    Console.WriteLine("Title: {0}", item["title"]);
+//    Console.WriteLine("Link: {0}", item["link"]);
+//    Console.WriteLine();
+//}

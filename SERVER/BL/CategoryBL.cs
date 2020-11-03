@@ -34,7 +34,6 @@ namespace BL
             {
                 var member = db.Users.Where(a => a.UserId==userId).ToList();
                 return member[0].Allergies.ToList();
-
             }
         }
 

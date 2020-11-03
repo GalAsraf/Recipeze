@@ -21,11 +21,11 @@ export class CategoryService {
      let userId=localStorage.getItem('currentUser');
      return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
    }
-/* 
-  googleSearch(categories: string): Observable<string> {
-    let userId=localStorage.getItem('currentUser');
-    return this.http.post<string>(environment.url + 'category/getSelectedCategories/'+userId,categories);
-  }
- */
+
+  // googleSearch(categories: string): Observable<string> {
+  //   let userId=localStorage.getItem('currentUser');
+  //   return this.http.post<string>(environment.url + 'category/getSelectedCategories/'+userId,categories);
+  // }
+ 
   
 }
