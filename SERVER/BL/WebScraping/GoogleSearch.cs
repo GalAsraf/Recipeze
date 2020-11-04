@@ -50,9 +50,9 @@ namespace BL.WebScraping
         }
 
 
-        public static List<DTO.Recipe> ParseSearchResultHtml(string html)
+        public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<Allergy> allergiesForUser)
         {
-            
+
             List<String> searchResults = new List<string>();
 
             var doc = new HtmlAgilityPack.HtmlDocument();
@@ -63,7 +63,13 @@ namespace BL.WebScraping
                          where null != href
                          where href.Value.Contains("/url?") || href.Value.Contains("?url=")
                          select href.Value).ToList();
+            //until here, it really gets just the links, without entering into one site.
 
+            List<string> filteredlistOfLinks = new List<string>();
+            filteredlistOfLinks = FilterListOfLinks(nodes);
+
+
+            //what is that foreach loop? what is it doing?
             foreach (var node in nodes)
             {
                 var match = extractUrl.Match(node);
@@ -97,48 +103,64 @@ namespace BL.WebScraping
             Console.WriteLine(searchResults[0]);
 
             //List<string> filteredlistOfLinks = new List<string>();
-           // filteredlistOfLinks = FilterListOfLinks(searchResults);
+            // filteredlistOfLinks = FilterListOfLinks(searchResults);
             List<DTO.Recipe> recipesList = new List<DTO.Recipe>();
-            recipesList = RecipeScraping(searchResults);
+            recipesList = RecipeScraping(searchResults, allergiesForUser);
             //filteredlistOfLinks
 
             return recipesList;
-            
+
         }
 
         public static List<string> FilterListOfLinks(List<string> listOfLinks)
         {
-            //taking out links that appear twice or more
-            for(var i =0; i<listOfLinks.Count;i++)
+            ////it's not getting into the if condition because the link are never equals.
+
+            ////taking out links that appear twice or more
+            //for (var i = 0; i < listOfLinks.Count; i++)
+            //{
+            //    for (var j = i + 1; j < listOfLinks.Count; j++)
+            //    {
+            //        if (listOfLinks[i] == listOfLinks[j])
+            //        {
+            //            listOfLinks.Remove(listOfLinks[j]);
+            //        }
+            //    }
+            //}
+
+            ////at this point RecipeScraping can be called, sending the list of links, it will return the list of recipes
+            ////and the we can return the list of recipes.
+
+            //return listOfLinks;
+
+
+            //var fillteredListOfLinks = null;
+            for (int i = 0; i < listOfLinks.Count; i++)
             {
-                for(var j = i+1; j < listOfLinks.Count; j++)
+                var linkElement = listOfLinks[i];
+                var currentLink = listOfLinks[i];
+                for (int j = i+1; j < listOfLinks.Count; j++)
                 {
-                    //it's not getting into the if condition because the link are never equals.
-                    if (listOfLinks[i] == listOfLinks[j])
-                    {
-                        listOfLinks.Remove(listOfLinks[j]);
-                    }
+
+                    //todo: The loop should go through the list of links, and each first link is tested,
+                   // if they within the same grandparent div, and if there is another link leading to the same place.
+                    //If so, it removes it from the list
                 }
             }
-
-            //at this point RecipeScraping can be called, sending the list of links, it will return the list of recipes
-            //and the we can return the list of recipes.
-            
-            return listOfLinks;
         }
 
 
 
         //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
         //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
-        public static List<DTO.Recipe> RecipeScraping(List<string> links)
+        public static List<DTO.Recipe> RecipeScraping(List<string> links, List<Allergy> allergiesForUser)
         {
-            List < DTO.Recipe > recipes = new List<DTO.Recipe > ();
+            List<DTO.Recipe> recipes = new List<DTO.Recipe>();
 
             //links.count
-            for(var i=0; i < 4; i++)
+            for (var i = 0; i <17 ; i++)
             {
-                 var htmlurl = links[i];//the link to scrape
+                var htmlurl = links[i];//the link to scrape
 
                 //var htmlurl = "https://addapinch.com/the-best-chocolate-cake-recipe-ever/";
 
@@ -147,7 +169,7 @@ namespace BL.WebScraping
                 var htmlDoc1 = web1.Load(htmlurl);
 
                 var ingredientElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Ingredients']");
-                if(ingredientElement==null)
+                if (ingredientElement == null)
                 {
                     continue;//meaning-> if ingredient element wasn't found, end this round in loop and do i++
                 }
@@ -232,14 +254,9 @@ namespace BL.WebScraping
                         else
                         {
                             Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
-                        
-                            
-                            
-                            
-
                         }
                     }
-                    
+
                 }
 
 
@@ -258,7 +275,7 @@ namespace BL.WebScraping
                         flag = false;
                 }
 
-               string directions = parentDirectionsElement.InnerText;
+                string directions = parentDirectionsElement.InnerText;
                 Console.WriteLine(directions);
 
                 // string organizedDirections = directions.Replace(".", ".\n");
@@ -267,7 +284,26 @@ namespace BL.WebScraping
                 DTO.Recipe recipe = new DTO.Recipe();
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
-                recipes.Add(recipe);
+
+                //inside checking if the recipe object contains allergic ingredients.
+                var checkAllergy = 0;
+                List<string> listOfAllergies = new List<string>();
+                allergiesForUser.ForEach(a =>
+                {
+                    listOfAllergies.Add(a.AllergyName.ToString());
+                });
+
+                foreach (var r in recipe.Ingredients)
+                {
+                    if (listOfAllergies.Contains(r))
+                    {
+                        checkAllergy = 1;
+                        continue;
+                    }
+                }
+
+                if (checkAllergy == 0)
+                    recipes.Add(recipe);
             }
 
             return recipes;
