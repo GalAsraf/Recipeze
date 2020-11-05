@@ -194,17 +194,19 @@ namespace BL.WebScraping
 
                 //the problem here is, how can I make it print 1 1/2 ?
                 organizedIngredients = organizedIngredients.Replace("1\n1/2", "1 1/2");
+                organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
+                organizedIngredients = organizedIngredients.Replace("1\n½", "1 ½");
+                organizedIngredients = organizedIngredients.Replace("1\n½", "1 ½");
+
+                organizedIngredients = organizedIngredients.Replace("2\n½", "2 ½");
+                organizedIngredients = organizedIngredients.Replace("&nbsp;", " ");
 
                 //organizedIngredients = organizedIngredients.Replace("\n\n\n\n", string.Empty);
                 organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
-                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
-                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
-                //organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
-
+                
 
                 //still didn't take care of &...;
                 organizedIngredients = organizedIngredients.Replace("  ", string.Empty);
-                //organizedIngredients.Replace("\n", "");
 
                 Console.WriteLine(organizedIngredients);
 
@@ -232,11 +234,7 @@ namespace BL.WebScraping
                         else
                         {
                             Console.WriteLine("Node Name: " + directionsElement.Name + "\n" + directionsElement.OuterHtml + "\n" + directionsElement.InnerText);
-                        
-                            
-                            
-                            
-
+          
                         }
                     }
                     
@@ -261,8 +259,8 @@ namespace BL.WebScraping
                string directions = parentDirectionsElement.InnerText;
                 Console.WriteLine(directions);
 
-                // string organizedDirections = directions.Replace(".", ".\n");
-                //Console.WriteLine(organizedDirections);
+                string organizedDirections = directions.Replace("&nbsp;", " ");
+                organizedDirections = organizedDirections.Replace(".", ".\n");
 
                 DTO.Recipe recipe = new DTO.Recipe();
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
