@@ -1,5 +1,5 @@
 export class Recipe
 {
-     Ingredient:string[];
+     Ingredients:string[];
      Method:string[];
 }
