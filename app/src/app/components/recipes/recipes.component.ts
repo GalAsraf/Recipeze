@@ -16,6 +16,7 @@ export class RecipesComponent implements OnInit {
   ngOnInit(): void {
       
     this.route.params.subscribe(
+      //, p.treatSens cause i want to send also if to treat thesensitive or not
       p=> this.categoryService.googleSearch(p.search).subscribe(
         res => { this.recipes=res;
         console.log(res) },

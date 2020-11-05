@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'allergies', component: DefineAllergyComponent },
   { path: 'recipes/:search', component: RecipesComponent }
+  //,treatSens - add it to the path, to send also the sensitive
 ];
 
 @NgModule({
