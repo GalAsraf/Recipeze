@@ -65,8 +65,8 @@ namespace BL.WebScraping
                          select href.Value).ToList();
             //until here, it really gets just the links, without entering into one site.
 
-            List<string> filteredlistOfLinks = new List<string>();
-            filteredlistOfLinks = FilterListOfLinks(nodes);
+           // List<string> filteredlistOfLinks = new List<string>();
+           // filteredlistOfLinks = FilterListOfLinks(nodes, html);
 
 
             //what is that foreach loop? what is it doing?
@@ -74,6 +74,7 @@ namespace BL.WebScraping
             {
                 var match = extractUrl.Match(node);
                 string test = HttpUtility.UrlDecode(match.Groups[1].Value);
+                //כאן הוא מוסיף אחד אחד אולי כדאי כאן לעשות את הבדיקה
                 searchResults.Add(test);
                 Console.WriteLine(searchResults);
 
@@ -88,17 +89,20 @@ namespace BL.WebScraping
             HtmlAgilityPack.HtmlDocument difdoc = new HtmlAgilityPack.HtmlDocument();
             difdoc = web.Load(URL);
             // extracting all links
-            foreach (HtmlNode link in difdoc.DocumentNode.SelectNodes("//a[@href]"))
-            {
-                HtmlAttribute att = link.Attributes["href"];
-                if (att.Value.Contains("a"))
-                {
-                    // showing output
-                    Console.WriteLine(att.Value);
-                    searchResults.Add(att.Value);
-                }
+            //foreach (HtmlNode link in difdoc.DocumentNode.SelectNodes("//a[@href]"))
+            //{
+            //    HtmlAttribute att = link.Attributes["href"];
+            //    if (att.Value.Contains("a"))
+            //    {
+            //        // showing output
+            //        Console.WriteLine(att.Value);
+            //        //if (searchResults.Contains(att.Value))
+            //        //    continue;
+            //        //else
+            //            searchResults.Add(att.Value);
+            //    }
 
-            }
+            //}
 
             Console.WriteLine(searchResults[0]);
 
@@ -112,7 +116,7 @@ namespace BL.WebScraping
 
         }
 
-        public static List<string> FilterListOfLinks(List<string> listOfLinks)
+        public static List<string> FilterListOfLinks(List<string> listOfLinks, string html)
         {
             ////it's not getting into the if condition because the link are never equals.
 
@@ -135,18 +139,33 @@ namespace BL.WebScraping
 
 
             //var fillteredListOfLinks = null;
+            List<string> fillteredListOfLinks = new List<string>();
+            HtmlWeb web2 = new HtmlWeb();
             for (int i = 0; i < listOfLinks.Count; i++)
             {
-                var linkElement = listOfLinks[i];
+                var htmlDoc2 = web2.Load(listOfLinks[i]);
+                var count = 0;
                 var currentLink = listOfLinks[i];
-                for (int j = i+1; j < listOfLinks.Count; j++)
-                {
-
+               // for (int j = i + 1; j < listOfLinks.Count; j++)
+               // {
                     //todo: The loop should go through the list of links, and each first link is tested,
-                   // if they within the same grandparent div, and if there is another link leading to the same place.
+                    // if they within the same grandparent div, and if there is another link leading to the same place.
                     //If so, it removes it from the list
-                }
+
+                    //var linkElement = htmlDoc2.DocumentNode.ParentNode.SelectSingleNode("//*[text()='Ingredients']");
+
+                    HtmlAgilityPack.HtmlNodeCollection nodes = htmlDoc2.DocumentNode.SelectNodes("//div[@class=\"rc\"]");//that the class that google givs as rap div to each recipe.
+                    foreach (HtmlAgilityPack.HtmlNode node in nodes)
+                    { 
+                        HtmlNode hrefNode = node.SelectSingleNode("./href");
+                        count++;
+                    }
+                    i += count;
+                fillteredListOfLinks.Add(currentLink);
+
+               // }
             }
+            return fillteredListOfLinks;
         }
 
 
@@ -158,7 +177,7 @@ namespace BL.WebScraping
             List<DTO.Recipe> recipes = new List<DTO.Recipe>();
 
             //links.count
-            for (var i = 0; i <17 ; i++)
+            for (var i = 0; i <10 ; i++)
             {
                 var htmlurl = links[i];//the link to scrape
 
@@ -215,7 +234,7 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "\n");
 
                 //the problem here is, how can I make it print 1 1/2 ?
-                organizedIngredients = organizedIngredients.Replace("1\n1/2", "1 1/2");
+                organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
 
                 //organizedIngredients = organizedIngredients.Replace("\n\n\n\n", string.Empty);
                 organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
