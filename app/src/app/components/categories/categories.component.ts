@@ -20,73 +20,50 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = []
   baseCategories: Category[] = []
   form: FormGroup
-  selected:string;
-  // selectedFirstValue: Category
-  // selectedSecondValue: Category
-  // selectedThirdValue: Category
-
-  selectedCategories: Category[]=[]
-  categoriesToSelect:Category[][]=[];
-
-
-  
-
+  selected: string;
+  checked: boolean = false;
+  selectedCategories: Category[] = []
+  categoriesToSelect: Category[][] = [];
 
   constructor(private categoryService: CategoryService,
-     private allergiesService: AllergyService,
-      private formBuilder: FormBuilder,
-      private router:Router) { }
+    private allergiesService: AllergyService,
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
 
   submit() {
   }
 
   ngOnInit(): void {
-    
-
     this.categoryService.getAllCategories().subscribe(
-      res => {this.categories = res;
-     this.selectSubCategories(null);
+      res => {
+        this.categories = res;
+        this.selectSubCategories(null);
       }
     )
   }
   //saves the selected value of the first combobox
-  selectChangeHandler(event: any,index:number) {
-    this.selected =event.target.value;
+  selectChangeHandler(event: any, index: number) {
+    this.selected = event.target.value;
     this.selectSubCategories(event.target.value)
-    // this.selectedFirstValue = this.categories.filter(m => m.MasterCategoryId == event.target.value);
-  }
-  // secondSelect(event: any) {
-  //  this.selectedSecondValue = event.target.value;
-  // }
-  // thirdSelected(event: any) {
-  //   this.selectedThirdValue = event.target.value;
-   
-  // }
-  // filterSubById(id) {
-  //   return this.subCategories.filter(item => item.parentId === id);
-  // }
-
-  googleSearch(){
-
-    this.router.navigate(['recipes',this.selected]);
-
-
-    // this.selectedCategories[0]=this.selectedFirstValue
-    // this.selectedCategories[1]=this.selectedSecondValue
-    // this.selectedCategories[2]=this.selectedThirdValue
-
-    // this.categoryService.googleSearch(this.selectedCategories).subscribe(
-    //   res => { console.log(res) },
-    //   err => { console.error(err) }
-    // )
   }
 
-  selectSubCategories(id:number)
-  {
-    let sub=this.categories.filter(c=>c.MasterCategoryId==id);
-    if(sub.length>0)
-    this.categoriesToSelect.push(sub);
+  googleSearch() {
+    //, this.checked
+    this.router.navigate(['recipes', this.selected]);
+  }
+
+  selectSubCategories(id: number) {
+    let sub = this.categories.filter(c => c.MasterCategoryId == id);
+    if (sub.length > 0)
+      this.categoriesToSelect.push(sub);
+  }
+
+  TreatSensitivity() {
+    if (this.checked == false)
+      this.checked = true;
+    else
+      this.checked = false;
   }
 }
 
