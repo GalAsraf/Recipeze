@@ -19,10 +19,9 @@ namespace API.Controllers
         [Route("getCurrentUserAllergies/{userId}")]
         [HttpGet]
         public IHttpActionResult getCurrentUserAllergies(int userId)
-       {
+        {
             return Ok(BL.AllergyBL.getCurrentUserAllergies(userId));
         }
-
 
         [Route("defineAllergiesForUser/{userId}")]
         [HttpPost]
