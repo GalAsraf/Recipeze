@@ -18,7 +18,17 @@ namespace BL
             }
         }
 
-      
+        public static List<Allergy> getCurrentUserAllergies(int userId)
+        {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                var user = db.Users.Where(a => a.UserId == userId).ToList();
+                Console.WriteLine(user[0].Allergies);
+                return user[0].Allergies.ToList();
+            }
+        }
+
+
 
         public static bool DefineAllergiesForUser(int userId, List<int> allergies)
         {
@@ -35,6 +45,8 @@ namespace BL
                 
             }
         }
+
+       
 
 
         //public static void AddAllergie(AllergyDTO allergy)

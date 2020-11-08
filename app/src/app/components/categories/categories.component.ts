@@ -24,11 +24,15 @@ export class CategoriesComponent implements OnInit {
   checked: boolean = false;
   selectedCategories: Category[] = []
   categoriesToSelect: Category[][] = [];
+  allergies: Allergy[] = []
+  selectedAllergies: number[] = []
+
 
   constructor(private categoryService: CategoryService,
     private allergiesService: AllergyService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+  ) { }
 
 
   submit() {
@@ -40,6 +44,12 @@ export class CategoriesComponent implements OnInit {
         this.categories = res;
         this.selectSubCategories(null);
       }
+    );
+
+    this.allergiesService.getCurrentUserAllergies().subscribe(
+      res => {
+        this.allergies = res;
+      }
     )
   }
   //saves the selected value of the first combobox
@@ -50,7 +60,8 @@ export class CategoriesComponent implements OnInit {
 
   googleSearch() {
     //, this.checked
-    this.router.navigate(['recipes', this.selected]);
+    //this.router.navigate(['recipes', this.selected]);
+    this.router.navigate(['recipes', { select: this.selected, whatChecked: this.selectedAllergies }]);
   }
 
   selectSubCategories(id: number) {
@@ -60,11 +71,23 @@ export class CategoriesComponent implements OnInit {
   }
 
   TreatSensitivity() {
-    if (this.checked == false)
+    if (this.checked == false) {
       this.checked = true;
+    }
     else
       this.checked = false;
   }
+
+  toggleAllergy(AllergyCode: number) {
+    let i = this.selectedAllergies.findIndex(a => a == AllergyCode);
+    if (i == -1)
+      this.selectedAllergies.push(AllergyCode);
+    else
+      this.selectedAllergies.splice(i, 1);
+  }
+
+  
+
 }
 
 

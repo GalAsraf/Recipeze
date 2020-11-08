@@ -1,5 +1,7 @@
 <p>recipes works!</p>
+
 <div *ngFor="let recipe of recipes">
+    <h1>{{recipe.RecipeName}}</h1>
     <h3>Ingredient</h3>
     <p *ngFor="let Ingredient of recipe.Ingredients">{{Ingredient}}</p>
     <h3>Method</h3>
