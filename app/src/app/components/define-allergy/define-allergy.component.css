@@ -68,3 +68,13 @@ body{
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+
+
+  .content{
+position: absolute;
+top: 110px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+overflow-y: scroll;
+  }

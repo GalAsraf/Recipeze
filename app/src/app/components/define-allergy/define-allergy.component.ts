@@ -62,5 +62,8 @@ export class DefineAllergyComponent implements OnInit {
     });
     return false;
   }
+  skip(){
+    this.router.navigate(['/home'])
+  }
 
 }

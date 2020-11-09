@@ -27,7 +27,6 @@ export class AllergyService {
   {
     let userId=localStorage.getItem('currentUser');
     return this.http.get<Allergy[]>(environment.url+"allergy/getCurrentUserAllergies/"+userId)
-
   }
 
 /* 

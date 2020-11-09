@@ -5,9 +5,6 @@ import { Allergy } from 'src/app/shared/models/allergy.model';
 import { Category } from 'src/app/shared/models/category.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
-//import { ListboxModule } from 'primeng/listbox';
-
-
 
 @Component({
   selector: 'app-categories',
@@ -85,9 +82,6 @@ export class CategoriesComponent implements OnInit {
     else
       this.selectedAllergies.splice(i, 1);
   }
-
-  
-
 }
 
 

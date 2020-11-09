@@ -27,7 +27,7 @@
         </div>
 
         <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
-        <div *ngIf="checked">
+        <div *ngIf="TreatSensitivity()">
             <ul *ngFor="let sens of allergies;let i=index ">
                 <label class="container">
                     <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
