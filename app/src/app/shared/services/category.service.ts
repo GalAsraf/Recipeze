@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Allergy } from '../models/allergy.model';
 import { Category } from '../models/category.model';
 import { Recipe } from '../models/recipe.model';
 
@@ -23,9 +24,9 @@ export class CategoryService {
   //    return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
   //  }
 
-  googleSearch(categories: string): Observable<Recipe[]> {
+  googleSearch(categories: string, whatChecked: Allergy[]): Observable<Recipe[]> {
     let userId=localStorage.getItem('currentUser');
-    return this.http.get<Recipe[]>(environment.url + 'category/getSelectedCategories/'+userId+'/'+categories);
+    return this.http.get<Recipe[]>(environment.url + 'category/getSelectedCategories/'+userId+'/'+categories+'/'+whatChecked);
   }
  
   

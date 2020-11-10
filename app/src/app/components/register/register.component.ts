@@ -35,11 +35,19 @@ export class RegisterComponent implements OnInit {
     this.user.UserName = this.userForm.value.name
     this.user.Password = this.userForm.value.password
     this.user.Email = this.userForm.value.email
-    this.userService.addUser(this.user).subscribe(
-      res => { localStorage.setItem('currentUser',res.toString()) },
-      err => { console.error(err) }
-    )
-    this.loginUser(this.user);
+    this.userService.getUserExist(this.user).subscribe(
+      res=> {
+        if(res == -1)
+        alert("user allready exist. try again!");
+        else{
+          this.userService.addUser(this.user).subscribe(
+            res => { localStorage.setItem('currentUser',res.toString()) },
+            err => { console.error(err) }
+          )
+          this.loginUser(this.user);
+        }
+      }
+    ); 
   }
 
   loginUser(user) {

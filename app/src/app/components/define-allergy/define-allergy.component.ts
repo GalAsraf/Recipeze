@@ -10,8 +10,10 @@ import { AllergyService } from 'src/app/shared/services/allergy.service';
 })
 export class DefineAllergyComponent implements OnInit {
 
-  allergies: Allergy[] = []
-  selectedAllergies: number[] = []
+  allergies: Allergy[] = [];
+  allergiesForUser: Allergy[] = [];
+  selectedAllergies: number[] = [];
+
   constructor(private allergiesService: AllergyService, private router: Router) { }
 
   ngOnInit(): void {
@@ -20,7 +22,14 @@ export class DefineAllergyComponent implements OnInit {
         this.allergies = res;
         // this.selectSubCategories(null);
       }
-    )
+    );
+    if (localStorage.getItem('currentUser') != undefined) {
+      this.allergiesService.getCurrentUserAllergies().subscribe(
+        res => {
+          this.allergiesForUser = res;
+        }
+      );
+    }
   }
 
 
@@ -46,5 +55,15 @@ export class DefineAllergyComponent implements OnInit {
     //   //we should do here something nicer than an alert!!
   }
 
+  isChecked(allergy: number) {
+    this.allergiesForUser.forEach(a => {
+      if (a.AllergyCode == allergy)
+        return true;
+    });
+    return false;
+  }
+  skip(){
+    this.router.navigate(['/home'])
+  }
 
 }

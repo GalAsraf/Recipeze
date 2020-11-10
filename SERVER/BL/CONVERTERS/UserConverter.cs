@@ -19,5 +19,23 @@ namespace BL.CONVERTERS
                 Email = user.Email
             };
         }
+        public static UserDTO ConvertUserToDTO(User user)
+        {
+            return new UserDTO
+            {
+                UserName = user.UserName,
+                Password = user.Password,
+                Email = user.Email
+            };
+        }
+
+        public static List<UserDTO> ConvertUserListToDTO(IEnumerable<User> users)
+        {
+            return users.Select(c => ConvertUserToDTO(c)).ToList();
+        }
+
+
+
+
     }
 }

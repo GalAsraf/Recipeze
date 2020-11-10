@@ -17,10 +17,28 @@ namespace API.Controllers
             return Ok(BL.CategoryBL.GetAllCategories());
         }
 
-        [Route("GetSelectedCategories/{userId}/{selectedCategory}")]
+        //[Route("GetSelectedCategories/{userId}/{selectedCategory}")]
+        //[HttpGet]
+        //public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory)
+        //{
+        //    List<Allergy> allergiesForUser = BL.CategoryBL.GetAllergyForUser(userId);
+
+        //    string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+        //    string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
+        //    List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res, allergiesForUser);
+
+        //    return Ok(result);
+        //}
+
+        [Route("GetSelectedCategories/{userId}/{selectedCategory}/{isChecked}")]
         [HttpGet]
-        public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory)
+        public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory, Allergy[] whatChecked)
         {
+            if(whatChecked.Length == 0)
+            {
+                //check if he didn't want to treat his allergies.
+                //but it all doesn't work, we should check here what is the problem.
+            }
             List<Allergy> allergiesForUser = BL.CategoryBL.GetAllergyForUser(userId);
 
             string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
@@ -28,6 +46,6 @@ namespace API.Controllers
             List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res, allergiesForUser);
 
             return Ok(result);
-        }
+        } 
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Compilation;
 
 namespace BL
 {
@@ -25,13 +26,14 @@ namespace BL
             {
                 try
                 {
-                    var member = db.Users.Where(a => a.Email== email && a.Password == password).ToList();
+                    var member = db.Users.Where(a => a.Email == email && a.Password == password).ToList();
                     return member[0].UserId;
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
                     return -1;
                 }
-
             }
             
         }

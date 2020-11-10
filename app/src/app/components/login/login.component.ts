@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: any
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService,private router:Router) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -27,18 +27,19 @@ export class LoginComponent implements OnInit {
     this.user.Email = this.loginForm.controls.email.value
     this.user.Password = this.loginForm.controls.password.value
     this.userService.getUserExist(this.user).subscribe(
-      res => { localStorage.setItem('currentUser',res.toString()) },
-      err => { console.error(err) }
+      res => { localStorage.setItem('currentUser', res.toString()) },
+      err => { alert("user not found") }
+      //console.error(err)
     )
     this.loginUser(this.user);
   }
 
   loginUser(user) {
     //here it's need to get the id of the current user from the services, and ot use it throw the app
-      const currentUser = user;
-      this.loginService.setCurrentUser(currentUser);
-      console.log(currentUser);
-      this.router.navigate(['/home'])
+    const currentUser = user;
+    this.loginService.setCurrentUser(currentUser);
+    console.log(currentUser);
+    this.router.navigate(['/home'])
   }
 
 }
