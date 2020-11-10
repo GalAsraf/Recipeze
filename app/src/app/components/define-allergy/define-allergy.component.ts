@@ -35,6 +35,7 @@ export class DefineAllergyComponent implements OnInit {
 
   defineAllergies() {
     this.allergiesService.defineAllergiesForUser(this.selectedAllergies).subscribe(res => console.log(res));
+    //הוא לא מוציא כאן את הקודמים שהוא כבר הסיר אותם מהרשימה, צריך לטפל בזה!!!
     this.router.navigate(['/home'])
   }
 
@@ -56,11 +57,15 @@ export class DefineAllergyComponent implements OnInit {
   }
 
   isChecked(allergy: number) {
-    this.allergiesForUser.forEach(a => {
-      if (a.AllergyCode == allergy)
-        return true;
-    });
-    return false;
+    // this.allergiesForUser.forEach(a => {
+      
+    //   if (a.AllergyCode == allergy)
+    //     return true;
+    // });
+    // return false;
+   if(this.allergiesForUser.findIndex(a=>a.AllergyCode==allergy)==-1)
+   return false;
+   return true;
   }
   skip(){
     this.router.navigate(['/home'])

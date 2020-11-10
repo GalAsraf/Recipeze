@@ -58,7 +58,7 @@ export class CategoriesComponent implements OnInit {
   googleSearch() {
     //, this.checked
     //this.router.navigate(['recipes', this.selected]);
-    this.router.navigate(['recipes', { select: this.selected, whatChecked: this.selectedAllergies }]);
+    this.router.navigate(['recipes',  this.selected, JSON.stringify(this.selectedAllergies) ]);
   }
 
   selectSubCategories(id: number) {

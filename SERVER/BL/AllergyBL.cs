@@ -18,13 +18,13 @@ namespace BL
             }
         }
 
-        public static List<Allergy> getCurrentUserAllergies(int userId)
+        public static List<AllergyDTO> getCurrentUserAllergies(int userId)
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 Console.WriteLine(user[0].Allergies);
-                return user[0].Allergies.ToList();
+                return CONVERTERS.AllergyConverter.ConvertAllergyListToDTO(user[0].Allergies.ToList());
             }
         }
 
@@ -35,6 +35,7 @@ namespace BL
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 User user = db.Users.FirstOrDefault(u => u.UserId == userId);
+                user.Allergies.Clear();
                 allergies.ForEach(
                     a =>
                     {
