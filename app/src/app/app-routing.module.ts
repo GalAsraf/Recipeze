@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'allergies', component: DefineAllergyComponent },
-  { path: 'recipes/:search,checked', component: RecipesComponent },
+  { path: 'recipes/:search:checked', component: RecipesComponent },
   { path: 'cookbook/:id', component: CookbookComponent }
   //{ path: '**', component: PageNotFoundComponent }
   //,treatSens - add it to the path, to send also the sensitive
