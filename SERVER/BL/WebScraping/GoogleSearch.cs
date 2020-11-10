@@ -140,6 +140,23 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
                 organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
 
+                organizedIngredients = organizedIngredients.Replace("(\n1", "(1");
+                organizedIngredients = organizedIngredients.Replace("(\n2", "(2");
+                organizedIngredients = organizedIngredients.Replace("(\n3", "(3");
+                organizedIngredients = organizedIngredients.Replace("(\n4", "(4");
+                organizedIngredients = organizedIngredients.Replace("(\n5", "(5");
+                organizedIngredients = organizedIngredients.Replace("(\n6", "(6");
+                organizedIngredients = organizedIngredients.Replace("(\n7", "(7");
+                organizedIngredients = organizedIngredients.Replace("(\n8", "(8");
+                organizedIngredients = organizedIngredients.Replace("(\n9", "(9");
+
+                organizedIngredients = organizedIngredients.Replace("Ingredients", "");
+
+
+
+
+
+
                 //still didn't take care of &...;
                 organizedIngredients = organizedIngredients.Replace("  ", string.Empty);
                 //organizedIngredients.Replace("\n", "");
@@ -191,6 +208,7 @@ namespace BL.WebScraping
                 DTO.Recipe recipe = new DTO.Recipe();
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
+                recipe.RecipeName = title;
 
                 //inside checking if the recipe object contains allergic ingredients.
                 var checkAllergy = 0;
@@ -217,9 +235,14 @@ namespace BL.WebScraping
             {
                 for(int i = 0; i < recipe.Ingredients.Count; i++)
                 {
-                    if(recipe.Ingredients[i]==" "||recipe.Ingredients[i]=="")
+                    if(recipe.Ingredients[i]==" "||recipe.Ingredients[i]==""||recipe.Ingredients[i]=="\n")
                     {
                         //here I have to remove the element fron array
+                        for(int j = i; j < recipe.Ingredients.Count; j++)
+                        {
+                            recipe.Ingredients[j] = recipe.Ingredients[j + 1];
+                        }
+                        //the empty lines will be pushed to end of array, then in Angular don't show the emty lines that are at the end
                     }
                 }
             }
