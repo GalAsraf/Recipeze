@@ -24,9 +24,9 @@ export class CategoryService {
   //    return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
   //  }
 
-  googleSearch(categories: string, whatChecked: Allergy[]): Observable<Recipe[]> {
+  googleSearch(categories: string, whatChecked: number[]): Observable<Recipe[]> {
     let userId=localStorage.getItem('currentUser');
-    return this.http.get<Recipe[]>(environment.url + 'category/getSelectedCategories/'+userId+'/'+categories+'/'+whatChecked);
+    return this.http.post<Recipe[]>(environment.url + 'category/getSelectedCategories/'+userId+'/'+categories,whatChecked);
   }
  
   

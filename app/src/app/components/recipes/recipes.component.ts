@@ -16,21 +16,25 @@ export class RecipesComponent implements OnInit {
   constructor(private route: ActivatedRoute, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.categoryToSearchBy = this.route.snapshot.paramMap.get('select');
-    this.treatSens = this.route.snapshot.paramMap.get('check');
+    let allergies:number[];
+
 
     this.route.params.subscribe(
+      
       //, p.treatSens cause i want to send also if to treat thesensitive or not
     //  p => this.categoryService.googleSearch(p.search).subscribe(
-
-        p => this.categoryService.googleSearch(p.search, p.whatChecked).subscribe(
+        p =>
+        {allergies=JSON.parse(p.whatChecked)
+           this.categoryService.googleSearch(p.search,JSON.parse(p.whatChecked)).subscribe(
           res => {
           this.recipes = res;
           console.log(res)
         },
         err => { console.error(err) }
       )
+        }
     );
+      
 
   }
 

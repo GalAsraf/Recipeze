@@ -26,13 +26,13 @@ namespace BL.WebScraping
         public static Regex extractUrl = new Regex(@"[&?](?:q|url)=([^&]+)", RegexOptions.Compiled);
 
         #region CustomSearch function
-        public static string CustomSearch(string searchText, int userId, List<Allergy> allergiesForUser)
+        public static string CustomSearch(string searchText, int userId, List<string> allergiesForUser)
         {
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
             allergiesForUser.ForEach(a =>
             {
                 //we must check if that kind of searching works, for example: "sugar free egg free cocoa free chocolate cake recipe"
-                sb.Append(a.AllergyName.ToString() + " free ");
+                sb.Append(a.ToString() + " free ");
             });
             sb.Append(searchText + " recipe");
             return webClient.DownloadString(sb.ToString());
@@ -40,7 +40,7 @@ namespace BL.WebScraping
         #endregion
 
         #region ParseSearchResultHtml function
-        public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<Allergy> allergiesForUser)
+        public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<string> allergiesForUser)
         {
 
             List<String> searchResults = new List<string>();
@@ -78,7 +78,7 @@ namespace BL.WebScraping
         #region RecipeScraping function
         //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
         //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
-        public static List<DTO.Recipe> RecipeScraping(List<string> links, List<Allergy> allergiesForUser)
+        public static List<DTO.Recipe> RecipeScraping(List<string> links, List<string> allergiesForUser)
         {
             List<DTO.Recipe> recipes = new List<DTO.Recipe>();
 
@@ -215,7 +215,7 @@ namespace BL.WebScraping
                 List<string> listOfAllergies = new List<string>();
                 allergiesForUser.ForEach(a =>
                 {
-                    listOfAllergies.Add(a.AllergyName.ToString());
+                    listOfAllergies.Add(a.ToString());
                 });
 
                 foreach (var r in recipe.Ingredients)
@@ -230,22 +230,24 @@ namespace BL.WebScraping
                 if (checkAllergy == 0)
                     recipes.Add(recipe);
             }
-            //getting rid of empty lines in ingredients array
-            foreach(var recipe in recipes)
-            {
-                for(int i = 0; i < recipe.Ingredients.Count; i++)
-                {
-                    if(recipe.Ingredients[i]==" "||recipe.Ingredients[i]==""||recipe.Ingredients[i]=="\n")
-                    {
-                        //here I have to remove the element fron array
-                        for(int j = i; j < recipe.Ingredients.Count; j++)
-                        {
-                            recipe.Ingredients[j] = recipe.Ingredients[j + 1];
-                        }
-                        //the empty lines will be pushed to end of array, then in Angular don't show the emty lines that are at the end
-                    }
-                }
-            }
+
+            #region getting rid of empty lines in ingredients array
+            //foreach(var recipe in recipes)
+            //{
+            //    for(int i = 0; i < recipe.Ingredients.Count; i++)
+            //    {
+            //        if(recipe.Ingredients[i]==" "||recipe.Ingredients[i]==""||recipe.Ingredients[i]=="\n")
+            //        {
+            //            //here I have to remove the element fron array
+            //            for(int j = i; j < recipe.Ingredients.Count; j++)
+            //            {
+            //                recipe.Ingredients[j] = recipe.Ingredients[j + 1];
+            //            }
+            //            //the empty lines will be pushed to end of array, then in Angular don't show the emty lines that are at the end
+            //        }
+            //    }
+            //}
+            #endregion
 
             return recipes;
         }

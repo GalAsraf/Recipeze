@@ -30,17 +30,11 @@ namespace API.Controllers
         //    return Ok(result);
         //}
 
-        [Route("GetSelectedCategories/{userId}/{selectedCategory}/{isChecked}")]
-        [HttpGet]
-        public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory, Allergy[] whatChecked)
+        [Route("GetSelectedCategories/{userId}/{selectedCategory}")]
+        [HttpPost]
+        public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory, int[] whatChecked)
         {
-            if(whatChecked.Length == 0)
-            {
-                //check if he didn't want to treat his allergies.
-                //but it all doesn't work, we should check here what is the problem.
-            }
-            List<Allergy> allergiesForUser = BL.CategoryBL.GetAllergyForUser(userId);
-
+            List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
             string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res, allergiesForUser);

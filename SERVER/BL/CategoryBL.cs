@@ -28,12 +28,19 @@ namespace BL
             }
         }
 
-    public static List<Allergy> GetAllergyForUser(int userId)
+    public static List<string> GetAllergies(int[] whatChecked)
     {
             using (RecipezeEntities db = new RecipezeEntities())
             {
-                var member = db.Users.Where(a => a.UserId==userId).ToList();
-                return member[0].Allergies.ToList();
+                List<string> allergies = new List<string>();
+                foreach (var item in whatChecked)
+                {
+                    var allergy = db.Allergies.Where(a => a.AllergyCode == item).ToList();
+                    allergies.Add(allergy[0].AllergyName);
+                }
+                return allergies;
+                //var member = db.Users.Where(a => a.UserId==userId).ToList();
+                //return member[0].Allergies.ToList();
             }
         }
 
