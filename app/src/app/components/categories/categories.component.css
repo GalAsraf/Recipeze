@@ -2,7 +2,20 @@
     text-align: center;
 background: none;
 color: white;
+font-family: cursive;
 } 
+p{
+    margin-bottom: 0px;
+}
+.custom-select {
+    position: relative;
+    font-family: cursive;
+    background-color: rgb(209, 113, 61);
+    font-size: 20px;
+  }
+  
+  
+  
 
   
   
