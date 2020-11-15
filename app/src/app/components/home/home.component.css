@@ -43,3 +43,9 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  
+@keyframes example {
+  0%   {font-size: 30px;} 
+  50%  {font-size: 33px;}
+  100% {font-size: 30px;}
+}

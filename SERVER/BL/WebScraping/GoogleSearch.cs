@@ -45,6 +45,8 @@ namespace BL.WebScraping
 
             List<String> searchResults = new List<string>();
 
+            List<string> recipeImages = new List<string>();
+
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
 
@@ -53,9 +55,13 @@ namespace BL.WebScraping
                          where null != href
                          where href.Value.Contains("/url?") || href.Value.Contains("?url=")
                          select href.Value).ToList();
+            
+            var images = doc.DocumentNode.SelectNodes(@"//div[@class='rg_di']/a")
+                .Select(a => a.GetAttributeValue("href", ""));
 
             foreach (var node in nodes)
             {
+
                 var match = extractUrl.Match(node);
                 string test = HttpUtility.UrlDecode(match.Groups[1].Value);
                 if (searchResults.Contains(test))
@@ -66,6 +72,7 @@ namespace BL.WebScraping
 
                 HtmlWeb hw = new HtmlWeb();
                 HtmlDocument resultdoc = hw.Load(test);
+                
 
             }
 
