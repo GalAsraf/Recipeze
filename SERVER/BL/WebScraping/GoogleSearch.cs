@@ -43,7 +43,7 @@ namespace BL.WebScraping
         public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<string> allergiesForUser)
         {
 
-            List<String> searchResults = new List<string>();
+            List<string> searchResults = new List<string>();
 
             List<string> recipeImages = new List<string>();
 
@@ -55,9 +55,40 @@ namespace BL.WebScraping
                          where null != href
                          where href.Value.Contains("/url?") || href.Value.Contains("?url=")
                          select href.Value).ToList();
-            
-            var images = doc.DocumentNode.SelectNodes(@"//div[@class='rg_di']/a")
-                .Select(a => a.GetAttributeValue("href", ""));
+
+            //var images = (from node in doc.DocumentNode.SelectNodes("//img")
+            //              let image = node.Attributes["src"]
+            //              //where node.Attributes["class"].Value == "rISBZc M4dUYb"
+            //              where null != image
+            //              where image.Value.Contains("data:image/gif") || image.Value.Contains("data:image/jpeg") || image.Value.Contains("https://")
+            //              select image.Value).ToList();
+
+            //this code and the code above - work correctly the same....
+            //but I can't understand what images does it take? it's not the recipe image, so what is it?
+            foreach (HtmlNode picture in doc.DocumentNode.SelectNodes("//img[@src]"))
+            {
+                recipeImages.Add(picture.Attributes["src"].Value);
+            }
+
+            #region extract images - code I tried to do
+            //List<string> image_links = new List<string>();
+            //foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//img"))
+            //{
+            //    image_links.Add(link.GetAttributeValue("src", ""));
+            //}
+
+            //var urls = doc.DocumentNode.Descendants("img")
+            //                                .Select(e => e.GetAttributeValue("src", null))
+            //                                .Where(s => !String.IsNullOrEmpty(s));
+
+
+            //var images = doc.DocumentNode.SelectNodes(@"//g-img[@class='PcHvNb BA0A6c']//img")
+            //    .Select(a => a.GetAttributeValue("src", "https//:"));
+
+            //var links = doc.DocumentNode.SelectNodes("//g-img").Where(a => a.InnerHtml.Contains("<img")).Select(b => b.Attributes["src"].Value).ToList();
+
+            #endregion
+
 
             foreach (var node in nodes)
             {

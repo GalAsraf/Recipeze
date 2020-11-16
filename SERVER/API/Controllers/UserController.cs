@@ -31,5 +31,13 @@ namespace API.Controllers
             BL.UserBL.AddUser(user);
             return Ok("run");
         }
+
+
+        [Route("getUserCookbook/{userId}")]
+        [HttpGet]
+        public IHttpActionResult getUserCookbook(int userId)
+        {
+            return Ok(BL.UserBL.getUserCookbook(userId));
+        }
     }
 }

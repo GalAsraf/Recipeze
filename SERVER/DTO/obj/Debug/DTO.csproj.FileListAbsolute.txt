@@ -15,3 +15,4 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DTO\obj\Debug\DTO.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DTO\obj\Debug\DTO.pdb
+C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DTO\obj\Debug\DTO.csprojAssemblyReference.cache

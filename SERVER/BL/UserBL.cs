@@ -24,18 +24,32 @@ namespace BL
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
-                try
-                {
+                //try
+                //{
                     var member = db.Users.Where(a => a.Email == email && a.Password == password).ToList();
                     return member[0].UserId;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return -1;
-                }
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine(e);
+                //    return -1;
+                //}
             }
             
         }
+
+        public static List<AllergyDTO> getUserCookbook(int userId)
+        {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                //todo:  we need to creat a database for personal cookbook, and here we will retrieve.
+                //what is here' is incorrect code!!
+
+                var user = db.Users.Where(a => a.UserId == userId).ToList();
+                Console.WriteLine(user[0].Allergies);
+                return CONVERTERS.AllergyConverter.ConvertAllergyListToDTO(user[0].Allergies.ToList());
+            }
+        }
+
     }
 }
