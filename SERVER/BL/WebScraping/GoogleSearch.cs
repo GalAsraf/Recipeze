@@ -65,7 +65,7 @@ namespace BL.WebScraping
 
             //this code and the code above - work correctly the same....
             //but I can't understand what images does it take? it's not the recipe image, so what is it?
-            foreach (HtmlNode picture in doc.DocumentNode.SelectNodes("//img[@src]"))
+            foreach (HtmlNode picture in doc.DocumentNode.SelectNodes("//g-img[@img]"))
             {
                 recipeImages.Add(picture.Attributes["src"].Value);
             }
