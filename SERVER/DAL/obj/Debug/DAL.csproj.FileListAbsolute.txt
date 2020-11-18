@@ -23,7 +23,6 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\EntityFramework.xml
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.dll

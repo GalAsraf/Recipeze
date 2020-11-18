@@ -9,13 +9,28 @@
     <div *ngFor="let recipe of recipes">
         <h1>{{recipe.RecipeName}}</h1>
         
+
+        <ng-template let-recipe pTemplate="listItem">
+            <div>
+                {{recipe.title}}
+            </div>
+        </ng-template>
+        <ng-template let-recipe pTemplate="gridItem">
+            <div class="p-col-12 p-md-3">
+                {{recipe.title}}
+            </div>
+        </ng-template>
+        <button onclick="" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+        height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
+
+
+
         <h3>Ingredients</h3>
         <p *ngFor="let Ingredient of recipe.Ingredients">{{Ingredient}}</p>
         <h3>Method</h3>
         <p *ngFor="let method of recipe.Method">{{method}}</p>
         <hr> <br>
+        <button></button>
     </div>
-    <button onclick="" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
-        height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
 </body>
 </html>

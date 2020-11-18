@@ -15,7 +15,7 @@ namespace DTO
         public string RecipeName { get; set; }
 
         //more things we should add to our site
-        //public string Picture { get; set; }
+        public string PictureSource { get; set; }
         //public List<string> MoreDetails { get; set; }
 
 
