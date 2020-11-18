@@ -100,6 +100,7 @@
     <Compile Include="Controllers\Allergy1Controller.cs" />
     <Compile Include="Controllers\AllergyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

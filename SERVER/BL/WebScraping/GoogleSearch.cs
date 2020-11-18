@@ -40,7 +40,7 @@ namespace BL.WebScraping
         #endregion
 
         #region ParseSearchResultHtml function
-        public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<string> allergiesForUser)
+        public static List<DTO.RecipeDTO> ParseSearchResultHtml(string html, List<string> allergiesForUser)
         {
 
             List<string> searchResults = new List<string>();
@@ -73,7 +73,7 @@ namespace BL.WebScraping
                 HtmlDocument resultdoc = hw.Load(test);
             }
 
-            List<DTO.Recipe> recipesList = new List<DTO.Recipe>();
+            List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
             recipesList = RecipeScraping(searchResults, allergiesForUser);
             return recipesList;
         }
@@ -82,9 +82,9 @@ namespace BL.WebScraping
         #region RecipeScraping function
         //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
         //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
-        public static List<DTO.Recipe> RecipeScraping(List<string> links, List<string> allergiesForUser)
+        public static List<DTO.RecipeDTO> RecipeScraping(List<string> links, List<string> allergiesForUser)
         {
-            List<DTO.Recipe> recipes = new List<DTO.Recipe>();
+            List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
 
             for (var i = 0; i < links.Count ; i++)
             {
@@ -245,7 +245,7 @@ namespace BL.WebScraping
                 //}
                 #endregion
 
-                DTO.Recipe recipe = new DTO.Recipe();
+                DTO.RecipeDTO recipe = new DTO.RecipeDTO();
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;

@@ -29,6 +29,16 @@
           <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MasterCategoryId" Type="int" />
         </EntityType>
+        <EntityType Name="CookbookRecipes">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="recipeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="recipeImage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Ingredients" Type="varchar(max)" Nullable="false" />
+          <Property Name="Instructions" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="KeyWordForRecipePart">
           <Key>
             <PropertyRef Name="KeyWordId" />
@@ -78,6 +88,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CookbookR__userI__6FE99F9F">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CookbookRecipes" Type="Self.CookbookRecipes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CookbookRecipes">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KeyWordFo__PartI__5441852A">
           <End Role="RecipeContentPart" Type="Self.RecipeContentPart" Multiplicity="1" />
           <End Role="KeyWordForRecipePart" Type="Self.KeyWordForRecipePart" Multiplicity="*" />
@@ -94,6 +116,7 @@
           <EntitySet Name="AllergieForUsers" EntityType="Self.AllergieForUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CookbookRecipes" EntityType="Self.CookbookRecipes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -104,6 +127,10 @@
           <AssociationSet Name="FK__AllergieF__UserI__5CD6CB2B" Association="Self.FK__AllergieF__UserI__5CD6CB2B">
             <End Role="Users" EntitySet="Users" />
             <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CookbookR__userI__6FE99F9F" Association="Self.FK__CookbookR__userI__6FE99F9F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CookbookRecipes" EntitySet="CookbookRecipes" />
           </AssociationSet>
           <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="Self.FK__KeyWordFo__PartI__5441852A">
             <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />
@@ -127,6 +154,11 @@
           <AssociationSet Name="AllergieForUsers" Association="RecipezeModel.AllergieForUsers">
             <End Role="Allergy" EntitySet="Allergies" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="CookbookRecipes" EntityType="RecipezeModel.CookbookRecipe" />
+          <AssociationSet Name="FK__CookbookR__userI__6FE99F9F" Association="RecipezeModel.FK__CookbookR__userI__6FE99F9F">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Allergy">
@@ -185,10 +217,34 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Allergies" Relationship="RecipezeModel.AllergieForUsers" FromRole="User" ToRole="Allergy" />
+          <NavigationProperty Name="CookbookRecipe" Relationship="RecipezeModel.FK__CookbookR__userI__6FE99F9F" FromRole="User" ToRole="CookbookRecipe" />
         </EntityType>
         <Association Name="AllergieForUsers">
           <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="*" />
           <End Type="RecipezeModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CookbookRecipe">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="recipeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="recipeImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ingredients" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Instructions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="RecipezeModel.FK__CookbookR__userI__6FE99F9F" FromRole="CookbookRecipe" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__CookbookR__userI__6FE99F9F">
+          <End Type="RecipezeModel.User" Role="User" Multiplicity="1" />
+          <End Type="RecipezeModel.CookbookRecipe" Role="CookbookRecipe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CookbookRecipe">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -250,6 +306,17 @@
               <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="CookbookRecipes">
+            <EntityTypeMapping TypeName="RecipezeModel.CookbookRecipe">
+              <MappingFragment StoreEntitySet="CookbookRecipes">
+                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+                <ScalarProperty Name="Ingredients" ColumnName="Ingredients" />
+                <ScalarProperty Name="recipeImage" ColumnName="recipeImage" />
+                <ScalarProperty Name="recipeName" ColumnName="recipeName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,6 +12,8 @@
         <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A" />
         <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="RecipezeModel.AllergieForUsers" />
+        <EntityTypeShape EntityType="RecipezeModel.CookbookRecipe" Width="1.5" PointX="5.25" PointY="3.875" />
+        <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__6FE99F9F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
