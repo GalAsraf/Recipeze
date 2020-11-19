@@ -60,6 +60,12 @@
     <Compile Include="CookbookRecipe.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ingredient.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Instruction.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="KeyWordForRecipePart.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

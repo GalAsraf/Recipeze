@@ -12,9 +12,13 @@
         <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A" />
         <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="RecipezeModel.AllergieForUsers" />
-        <EntityTypeShape EntityType="RecipezeModel.CookbookRecipe" Width="1.5" PointX="5.25" PointY="3.875" />
-        <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__6FE99F9F" />
-      </Diagram>
+        <EntityTypeShape EntityType="RecipezeModel.Instruction" Width="1.5" PointX="7.5" PointY="6.625" />
+        <EntityTypeShape EntityType="RecipezeModel.CookbookRecipe" Width="1.5" PointX="5.25" PointY="9.75" />
+        <EntityTypeShape EntityType="RecipezeModel.Ingredient" Width="1.5" PointX="7.5" PointY="10" />
+        <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__04E4BC85" />
+        <AssociationConnector Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE" />
+        <AssociationConnector Association="RecipezeModel.FK__Instructi__recip__08B54D69" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -26,13 +26,30 @@
   </EntityType>
   <EntityType Name="CookbookRecipes">
     <Key>
-      <PropertyRef Name="userId" />
+      <PropertyRef Name="recipeId" />
     </Key>
+    <Property Name="recipeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userId" Type="int" Nullable="false" />
-    <Property Name="recipeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="recipeImage" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Ingredients" Type="varchar(max)" Nullable="false" />
-    <Property Name="Instructions" Type="varchar(max)" Nullable="false" />
+    <Property Name="recipeName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="recipeImage" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Ingredients">
+    <Key>
+      <PropertyRef Name="IngredientId" />
+    </Key>
+    <Property Name="IngredientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IngredientText" Type="nvarchar(max)" />
+    <Property Name="Index" Type="int" />
+    <Property Name="recipeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Instructions">
+    <Key>
+      <PropertyRef Name="InstructionId" />
+    </Key>
+    <Property Name="InstructionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstructionText" Type="nvarchar(max)" />
+    <Property Name="Index" Type="int" />
+    <Property Name="recipeId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="KeyWordForRecipePart">
     <Key>
@@ -83,15 +100,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CookbookR__userI__6FE99F9F">
+  <Association Name="FK__CookbookR__userI__04E4BC85">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="CookbookRecipes" Type="Self.CookbookRecipes" Multiplicity="0..1" />
+    <End Role="CookbookRecipes" Type="Self.CookbookRecipes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
         <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="CookbookRecipes">
         <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ingredien__recip__05D8E0BE">
+    <End Role="CookbookRecipes" Type="Self.CookbookRecipes" Multiplicity="1" />
+    <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CookbookRecipes">
+        <PropertyRef Name="recipeId" />
+      </Principal>
+      <Dependent Role="Ingredients">
+        <PropertyRef Name="recipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instructi__recip__08B54D69">
+    <End Role="CookbookRecipes" Type="Self.CookbookRecipes" Multiplicity="1" />
+    <End Role="Instructions" Type="Self.Instructions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CookbookRecipes">
+        <PropertyRef Name="recipeId" />
+      </Principal>
+      <Dependent Role="Instructions">
+        <PropertyRef Name="recipeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -112,6 +153,8 @@
     <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CookbookRecipes" EntityType="Self.CookbookRecipes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -123,9 +166,17 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK__CookbookR__userI__6FE99F9F" Association="Self.FK__CookbookR__userI__6FE99F9F">
+    <AssociationSet Name="FK__CookbookR__userI__04E4BC85" Association="Self.FK__CookbookR__userI__04E4BC85">
       <End Role="Users" EntitySet="Users" />
       <End Role="CookbookRecipes" EntitySet="CookbookRecipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ingredien__recip__05D8E0BE" Association="Self.FK__Ingredien__recip__05D8E0BE">
+      <End Role="CookbookRecipes" EntitySet="CookbookRecipes" />
+      <End Role="Ingredients" EntitySet="Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instructi__recip__08B54D69" Association="Self.FK__Instructi__recip__08B54D69">
+      <End Role="CookbookRecipes" EntitySet="CookbookRecipes" />
+      <End Role="Instructions" EntitySet="Instructions" />
     </AssociationSet>
     <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="Self.FK__KeyWordFo__PartI__5441852A">
       <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />

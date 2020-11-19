@@ -14,12 +14,22 @@ namespace DAL
     
     public partial class CookbookRecipe
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CookbookRecipe()
+        {
+            this.Ingredients = new HashSet<Ingredient>();
+            this.Instructions = new HashSet<Instruction>();
+        }
+    
+        public int recipeId { get; set; }
         public int userId { get; set; }
         public string recipeName { get; set; }
         public string recipeImage { get; set; }
-        public string Ingredients { get; set; }
-        public string Instructions { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Instruction> Instructions { get; set; }
     }
 }

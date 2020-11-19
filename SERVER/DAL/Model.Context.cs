@@ -30,6 +30,8 @@ namespace DAL
         public virtual DbSet<KeyWordForRecipePart> KeyWordForRecipeParts { get; set; }
         public virtual DbSet<RecipeContentPart> RecipeContentParts { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Instruction> Instructions { get; set; }
         public virtual DbSet<CookbookRecipe> CookbookRecipes { get; set; }
+        public virtual DbSet<Ingredient> Ingredients { get; set; }
     }
 }

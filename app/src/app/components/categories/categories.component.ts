@@ -28,7 +28,7 @@ export class CategoriesComponent implements OnInit {
   constructor(private categoryService: CategoryService,
     private allergiesService: AllergyService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private router: Router
   ) { }
 
 

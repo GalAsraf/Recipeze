@@ -10,16 +10,15 @@ namespace BL.CONVERTERS
 {
     public class RecipeConverter
     {
-        public static CookbookRecipe ConvertRecipeToDAL(RecipeDTO recipe, User userId)
+        public static CookbookRecipe ConvertRecipeToDAL(RecipeDTO recipe, int userId)
         {
             return new CookbookRecipe
             {
-               // userId = userId,
-               recipeName = recipe.RecipeName,
-               recipeImage = recipe.PictureSource
-               //it's not working because it's not the same type - string and list... we need to change it in database
-               //Ingredients = recipe.Ingredients,
-               //Instructions = recipe.Method
+                userId = userId,
+                recipeName = recipe.RecipeName,
+                recipeImage = recipe.PictureSource,
+                Ingredients = recipe.Ingredients.Select((val, index) => new Ingredient { IngredientText = val, Index = index }).ToList(),
+                Instructions = recipe.Method.Select((val, index) => new Instruction { InstructionText = val, Index = index }).ToList(),
             };
         }
 
@@ -27,13 +26,10 @@ namespace BL.CONVERTERS
         {
             return new RecipeDTO
             {
-                // userId = userId,
                 RecipeName = recipe.recipeName,
                 PictureSource = recipe.recipeImage,
-                //the same, it's not working because it's not the same type - string and list... we need to change it in database
-                //Ingredients = recipe.Ingredients,
-                //Method = recipe.Instructions
-
+                Ingredients = recipe.Ingredients.OrderBy(i=>i.Index).Select(r=>r.IngredientText).ToList(),
+                Method = recipe.Instructions.OrderBy(i => i.Index).Select(r => r.InstructionText).ToList()
             };
         }
 

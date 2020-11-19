@@ -22,7 +22,7 @@ namespace API.Controllers
             return Ok("added successfully!");
         }
 
-        [Route("addRecipeToCookbook/{userId}")]
+        [Route("deleteRecipeFromCookbook/{userId}")]
         [HttpPost]
         public IHttpActionResult deleteRecipeFromCookbook(int userId, RecipeDTO recipe)
         {

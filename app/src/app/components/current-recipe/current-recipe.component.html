@@ -1,3 +1,8 @@
-<button onclick="addRecipeToCookbook(recipe, i)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+<button (click)="addRecipeToCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
         height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
-
+    <h1>{{recipe.RecipeName}}</h1>
+    <img src={{recipe.PictureSource}}/>
+    <h3>Ingredients</h3>
+    <p *ngFor="let Ingredient of recipe.Ingredients">{{Ingredient}}</p>
+    <h3>Method</h3>
+    <p *ngFor="let method of recipe.Method">{{method}}</p>

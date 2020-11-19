@@ -14,13 +14,13 @@ export class CookbookComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.userService.cookbook().subscribe(
-      res => {
-        this.cookbookList = res;
-        console.log(res)
-      },
-      err => { console.error(err) }
-    );
+    // this.userService.cookbook().subscribe(
+    //   res => {
+    //     this.cookbookList = res;
+    //     console.log(res)
+    //   },
+    //   err => { console.error(err) }
+    // );
   }
   
 
