@@ -208,11 +208,11 @@ namespace BL.WebScraping
 
                 #region image
                 ////Declare the URL
-                //var url = "https://www.dhgate.com/product/brass-hexagonal-fidget-spinner-hexa-spinner/403294406.html#gw-0-4|ff8080815e03d6df015e9394cc681f8a:ff80808159abe8a5015a3fd78c5b51bb";
-                //// HtmlWeb - A Utility class to get HTML document from http
-                //var web = new HtmlWeb();
-                ////Load() Method download the specified HTML document from an Internet resource.
-                //var doc = web.Load(url);
+                var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
+                 //HtmlWeb - A Utility class to get HTML document from http
+                var web = new HtmlWeb();
+                //Load() Method download the specified HTML document from an Internet resource.
+               var doc3 = web.Load(url);
 
                 //var rootNode = doc.DocumentNode;
 
@@ -243,6 +243,21 @@ namespace BL.WebScraping
                 //            //doc.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
                 //    }
                 //}
+
+                HtmlNodeCollection imgs = doc3.DocumentNode.SelectNodes("//img/@src");
+                if (imgs == null)
+                {
+                    Console.WriteLine("no images found");
+
+                }
+                foreach (HtmlNode img in imgs)
+                {
+                    if (img.Attributes["src"] == null)
+                        continue;
+                    string src = img.Attributes["src"].Value;
+                    //var src = img.Name;
+                    Console.WriteLine(src);
+                }
                 #endregion
 
                 DTO.RecipeDTO recipe = new DTO.RecipeDTO();
