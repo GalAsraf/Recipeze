@@ -18,15 +18,15 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult addRecipeToCookbook(int userId, RecipeDTO recipe)
         {
-            BL.RecipeBL.addRecipeToCookbook(userId, recipe);
+            BL.RecipeBL.AddRecipeToCookbook(userId, recipe);
             return Ok("added successfully!");
         }
 
-        [Route("deleteRecipeFromCookbook/{userId}")]
-        [HttpPost]
-        public IHttpActionResult deleteRecipeFromCookbook(int userId, RecipeDTO recipe)
+        [Route("deleteRecipeFromCookbook/{userId}/{recipeName}")]
+        [HttpGet]
+        public IHttpActionResult deleteRecipeFromCookbook(int userId, string recipeName)
         {
-            BL.RecipeBL.deleteRecipeFromCookbook(userId, recipe);
+            BL.RecipeBL.DeleteRecipeFromCookbook(userId, recipeName);
             return Ok("deleted successfully!");
         }
 
@@ -37,6 +37,14 @@ namespace API.Controllers
             return Ok(BL.RecipeBL.getUserCookbook(userId));
         }
 
+        
+
+        [Route("checkIfRecipeExist/{userId}/{recipeName}")]
+        [HttpGet]
+        public IHttpActionResult checkIfRecipeExist(int userId, string recipeName)
+        {
+            return Ok(BL.RecipeBL.checkIfRecipeExist(userId, recipeName));
+        }
 
     }
 }

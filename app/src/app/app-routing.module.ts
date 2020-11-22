@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'allergies', component: DefineAllergyComponent },
   { path: 'recipes/:search/:whatChecked', component: RecipesComponent },
   { path: 'current-recipe/:recipe', component: CurrentRecipeComponent },
-  { path: 'cookbook/:id', component: CookbookComponent }
+  { path: 'cookbook', component: CookbookComponent }
   //{ path: '**', component: PageNotFoundComponent }
   //,treatSens - add it to the path, to send also the sensitive
 ];

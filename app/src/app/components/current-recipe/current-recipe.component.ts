@@ -9,16 +9,13 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
   styleUrls: ['./current-recipe.component.css']
 })
 export class CurrentRecipeComponent implements OnInit {
-
-  recipe: Recipe=new Recipe();
+  inOrOut: boolean;
+  recipe: Recipe = new Recipe();
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {
-
     let r: Recipe;
-
-
     this.route.params.subscribe(
       p => {
         r = JSON.parse(p.recipe);
@@ -26,19 +23,24 @@ export class CurrentRecipeComponent implements OnInit {
       }
     );
 
-
+    this.recipeService.checkIfRecipeExist(this.recipe.RecipeName).subscribe(
+      res => {
+      this.inOrOut = res
+      console.log(res)
+      });
   }
-
-
 
   addRecipeToCookbook(recipe: Recipe) {
     //todo:
     // we have to make it that after he press "add", he would have a button "delete", that he wouldn't add it twice
+   
+  
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
       res => console.log(res));
   }
 
-  deleteRecipeFromCookbook(recipe:Recipe){
-
+  deleteRecipeFromCookbook(recipe: Recipe) {
+    this.recipeService.deleteRecipeFromCookbook(recipe.RecipeName).subscribe(
+      res => console.log(res));
   }
 }

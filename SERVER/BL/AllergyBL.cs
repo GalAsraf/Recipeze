@@ -35,7 +35,6 @@ namespace BL
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 User user = db.Users.FirstOrDefault(u => u.UserId == userId);
-                //clear not working!
                 user.Allergies.Clear();
                 allergies.ForEach(
                     a =>

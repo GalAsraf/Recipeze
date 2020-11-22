@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/shared/services/user.service';
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Component({
   selector: 'app-cookbook',
@@ -8,21 +9,24 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./cookbook.component.css']
 })
 export class CookbookComponent implements OnInit {
-  cookbookList: string[] = []
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  cookbookList: Recipe[] = []
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {
-
-
-    // this.userService.cookbook().subscribe(
-    //   res => {
-    //     this.cookbookList = res;
-    //     console.log(res)
-    //   },
-    //   err => { console.error(err) }
-    // );
+    this.recipeService.getUserCookbook().subscribe(
+      res => {
+        this.cookbookList = res;
+        console.log(res)
+      },
+      err => { console.error(err) }
+    );
   }
-  
+
+
+  removeRecipeFromCookbook(recipe:Recipe){
+    this.recipeService.deleteRecipeFromCookbook(recipe.RecipeName).subscribe(
+      res => console.log(res));
+  }
 
 
 }
