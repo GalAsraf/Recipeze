@@ -26,8 +26,10 @@ namespace BL
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 var recipe = user[0].CookbookRecipes.Where(r => r.recipeName == recipeName).ToList();
-                user[0].CookbookRecipes.Remove(recipe[0]);
-                //CONVERTERS.RecipeConverter.ConvertRecipeToDTO(recipe[0])
+                recipe.Clear();
+                //user[0].CookbookRecipes.Remove(recipe[0]);
+                //CONVERTERS.RecipeConverter.ConvertRecipeToDTO
+
             }
         }
 
@@ -47,6 +49,7 @@ namespace BL
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 var b = user[0].CookbookRecipes.Where(r => r.recipeName == recipeName).ToList();
+                //not works in each searching!!
                 if (b[0] != null)
                     return true;
                 else
