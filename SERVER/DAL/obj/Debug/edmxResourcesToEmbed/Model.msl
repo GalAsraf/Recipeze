@@ -55,5 +55,35 @@
         <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Instructions">
+      <EntityTypeMapping TypeName="RecipezeModel.Instruction">
+        <MappingFragment StoreEntitySet="Instructions">
+          <ScalarProperty Name="recipeId" ColumnName="recipeId" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="InstructionText" ColumnName="InstructionText" />
+          <ScalarProperty Name="InstructionId" ColumnName="InstructionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CookbookRecipes">
+      <EntityTypeMapping TypeName="RecipezeModel.CookbookRecipe">
+        <MappingFragment StoreEntitySet="CookbookRecipes">
+          <ScalarProperty Name="recipeImage" ColumnName="recipeImage" />
+          <ScalarProperty Name="recipeName" ColumnName="recipeName" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="recipeId" ColumnName="recipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ingredients">
+      <EntityTypeMapping TypeName="RecipezeModel.Ingredient">
+        <MappingFragment StoreEntitySet="Ingredients">
+          <ScalarProperty Name="recipeId" ColumnName="recipeId" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
+          <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

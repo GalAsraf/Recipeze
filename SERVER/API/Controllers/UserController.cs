@@ -33,11 +33,6 @@ namespace API.Controllers
         }
 
 
-        [Route("getUserCookbook/{userId}")]
-        [HttpGet]
-        public IHttpActionResult getUserCookbook(int userId)
-        {
-            return Ok(BL.UserBL.getUserCookbook(userId));
-        }
+        
     }
 }

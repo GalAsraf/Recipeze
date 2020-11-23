@@ -17,6 +17,10 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { CookbookComponent } from './components/cookbook/cookbook.component';
+import { CurrentRecipeComponent } from './components/current-recipe/current-recipe.component';
+
+//import {DataViewModule} from 'primeng/dataview';
+
 
 //import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 //import {MenuItem} from 'primeng/api';                  //api
@@ -31,6 +35,7 @@ import { CookbookComponent } from './components/cookbook/cookbook.component';
     HomeComponent,
     RecipesComponent,
     CookbookComponent,
+    CurrentRecipeComponent,
   ],
   imports: [
     BrowserModule,

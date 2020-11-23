@@ -18,6 +18,7 @@ namespace DAL
         public User()
         {
             this.Allergies = new HashSet<Allergy>();
+            this.CookbookRecipes = new HashSet<CookbookRecipe>();
         }
     
         public int UserId { get; set; }
@@ -27,5 +28,7 @@ namespace DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allergy> Allergies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CookbookRecipe> CookbookRecipes { get; set; }
     }
 }

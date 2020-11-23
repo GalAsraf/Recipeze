@@ -1,1 +1,15 @@
-<p>cookbook works!</p>
+<div>
+    <!--
+        we want the presentation of the cookbook to be ordered by categories.
+    -->
+    <div *ngFor="let recipe of cookbookList">
+        <h1>{{recipe.RecipeName}}</h1>
+        <h1>{{recipe.PictureSource}}</h1>
+        <h3>Ingredients</h3>
+        <li *ngFor="let i of recipe.Ingredients">{{i}}</li>
+        <h3>Instructions</h3>
+        <li *ngFor="let i of recipe.Method">{{i}}</li>
+        <button (click)="removeRecipeFromCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+        height:40px;border-radius: 4px;text-align: center;">remove recipe</button>
+    </div>
+</div>

@@ -40,7 +40,7 @@ namespace BL.WebScraping
         #endregion
 
         #region ParseSearchResultHtml function
-        public static List<DTO.Recipe> ParseSearchResultHtml(string html, List<string> allergiesForUser)
+        public static List<DTO.RecipeDTO> ParseSearchResultHtml(string searchLine, string html, List<string> allergiesForUser)
         {
 
             List<string> searchResults = new List<string>();
@@ -56,38 +56,6 @@ namespace BL.WebScraping
                          where href.Value.Contains("/url?") || href.Value.Contains("?url=")
                          select href.Value).ToList();
 
-            //var images = (from node in doc.DocumentNode.SelectNodes("//img")
-            //              let image = node.Attributes["src"]
-            //              //where node.Attributes["class"].Value == "rISBZc M4dUYb"
-            //              where null != image
-            //              where image.Value.Contains("data:image/gif") || image.Value.Contains("data:image/jpeg") || image.Value.Contains("https://")
-            //              select image.Value).ToList();
-
-            //this code and the code above - work correctly the same....
-            //but I can't understand what images does it take? it's not the recipe image, so what is it?
-            foreach (HtmlNode picture in doc.DocumentNode.SelectNodes("//img[@src]"))
-            {
-                recipeImages.Add(picture.Attributes["src"].Value);
-            }
-
-            #region extract images - code I tried to do
-            //List<string> image_links = new List<string>();
-            //foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//img"))
-            //{
-            //    image_links.Add(link.GetAttributeValue("src", ""));
-            //}
-
-            //var urls = doc.DocumentNode.Descendants("img")
-            //                                .Select(e => e.GetAttributeValue("src", null))
-            //                                .Where(s => !String.IsNullOrEmpty(s));
-
-
-            //var images = doc.DocumentNode.SelectNodes(@"//g-img[@class='PcHvNb BA0A6c']//img")
-            //    .Select(a => a.GetAttributeValue("src", "https//:"));
-
-            //var links = doc.DocumentNode.SelectNodes("//g-img").Where(a => a.InnerHtml.Contains("<img")).Select(b => b.Attributes["src"].Value).ToList();
-
-            #endregion
 
 
             foreach (var node in nodes)
@@ -103,12 +71,10 @@ namespace BL.WebScraping
 
                 HtmlWeb hw = new HtmlWeb();
                 HtmlDocument resultdoc = hw.Load(test);
-                
-
             }
 
-            List<DTO.Recipe> recipesList = new List<DTO.Recipe>();
-            recipesList = RecipeScraping(searchResults, allergiesForUser);
+            List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
+            recipesList = RecipeScraping(searchLine, searchResults, allergiesForUser);
             return recipesList;
         }
         #endregion
@@ -116,9 +82,9 @@ namespace BL.WebScraping
         #region RecipeScraping function
         //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
         //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
-        public static List<DTO.Recipe> RecipeScraping(List<string> links, List<string> allergiesForUser)
+        public static List<DTO.RecipeDTO> RecipeScraping(string searchLine, List<string> links, List<string> allergiesForUser)
         {
-            List<DTO.Recipe> recipes = new List<DTO.Recipe>();
+            List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
 
             for (var i = 0; i < links.Count ; i++)
             {
@@ -129,10 +95,20 @@ namespace BL.WebScraping
                     links[i].Contains("leitesculinaria") )
                     continue;
                 var htmlurl = links[i];//the link to scrape
+                //https://www.tasteofhome.com/recipes/asian-vegetable-beef-soup
                 HtmlWeb web1 = new HtmlWeb();
                 var htmlDoc1 = web1.Load(htmlurl);
                 var titleElement = htmlDoc1.DocumentNode.SelectSingleNode("//head/title");
-                var title = titleElement.InnerText;
+                string title = null;
+                if (titleElement!=null)
+                {
+                    title = titleElement.InnerText;
+                }
+                else
+                {
+                    title = searchLine;
+                }
+
                 //have to add title to recipes, after adding prop to object
                 var ingredientElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Ingredients']");
                 if (ingredientElement == null)
@@ -141,10 +117,13 @@ namespace BL.WebScraping
                 }
                 Console.WriteLine("Node Name: " + ingredientElement.Name + "\n" + ingredientElement.OuterHtml + "\n" + ingredientElement.InnerText);
 
+
+
                 //this code doesn't work on allrecipes, foodnetwork, bbcgoodfoods.
                 var ingredientParentElement = ingredientElement.ParentNode;
                 bool flag = true;
                 //in reality this doesn't work accurately!
+
 
                 while (flag)
                 {
@@ -189,10 +168,6 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("(\n9", "(9");
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
-
-
-
-
 
 
                 //still didn't take care of &...;
@@ -243,10 +218,115 @@ namespace BL.WebScraping
                 string directions = parentDirectionsElement.InnerText;
                 directions = directions.Replace(".", ".\n");
                 directions = directions.Replace("&nbsp;", " ");
-                DTO.Recipe recipe = new DTO.Recipe();
+
+                flag = true;
+                List<string> src = new List<string>();
+                string jpgSource = null;
+                var flag1 = true;
+                while (flag)
+                {
+                    if (!ingredientParentElement.InnerHtml.Contains("img")||!flag1)
+                    {
+                        flag = true;
+                        flag1 = true;
+                        ingredientParentElement = ingredientParentElement.ParentNode;
+                    }
+                    else
+                    {
+                        //flag = false;
+                        //Console.WriteLine("img found!!!!!!!!!!!!!!!");
+                        //HtmlNode[] nodeItem;
+                        var nodeItem = ingredientParentElement.Descendants("img").ToList();
+
+                        foreach(var item in nodeItem)
+                        {
+                            
+                            if (item.Attributes["src"] == null)
+                                src.Add(item.Attributes["data-src"].Value);
+                            else
+                                src.Add(item.Attributes["src"].Value);
+                                                   
+                            Console.WriteLine(src);
+                        }
+                        foreach (var item in src)
+                        {
+                            if(item.Contains("jpg"))
+                            {
+                                jpgSource = item;
+                                break;
+                            }
+                        }
+                        if (jpgSource == null)
+                        {
+                            flag = true;
+                            flag1 = false;
+                        }
+                        else
+                        {
+                            flag = false;
+                            flag1 = true;
+                        }
+                    }
+                }
+                #region image
+                ////Declare the URL
+               // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
+               //  //HtmlWeb - A Utility class to get HTML document from http
+               // var web = new HtmlWeb();
+               // //Load() Method download the specified HTML document from an Internet resource.
+               //var doc3 = web.Load(url);
+
+                //var rootNode = doc.DocumentNode;
+
+                //var nodes = doc.DocumentNode.SelectNodes("//img");
+                //foreach (var src in nodes)
+                //{
+                //    var imgSrc = src.Attributes["src"].Value;
+                //    Console.WriteLine(imgSrc);
+                //}
+                //Console.ReadLine();
+
+
+                //flag = true;
+                //string recipeImage = null;
+                //while (flag)
+                //{
+                //    if (ingredientParentElement.Descendants().Where(n => n.Element("img").Attributes["src"].Value == "").First().InnerText != null)
+                //    //.InnerHtml.Contains("img"))
+
+                //    {
+                //        flag = true;
+                //        parentDirectionsElement = parentDirectionsElement.ParentNode;
+                //    }
+                //    else
+                //    {
+                //        flag = false;
+                //        recipeImage = ingredientParentElement.Attributes["src"].Value;
+                //            //doc.DocumentNode.SelectSingleNode("//img").Attributes["src"].Value;
+                //    }
+                //}
+
+                //HtmlNodeCollection imgs = doc3.DocumentNode.SelectNodes("//img/@src");
+                //if (imgs == null)
+                //{
+                //    Console.WriteLine("no images found");
+
+                //}
+                //foreach (HtmlNode img in imgs)
+                //{
+                //    if (img.Attributes["src"] == null)
+                //        continue;
+                //    string src = img.Attributes["src"].Value;
+                //    //var src = img.Name;
+                //    Console.WriteLine(src);
+                //}
+                #endregion
+
+                DTO.RecipeDTO recipe = new DTO.RecipeDTO();
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;
+                recipe.PictureSource = jpgSource;
 
                 //inside checking if the recipe object contains allergic ingredients.
                 var checkAllergy = 0;

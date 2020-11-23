@@ -38,18 +38,6 @@ namespace BL
             
         }
 
-        public static List<AllergyDTO> getUserCookbook(int userId)
-        {
-            using (RecipezeEntities db = new RecipezeEntities())
-            {
-                //todo:  we need to creat a database for personal cookbook, and here we will retrieve.
-                //what is here' is incorrect code!!
-
-                var user = db.Users.Where(a => a.UserId == userId).ToList();
-                Console.WriteLine(user[0].Allergies);
-                return CONVERTERS.AllergyConverter.ConvertAllergyListToDTO(user[0].Allergies.ToList());
-            }
-        }
-
+        
     }
 }

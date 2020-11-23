@@ -27,6 +27,8 @@ export class DefineAllergyComponent implements OnInit {
       this.allergiesService.getCurrentUserAllergies().subscribe(
         res => {
           this.allergiesForUser = res;
+          this.selectedAllergies=Array.from(this.allergiesForUser,a=>a.AllergyCode)
+          console.log(Array.from(this.allergiesForUser,a=>a.AllergyCode))
         }
       );
     }

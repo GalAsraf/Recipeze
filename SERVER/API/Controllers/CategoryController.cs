@@ -37,7 +37,7 @@ namespace API.Controllers
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
             string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
-            List<DTO.Recipe> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(res, allergiesForUser);
+            List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);
 
             return Ok(result);
         } 

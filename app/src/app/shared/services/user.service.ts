@@ -20,9 +20,5 @@ export class UserService {
 
   }
 
-  cookbook():Observable<string[]>{
-    let userId=localStorage.getItem('currentUser');
-    return this.http.get<string[]>(environment.url + 'user/getUserCookbook'+ userId)
-
-  }
+  
 }
