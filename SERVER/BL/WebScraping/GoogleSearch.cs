@@ -336,13 +336,18 @@ namespace BL.WebScraping
                     listOfAllergies.Add(a.ToString());
                 });
 
+                bool contains;
                 foreach (var r in recipe.Ingredients)
                 {
-                    if (listOfAllergies.Contains(r))
+                    foreach (var allergy in listOfAllergies)
                     {
-                        checkAllergy = 1;
-                        continue;
-                    }
+                        contains = r.IndexOf(allergy, StringComparison.OrdinalIgnoreCase) >= 0;
+                        if (contains)
+                        {
+                            checkAllergy = 1;
+                            continue;
+                        }
+                    }                   
                 }
 
                 if (checkAllergy == 0)
