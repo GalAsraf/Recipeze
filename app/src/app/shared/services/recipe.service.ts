@@ -20,9 +20,9 @@ export class RecipeService {
     return this.http.post<string>(environment.url + 'recipe/addRecipeToCookbook/' + userId, recipe);
   }
 
-  deleteRecipeFromCookbook(recipeName: string): Observable<string> {
+  deleteRecipeFromCookbook(recipe: Recipe): Observable<string> {
     let userId = localStorage.getItem('currentUser');
-    return this.http.get<string>(environment.url + 'recipe/deleteRecipeFromCookbook/' + userId + '/' + recipeName);
+    return this.http.post<string>(environment.url + 'recipe/deleteRecipeFromCookbook/' + userId , recipe);
   }
 
   getUserCookbook(): Observable<Recipe[]> {
@@ -30,9 +30,9 @@ export class RecipeService {
     return this.http.get<Recipe[]>(environment.url + 'recipe/getUserCookbook/'+userId);
   }
 
-  checkIfRecipeExist(recipe:string): Observable<boolean> {
+  checkIfRecipeExist(recipe:string, recipeImage:string): Observable<boolean> {
     let userId = localStorage.getItem('currentUser');
-    return this.http.get<boolean>(environment.url + 'recipe/checkIfRecipeExist/' + userId + '/' + recipe);
+    return this.http.get<boolean>(environment.url + 'recipe/checkIfRecipeExist/' + userId + '/' + recipe+'/'+ recipeImage);
   }
 
 

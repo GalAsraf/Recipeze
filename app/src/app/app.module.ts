@@ -19,6 +19,10 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 import { CookbookComponent } from './components/cookbook/cookbook.component';
 import { CurrentRecipeComponent } from './components/current-recipe/current-recipe.component';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 import {ToastModule} from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
@@ -50,7 +54,8 @@ import {ButtonModule} from 'primeng/button';
     DynamicDialogModule,
      ToastModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        BrowserAnimationsModule
   ],
   entryComponents: [
     CurrentRecipeComponent

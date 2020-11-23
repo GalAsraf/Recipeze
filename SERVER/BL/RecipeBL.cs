@@ -19,17 +19,14 @@ namespace BL
             }
         }
 
-        public static void DeleteRecipeFromCookbook(int userId, string recipeName)
+        public static void DeleteRecipeFromCookbook(int userId, CookbookRecipe recipe)
         {
-            //Im not sure about this function, if that's the way to do it.....
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
-                var recipe = user[0].CookbookRecipes.Where(r => r.recipeName == recipeName).ToList();
-                recipe.Clear();
-                //user[0].CookbookRecipes.Remove(recipe[0]);
-                //CONVERTERS.RecipeConverter.ConvertRecipeToDTO
-
+                //Iits not deleting the recipe from cook book
+                user[0].CookbookRecipes.Remove(recipe);
+                //CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId)
             }
         }
 
@@ -42,15 +39,13 @@ namespace BL
             }
         }
 
-        public static bool checkIfRecipeExist(int userId, string recipeName)
+        public static bool checkIfRecipeExist(int userId, string recipeName, string recipeImage)
         {
-            //im not so sure about that, we need to check it....
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
-                var b = user[0].CookbookRecipes.Where(r => r.recipeName == recipeName).ToList();
-                //not works in each searching!!
-                if (b[0] != null)
+                var b = user[0].CookbookRecipes.Where(r => r.recipeImage == recipeImage || r.recipeName == recipeName).ToList();
+                if (b.Count() != 0)
                     return true;
                 else
                     return false;
