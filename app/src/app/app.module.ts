@@ -18,6 +18,10 @@ import { HomeComponent } from './components/home/home.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { CookbookComponent } from './components/cookbook/cookbook.component';
 import { CurrentRecipeComponent } from './components/current-recipe/current-recipe.component';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {ToastModule} from 'primeng/toast';
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
 
 //import {DataViewModule} from 'primeng/dataview';
 
@@ -42,8 +46,15 @@ import { CurrentRecipeComponent } from './components/current-recipe/current-reci
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    DynamicDialogModule,
+     ToastModule,
+        TableModule,
+        ButtonModule
   ],
+  entryComponents: [
+    CurrentRecipeComponent
+],
   providers: [AllergyService, CategoryService, UserService],
   bootstrap: [AppComponent]
 })

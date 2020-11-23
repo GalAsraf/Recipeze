@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
+import {DynamicDialogRef} from 'primeng/dynamicdialog';
+import {DynamicDialogConfig} from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-current-recipe',
@@ -12,17 +14,12 @@ export class CurrentRecipeComponent implements OnInit {
   inOrOut: boolean;
   recipe: Recipe = new Recipe();
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService,public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
   ngOnInit(): void {
     let r: Recipe;
-    this.route.params.subscribe(
-      p => {
-        r = JSON.parse(p.recipe);
-        this.recipe = r;
-      }
-    );
-
+    this.recipe=this.config.data.currentRecipe;
+console.log(this.recipe)
     this.recipeService.checkIfRecipeExist(this.recipe.RecipeName).subscribe(
       res => {
       this.inOrOut = res
