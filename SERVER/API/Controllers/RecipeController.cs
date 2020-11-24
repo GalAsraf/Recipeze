@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace API.Controllers
             return Ok("added successfully!");
         }
 
-        [Route("deleteRecipeFromCookbook/{userId}/{recipeName}")]
-        [HttpGet]
-        public IHttpActionResult deleteRecipeFromCookbook(int userId, string recipeName)
+        [Route("deleteRecipeFromCookbook/{userId}")]
+        [HttpPost]
+        public IHttpActionResult deleteRecipeFromCookbook(int userId, CookbookRecipe recipe)
         {
-            BL.RecipeBL.DeleteRecipeFromCookbook(userId, recipeName);
+            BL.RecipeBL.DeleteRecipeFromCookbook(userId, recipe);
             return Ok("deleted successfully!");
         }
 
@@ -39,11 +40,11 @@ namespace API.Controllers
 
         
 
-        [Route("checkIfRecipeExist/{userId}/{recipeName}")]
+        [Route("checkIfRecipeExist/{userId}/{recipeName}/{recipeImage}")]
         [HttpGet]
-        public IHttpActionResult checkIfRecipeExist(int userId, string recipeName)
+        public IHttpActionResult checkIfRecipeExist(int userId, string recipeName, string recipeImage)
         {
-            return Ok(BL.RecipeBL.checkIfRecipeExist(userId, recipeName));
+            return Ok(BL.RecipeBL.checkIfRecipeExist(userId, recipeName, recipeImage));
         }
 
     }

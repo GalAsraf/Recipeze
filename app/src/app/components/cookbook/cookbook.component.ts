@@ -24,7 +24,7 @@ export class CookbookComponent implements OnInit {
 
 
   removeRecipeFromCookbook(recipe:Recipe){
-    this.recipeService.deleteRecipeFromCookbook(recipe.RecipeName).subscribe(
+    this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
       res => console.log(res));
   }
 
