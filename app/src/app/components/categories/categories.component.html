@@ -10,9 +10,33 @@
 <body style="background: rgba(71, 71, 71, 0.5)">
     <br>
 
+    <form [formGroup]="CategoriesForm" (submit)="googleSearchByText()">
+        <div class="p-inputgroup" class="p-input-filled">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search" style="font-size: 2rem;"></i>
+            </span>
+            <input type="text" pInputText placeholder="Search" class="p-inputtext-lg" placeholder="Large"
+                formControlName="search" id="search">
+
+        </div>
+        <p-button type="submit" label="Search" icon="pi pi-search" iconPos="right" class="p-button-text p-button-text">
+        </p-button>
+
+
+        <h1>treat my sensitivity</h1>
+        <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
+        <div *ngIf="checked">
+            <ul *ngFor="let sens of allergies;let i=index ">
+                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
+                    <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
+                        (change)="toggleAllergy(allergies[i].AllergyCode)">
+                </label>
+            </ul>
+        </div>
+    </form>
+
     <form (submit)="googleSearch()">
 
-        
         <!--
             we have to fix it, that it won't open to many selects, just 3.
         -->
@@ -49,7 +73,7 @@
         <br><br><br>
 
 
-        
+
 
     </form>
 

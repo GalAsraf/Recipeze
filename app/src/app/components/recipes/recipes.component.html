@@ -8,19 +8,49 @@
 </head>
 
 <body style="background: rgba(71, 71, 71, 0.5)">
-    
+
     <p-dataView [value]="recipes">
+
+        <ng-template let-recipe pTemplate="listItem">
+            <!-- *ngFor='let recipe of recipes'-->
+            <div class="p-col-12 p-md-3">
+                <label>{{recipe.RecipeName}}</label>
+                <img src={{recipe.PictureSource}}>
+                <button (click)="showRecipe(recipe)">Show recipe</button>
+            </div>
+        </ng-template>
+
+    </p-dataView>
+
+    <!-- [loading]="loading" -->
+    <p-dataView [value]="recipes" [paginator]="true" [rows]="10" >
+        <p-header>
+            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            Asraf
+        </p-header>
+        <p-footer>
+            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            Gal
+        </p-footer>
         <ng-template let-recipe pTemplate="listItem">
             <div>
                 {{recipe.RecipeName}}
             </div>
         </ng-template>
-
-
         <ng-template let-recipe pTemplate="gridItem">
             <div class="p-col-12 p-md-3">
-                {{recipe.RecipeName}}
+                <img src={{recipe.pictureSource}}>
             </div>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft" let-state>
+            {{state.first}}
+            <button type="button" pButton icon="pi-refresh"></button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <button type="button" pButton icon="pi-cloud-upload"></button>
+        </ng-template>
+        <ng-template let-item pTemplate="paginatordropdownitem">
+            {{item.value}} - per page
         </ng-template>
     </p-dataView>
 

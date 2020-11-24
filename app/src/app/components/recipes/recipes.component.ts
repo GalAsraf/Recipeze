@@ -10,14 +10,14 @@ import { CurrentRecipeComponent } from '../current-recipe/current-recipe.compone
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers: [DialogService]
+  providers: [DialogService] 
 
 })
 export class RecipesComponent implements OnInit {
   categoryToSearchBy: string;
   treatSens: string;
 
-  recipes: Recipe[] = [];
+  recipes: Recipe[];
   constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router,public dialogService: DialogService) { }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class RecipesComponent implements OnInit {
             console.log(res)
           },
           err => { console.error(err) }
-        )
+        )  
       }
     );
 
@@ -51,4 +51,6 @@ export class RecipesComponent implements OnInit {
       width: '70%'
   });
   }
+
+  
 }

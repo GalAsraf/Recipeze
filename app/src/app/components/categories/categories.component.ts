@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { Allergy } from 'src/app/shared/models/allergy.model';
 import { Category } from 'src/app/shared/models/category.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
@@ -23,6 +23,8 @@ export class CategoriesComponent implements OnInit {
   categoriesToSelect: Category[][] = [];
   allergies: Allergy[] = []
   selectedAllergies: number[] = []
+  searchText: string;
+  CategoriesForm:any;
 
 
   constructor(private categoryService: CategoryService,
@@ -36,6 +38,10 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.CategoriesForm = this.formBuilder.group({
+      'search': ['', Validators.required]
+    });
+
     this.categoryService.getAllCategories().subscribe(
       res => {
         this.categories = res;
@@ -59,6 +65,11 @@ export class CategoriesComponent implements OnInit {
     //, this.checked
     //this.router.navigate(['recipes', this.selected]);
     this.router.navigate(['recipes',  this.selected, JSON.stringify(this.selectedAllergies) ]);
+  }
+  googleSearchByText(){
+    this.searchText = this.CategoriesForm.value.search;
+    this.router.navigate(['recipes', this.searchText , JSON.stringify(this.selectedAllergies)]);
+
   }
 
   selectSubCategories(id: number) {
