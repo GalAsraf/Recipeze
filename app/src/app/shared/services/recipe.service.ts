@@ -30,9 +30,9 @@ export class RecipeService {
     return this.http.get<Recipe[]>(environment.url + 'recipe/getUserCookbook/'+userId);
   }
 
-  checkIfRecipeExist(recipe:string, recipeImage:string): Observable<boolean> {
+  checkIfRecipeExist(recipe:Recipe): Observable<boolean> {
     let userId = localStorage.getItem('currentUser');
-    return this.http.get<boolean>(environment.url + 'recipe/checkIfRecipeExist/' + userId + '/' + recipe+'/'+ recipeImage);
+    return this.http.post<boolean>(environment.url + 'recipe/checkIfRecipeExist/' + userId , recipe);
   }
 
 

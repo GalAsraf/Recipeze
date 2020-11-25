@@ -40,11 +40,11 @@ namespace API.Controllers
 
         
 
-        [Route("checkIfRecipeExist/{userId}/{recipeName}/{recipeImage}")]
-        [HttpGet]
-        public IHttpActionResult checkIfRecipeExist(int userId, string recipeName, string recipeImage)
+        [Route("checkIfRecipeExist/{userId}")]
+        [HttpPost]
+        public IHttpActionResult checkIfRecipeExist(int userId, RecipeDTO recipe)
         {
-            return Ok(BL.RecipeBL.checkIfRecipeExist(userId, recipeName, recipeImage));
+            return Ok(BL.RecipeBL.checkIfRecipeExist(userId, recipe));
         }
 
     }

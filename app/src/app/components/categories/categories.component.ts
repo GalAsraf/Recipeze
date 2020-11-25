@@ -66,11 +66,11 @@ export class CategoriesComponent implements OnInit {
     //this.router.navigate(['recipes', this.selected]);
     this.router.navigate(['recipes',  this.selected, JSON.stringify(this.selectedAllergies) ]);
   }
-  googleSearchByText(){
-    this.searchText = this.CategoriesForm.value.search;
-    this.router.navigate(['recipes', this.searchText , JSON.stringify(this.selectedAllergies)]);
+  // googleSearchByText(){
+  //   this.searchText = this.CategoriesForm.value.search;
+  //   this.router.navigate(['recipes', this.searchText , JSON.stringify(this.selectedAllergies)]);
 
-  }
+  // }
 
   selectSubCategories(id: number) {
     let sub = this.categories.filter(c => c.MasterCategoryId == id);
