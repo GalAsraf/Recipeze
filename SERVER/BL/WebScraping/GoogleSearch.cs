@@ -166,6 +166,12 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("(\n7", "(7");
                 organizedIngredients = organizedIngredients.Replace("(\n8", "(8");
                 organizedIngredients = organizedIngredients.Replace("(\n9", "(9");
+                organizedIngredients = organizedIngredients.Replace("(\n1x", " ");
+
+                organizedIngredients = organizedIngredients.Replace("(\n2x", " ");
+
+                organizedIngredients = organizedIngredients.Replace("(\n3x", " ");
+
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 

@@ -13,15 +13,18 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class CurrentRecipeComponent implements OnInit {
   inOrOut: boolean;
   recipe: Recipe = new Recipe();
+  recipeToSend:Recipe;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
   ngOnInit(): void {
     let r: Recipe;
     this.recipe = this.config.data.currentRecipe;
+    // this.recipeToSend.RecipeName=this.config.data.currentRecipe.RecipeName;
+    // this.recipeToSend.PictureSource = this.recipe.PictureSource;
 
     console.log(this.recipe)
-    this.recipeService.checkIfRecipeExist(this.recipe.RecipeName, this.recipe.PictureSource).subscribe(
+    this.recipeService.checkIfRecipeExist(this.recipe).subscribe(
       res => {
         this.inOrOut = res
         console.log(res)

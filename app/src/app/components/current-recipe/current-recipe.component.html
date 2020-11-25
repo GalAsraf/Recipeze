@@ -2,8 +2,7 @@
    
     <button *ngIf="inOrOut==false" (click)="addRecipeToCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
         height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
-    <button *ngIf="inOrOut==true" (click)="deleteRecipeFromCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
-        height:40px;border-radius: 4px;text-align: center;">remove recipe from cookbook</button>
+    <label *ngIf="inOrOut==true" >recipe exist in your cookbook</label>
     <h1>{{recipe.RecipeName}}</h1>
     <img src={{recipe.PictureSource}} />
     <h3>Ingredients</h3>

@@ -45,6 +45,9 @@ export class RecipesComponent implements OnInit {
 
   showRecipe(recipe: Recipe) {
     //this.router.navigate(['current-recipe',JSON.stringify(recipe)]);
+
+    
+
     const ref = this.dialogService.open(CurrentRecipeComponent, {
       data: {currentRecipe:recipe},
       header: recipe.RecipeName,

@@ -38,10 +38,10 @@ namespace API.Controllers
             string searchLine;
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
 
-            if (!selectedCategory.Contains(@"[a-zA-Z]"))
+            //if (selectedCategory.Contains(@"[a-zA-Z]"))
                 searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-            else
-                searchLine = selectedCategory;
+           // else
+           //     searchLine = selectedCategory;
 
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);
