@@ -341,7 +341,7 @@ body{
  .user-nav li {
   float: right;
   width: 120px;
-  height: 100px;
+  height: 80px;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -349,21 +349,21 @@ body{
   overflow: hidden;
   border-color: rgb(145, 207, 207);
   border: white; 
-  color:rgb(136, 52, 6);
+  color:rgb(243, 201, 229);
 }
 .user-nav li :hover{
   float: right;
   width: 120px;
   height: 100px;
   font-size: 14px;
-  color: rgb(136, 52, 6);
+  color:#ff3399;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
   overflow: hidden;
   border-color: rgb(145, 207, 207);
   border: white; 
-  background-color: rgb(247, 187, 155);
+  background-color: rgb(200, 234, 253);
 }
 
 nav li, .widget, .widget li {
@@ -393,14 +393,14 @@ ul {
 }
 
 .light{
-background-color: rgb(235, 142, 92);
+background-color: #ff3399;
 }
 
 .medium{
-background-color: rgb(226, 124, 69);
+background-color: #ff3399;
 }
 .dark{
-background-color: rgb(226, 112, 50);
+background-color: #ff3399;
 }
 
 

@@ -1,5 +1,5 @@
 <div>
-   
+   <div id="grad1"></div>
     <button *ngIf="inOrOut==false" (click)="addRecipeToCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
         height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
     <button *ngIf="inOrOut==true" (click)="deleteRecipeFromCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
@@ -11,3 +11,9 @@
     <h3>Method</h3>
     <li *ngFor="let method of recipe.Method">{{method}}</li>
 </div>
+<style>
+    #grad1 {
+      height: 18px;
+      background-image: linear-gradient(to top, rgba(0, 102, 255, 0), rgb(0, 110, 255));
+    }
+    </style>
