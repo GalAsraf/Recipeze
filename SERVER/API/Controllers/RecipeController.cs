@@ -25,7 +25,7 @@ namespace API.Controllers
 
         [Route("deleteRecipeFromCookbook/{userId}")]
         [HttpPost]
-        public IHttpActionResult deleteRecipeFromCookbook(int userId, CookbookRecipe recipe)
+        public IHttpActionResult deleteRecipeFromCookbook(int userId, RecipeDTO recipe)
         {
             BL.RecipeBL.DeleteRecipeFromCookbook(userId, recipe);
             return Ok("deleted successfully!");

@@ -34,12 +34,19 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory, int[] whatChecked)
         {
+            //you should check if that kind of code is OK, cause on one search, it gave strang results for chocolate cake recipe....
+            string searchLine;
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
-            string searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+
+            if (!selectedCategory.Contains(@"[a-zA-Z]"))
+                searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+            else
+                searchLine = selectedCategory;
+
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);
 
             return Ok(result);
-        } 
+        }
     }
 }
