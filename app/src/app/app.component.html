@@ -1,78 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style></style>
-  <title>home</title>
-
-</head>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<body> 
-
-
-  <br>
-  <nav class="user-nav" role="navigation" style=" position: fixed;;
-  width: 100%;
-  display:inline-block;">
-    <ul>
-      <li class="light">
-        <a routerLink="login" routerLinkActive="activeLink">
-          <i class="fa fa-user" style="font-size: xx-large; margin-top: 14px;"></i> <br>
-          <span>login</span>
-        </a>
-      </li>
-      <li class="medium">
-        <a routerLink="allergies" routerLinkActive="activeLink">
-          <i class="" style="margin-top: 20px;"></i> <br>
-          <span>Define allergies</span>
-        </a>
-      </li>
-      <li class="dark">
-        <a routerLink="category" routerLinkActive="activeLink">
-          <i class="fa fa-search" style="font-size: xx-large; margin-top: 10px;"></i> <br>
-          <span>Search a recipe</span>
-        </a>
-      </li>
-      <li class="very-dark">
-        <a routerLink="home" routerLinkActive="activeLink"> <br>
-          <i class="fa fa-home" style="font-size: xx-large; margin-top: 10px;"></i> <br>
-          <span></span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-  <br>
-  <ul class="nav nav-pills" style="text-align: center;">
-     <li class="nav-link"><a routerLink="register" routerLinkActive="activeLink">register</a></li>
-    <li *ngIf="!userLogedIn()" class="nav-link"><a routerLink="login" routerLinkActive="activeLink">login</a></li>
-    <li *ngIf="userLogedIn()" class="nav-link"><a (click)="logOut()" routerLinkActive="activeLink">logOut</a></li>
-    <li class="nav-link"><a routerLink="category" routerLinkActive="activeLink">categories</a></li>
-    <li class="nav-link"><a routerLink="allergies" routerLinkActive="activeLink">define allergies</a></li>
-  
-    <li class="nav-link"><a routerLink="cookbook" routerLinkActive="activeLink">my cookbook</a></li>
-    
-
-  </ul>
-
-  
-
-</body>
-
-</html>
-
-<router-outlet></router-outlet>
-
-
- -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,18 +7,18 @@
   <style></style>
   <title>home</title>
 
-
 </head>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body> 
 
+
   <!-- <app-add-user></app-add-user> -->
   <!-- <app-categories></app-categories> -->
   <!--  <nav class="nav"> -->
 
-  <!-- <br>
+  <br>
   <nav class="user-nav" role="navigation" style=" position: fixed;;
   width: 100%;
   display:inline-block;">
@@ -132,119 +57,27 @@
     <li *ngIf="userLogedIn()" class="nav-link"><a (click)="logOut()" routerLinkActive="activeLink">logOut</a></li>
     <li class="nav-link"><a routerLink="category" routerLinkActive="activeLink">categories</a></li>
     <li class="nav-link"><a routerLink="allergies" routerLinkActive="activeLink">define allergies</a></li>
-   
+    <!-- 
+      I think that for a cookbook, we should have one more database that we would pop and push recipes for each user.
+    -->
     <li class="nav-link"><a routerLink="cookbook" routerLinkActive="activeLink">my cookbook</a></li>
     
 
   </ul>
+  <!--  </nav> -->
 
-     -->
-
-     <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            <span class="icon-menu"></span>
-            <span class="icon-menu"></span>
-            <span class="icon-menu"></span>
-          </button>
-          <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
-        </div>
-
-
-           
-
-        <div class="collapse navbar-collapse" id="main-navbar">
-          <ul class="navbar-nav mr-auto w-100 justify-content-end">
-            <li class="nav-item active">
-              <a class="nav-link"  routerLink="home" routerLinkActive="activeLink">
-                Home
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="register" routerLinkActive="activeLink">
-                Join Us
-              </a>
-            </li>
-            <li *ngIf="!userLogedIn()" class="nav-item">
-              <a class="nav-link" routerLink="login" routerLinkActive="activeLink">
-                Login
-              </a>
-            </li>
-            <li *ngIf="userLogedIn()" class="nav-item">
-              <a class="nav-link" (click)="logOut()" routerLinkActive="activeLink">
-                Log-out
-              </a>
-            </li>
-            
-
-            <li class="nav-item">
-              <a class="nav-link" a routerLink="category" routerLinkActive="activeLink">
-                Categories
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" a routerLink="allergies" routerLinkActive="activeLink">
-                My Sensitivities
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#sponsors">
-                Sponsors
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#pricing">
-                pricing
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#google-map-area">
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Mobile Menu Start -->
-      <ul class="mobile-menu">
-        <li>
-          <a class="page-scrool" href="#header-wrap">Home</a>
-        </li>
-        <li>
-          <a class="page-scrool" href="#about">About</a>
-        </li>
-        <li>
-           <a class="page-scroll" href="#schedules">schedules</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#team">Speakers</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#gallery">Gallery</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#faq">Faq</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#sponsors">Sponsors</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#pricing">pricing</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#google-map-area">Contact</a>
-        </li>
-      </ul>
-      <!-- Mobile Menu End -->
-
-    </nav>
-    <!-- Navbar End -->
-
-
+  <script>
+    // When the user scrolls down 50px from the top of the document, resize the header's font size
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("header").style.fontSize = "30px";
+      } else {
+        document.getElementById("header").style.fontSize = "90px";
+      }
+    }
+    </script>
 
 </body>
 
