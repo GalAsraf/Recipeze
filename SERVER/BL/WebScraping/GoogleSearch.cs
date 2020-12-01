@@ -166,12 +166,10 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("(\n7", "(7");
                 organizedIngredients = organizedIngredients.Replace("(\n8", "(8");
                 organizedIngredients = organizedIngredients.Replace("(\n9", "(9");
-                organizedIngredients = organizedIngredients.Replace("(\n1x", " ");
 
-                organizedIngredients = organizedIngredients.Replace("(\n2x", " ");
-
-                organizedIngredients = organizedIngredients.Replace("(\n3x", " ");
-
+                organizedIngredients = organizedIngredients.Replace("\n1x", " ");
+                organizedIngredients = organizedIngredients.Replace("\n2x", " ");
+                organizedIngredients = organizedIngredients.Replace("\n3x", " ");
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
@@ -376,6 +374,27 @@ namespace BL.WebScraping
             //        }
             //    }
             //}
+
+            //we also have to get rid of icon numbers like &#78965;
+            //what I'm trying to do here is that once there is "&#" -> emty out everything until it get's to ";"
+            //int i;
+            //foreach (var rec in recipes)//foreach recipe 
+            //{
+            //    foreach(var ing in rec.Ingredients)
+            //    {
+            //        for(i=0;i<ing.Length;i++)
+            //        {
+
+            //            if ((ing[i + 1] = "&" )&& ing[i+1]="#")
+            //            {
+            //            }
+            //    }
+            //    foreach(var meth in rec.Method)
+            //    {
+
+            //    }
+            //}
+
             #endregion
 
             return recipes;
