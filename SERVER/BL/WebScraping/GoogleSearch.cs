@@ -18,6 +18,7 @@ using System.Web.UI;
 using Nancy.Helpers;
 using DAL;
 using System.Threading;
+using System.Drawing;
 
 namespace BL.WebScraping
 {
@@ -137,12 +138,46 @@ namespace BL.WebScraping
                         flag = false;
                 }
 
+
+
                 string ingredients = ingredientParentElement.InnerText;
-                Console.WriteLine(ingredients);
-                string organizedIngredients = ingredients.Replace("1", "\n1");
+                List<string> icons = new List<string>();
+                List<char> fixedList = new List<char>();            
+                
+                char[] IngredientsArray = ingredients.ToCharArray();
+                for (int x = 0; x < IngredientsArray.Length; x++)
+                {
+                    if (IngredientsArray[x] == '&' && (IngredientsArray[x + 1] == '#'))
+                    {
+                        while (IngredientsArray[x] != ';')
+                        {
+                            fixedList.Add(IngredientsArray[x]);
+                            x++;
+                        }
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+
+
+                        var myString = new string(fixedList.ToArray());
+                        fixedList.Clear();
+                        icons.Add(myString);
+                     }
+                }
+
+                string organizedIngredients;
+               // Console.WriteLine(ingredients);
+                
+                organizedIngredients = ingredients.Replace("1", "\n1");
+
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
                 organizedIngredients = organizedIngredients.Replace("4", "\n4");
+                organizedIngredients = organizedIngredients.Replace("5", "\n5");
+                organizedIngredients = organizedIngredients.Replace("6", "\n6");
+                organizedIngredients = organizedIngredients.Replace("7", "\n7");
+                organizedIngredients = organizedIngredients.Replace("8", "\n8");
+                organizedIngredients = organizedIngredients.Replace("9", "\n9");
                 organizedIngredients = organizedIngredients.Replace("1 1/3", "\n1 1/3");
                 organizedIngredients = organizedIngredients.Replace("/\n2", "/2");
                 organizedIngredients = organizedIngredients.Replace("/\n3", "/2");
@@ -171,6 +206,37 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("\n1x", " ");
                 organizedIngredients = organizedIngredients.Replace("\n2x", " ");
                 organizedIngredients = organizedIngredients.Replace("\n3x", " ");
+                organizedIngredients = organizedIngredients.Replace("\n&#\n \n \n \n ;", " ");
+
+               // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
+                foreach (var ic in icons)
+                {
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "&#" + ic[2]  + ic[3]  + ic[4] + ";");
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "\n");
+
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]+ "\n"+ic[3]+ "\n" +ic[4]+ "\n"+ic[5] +";" , "\n");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "\n");
+
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] +  ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  + ic[4] + "\n" + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  +"\n" +ic[4]  + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n"+ ic[4]  + ic[5] + "\n" + ic[6] + ";", " ");
+
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5]  + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
+
+
+
+                }
+
+
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
@@ -378,59 +444,63 @@ namespace BL.WebScraping
 
             //we also have to get rid of icon numbers like &#78965;
             //what I'm trying to do here is that once there is "&#" -> emty out everything until it get's to ";"
-            int i, j, count;
-         
-            char[] IngredientsArray,MethodArray;
-            foreach (var rec in recipes)//foreach recipe 
-            {
-                for (int b = 0; b < rec.Ingredients.Count; b++)
-                {
-                    //string sentence = "Mahesh Chand"; =ing
-                    IngredientsArray = rec.Ingredients[b].ToCharArray();
-                    for (i = 0; i < IngredientsArray.Length - 1; i++)
-                    {
-                        if (IngredientsArray[i] == '&' && (IngredientsArray[i + 1] == '#'))
-                        {
-                            count = 0;
-                            
-                            while (IngredientsArray[i] != ';')
-                            {
-                                count++;
-                            }
-                            count++;
-                            var aStringBuilder = new StringBuilder(rec.Ingredients[b]);
-                            aStringBuilder.Remove(i, count);
-                            rec.Ingredients[b] = aStringBuilder.ToString();
+            //int j, count;
 
-                        }
-                    }
-                }
+            //char[] IngredientsArray,MethodArray;
+            //foreach (var rec in recipes)//foreach recipe 
+            //{
+            //    for (int b = 0; b < rec.Ingredients.Count; b++)
+            //    {
+            //        //string sentence = "Mahesh Chand"; =ing
+            //        IngredientsArray = rec.Ingredients[b].ToCharArray();
+            //        for (j = 0; j < IngredientsArray.Length - 1; j++)
+            //        {
+            //            if (IngredientsArray[j] == '&' && (IngredientsArray[j + 1] == '#'))
+            //            {
+            //                count = 0;
 
-                for (int b = 0; b < rec.Method.Count; b++)
-                {
-                    //string sentence = "Mahesh Chand"; =ing
-                    MethodArray = rec.Method[b].ToCharArray();
-                    for (i = 0; i < MethodArray.Length - 1; i++)
-                    {
-                        if (MethodArray[i] == '&' && (MethodArray[i + 1] == '#'))
-                        {
-                            count = 0;
+            //                while (IngredientsArray[j] != ';')
+            //                {
+            //                    j++;
+            //                    count++;
+            //                }
+            //                count++;
+            //                var aStringBuilder = new StringBuilder(rec.Ingredients[b]);
+            //                aStringBuilder.Remove(j, count);
+            //                rec.Ingredients[b] = aStringBuilder.ToString();
 
-                            while (MethodArray[i] != ';')
-                            {
-                                count++;
-                            }
-                            count++;
-                            var aStringBuilder = new StringBuilder(rec.Method[b]);
-                            aStringBuilder.Remove(i, count);
-                            rec.Method[b] = aStringBuilder.ToString();
+            //            }
+            //        }
+            //    }
 
-                        }
-                    }
-                }
-            }
+            //for (int b = 0; b < rec.Method.Count; b++)
+            //{
+            //    //string sentence = "Mahesh Chand"; =ing
+            //    MethodArray = rec.Method[b].ToCharArray();
+            //    for (j = 0; j < MethodArray.Length - 1; j++)
+            //    {
+            //        if (MethodArray[j] == '&' && (MethodArray[j + 1] == '#'))
+            //        {
+            //            count = 0;
 
-        }
+            //            while (MethodArray[j] != ';')
+            //            {
+            //                j++;
+            //                count++;
+            //            }
+            //            count++;
+            //            var aStringBuilder = new StringBuilder(rec.Method[b]);
+            //            aStringBuilder.Remove(j, count);
+            //            rec.Method[b] = aStringBuilder.ToString();
+
+            //        }
+            //    }
+    //    }
+    //}
+        
+           
+
+        
 
             #endregion
 
