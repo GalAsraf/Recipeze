@@ -17,6 +17,7 @@ using HtmlAgilityPack;
 using System.Web.UI;
 using Nancy.Helpers;
 using DAL;
+using System.Threading;
 
 namespace BL.WebScraping
 {
@@ -86,13 +87,13 @@ namespace BL.WebScraping
         {
             List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
 
-            for (var i = 0; i < links.Count ; i++)
+            for (var i = 0; i < links.Count; i++)
             {
                 if (links[i].Contains("bbcgoodfood") ||
                     links[i].Contains("allrecipes") ||
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
-                    links[i].Contains("leitesculinaria") )
+                    links[i].Contains("leitesculinaria"))
                     continue;
                 var htmlurl = links[i];//the link to scrape
                 //https://www.tasteofhome.com/recipes/asian-vegetable-beef-soup
@@ -100,7 +101,7 @@ namespace BL.WebScraping
                 var htmlDoc1 = web1.Load(htmlurl);
                 var titleElement = htmlDoc1.DocumentNode.SelectSingleNode("//head/title");
                 string title = null;
-                if (titleElement!=null)
+                if (titleElement != null)
                 {
                     title = titleElement.InnerText;
                 }
@@ -229,7 +230,7 @@ namespace BL.WebScraping
                 var flag1 = true;
                 while (flag)
                 {
-                    if (!ingredientParentElement.InnerHtml.Contains("img")||!flag1)
+                    if (!ingredientParentElement.InnerHtml.Contains("img") || !flag1)
                     {
                         flag = true;
                         flag1 = true;
@@ -242,19 +243,19 @@ namespace BL.WebScraping
                         //HtmlNode[] nodeItem;
                         var nodeItem = ingredientParentElement.Descendants("img").ToList();
 
-                        foreach(var item in nodeItem)
+                        foreach (var item in nodeItem)
                         {
-                            
+
                             if (item.Attributes["src"] == null)
                                 src.Add(item.Attributes["data-src"].Value);
                             else
                                 src.Add(item.Attributes["src"].Value);
-                                                   
+
                             Console.WriteLine(src);
                         }
                         foreach (var item in src)
                         {
-                            if(item.Contains("jpg"))
+                            if (item.Contains("jpg"))
                             {
                                 jpgSource = item;
                                 break;
@@ -274,11 +275,11 @@ namespace BL.WebScraping
                 }
                 #region image
                 ////Declare the URL
-               // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
-               //  //HtmlWeb - A Utility class to get HTML document from http
-               // var web = new HtmlWeb();
-               // //Load() Method download the specified HTML document from an Internet resource.
-               //var doc3 = web.Load(url);
+                // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
+                //  //HtmlWeb - A Utility class to get HTML document from http
+                // var web = new HtmlWeb();
+                // //Load() Method download the specified HTML document from an Internet resource.
+                //var doc3 = web.Load(url);
 
                 //var rootNode = doc.DocumentNode;
 
@@ -351,7 +352,7 @@ namespace BL.WebScraping
                             checkAllergy = 1;
                             continue;
                         }
-                    }                   
+                    }
                 }
 
                 if (checkAllergy == 0)
@@ -377,23 +378,59 @@ namespace BL.WebScraping
 
             //we also have to get rid of icon numbers like &#78965;
             //what I'm trying to do here is that once there is "&#" -> emty out everything until it get's to ";"
-            //int i;
-            //foreach (var rec in recipes)//foreach recipe 
-            //{
-            //    foreach(var ing in rec.Ingredients)
-            //    {
-            //        for(i=0;i<ing.Length;i++)
-            //        {
+            int i, j, count;
+         
+            char[] IngredientsArray,MethodArray;
+            foreach (var rec in recipes)//foreach recipe 
+            {
+                for (int b = 0; b < rec.Ingredients.Count; b++)
+                {
+                    //string sentence = "Mahesh Chand"; =ing
+                    IngredientsArray = rec.Ingredients[b].ToCharArray();
+                    for (i = 0; i < IngredientsArray.Length - 1; i++)
+                    {
+                        if (IngredientsArray[i] == '&' && (IngredientsArray[i + 1] == '#'))
+                        {
+                            count = 0;
+                            
+                            while (IngredientsArray[i] != ';')
+                            {
+                                count++;
+                            }
+                            count++;
+                            var aStringBuilder = new StringBuilder(rec.Ingredients[b]);
+                            aStringBuilder.Remove(i, count);
+                            rec.Ingredients[b] = aStringBuilder.ToString();
 
-            //            if ((ing[i + 1] = "&" )&& ing[i+1]="#")
-            //            {
-            //            }
-            //    }
-            //    foreach(var meth in rec.Method)
-            //    {
+                        }
+                    }
+                }
 
-            //    }
-            //}
+                for (int b = 0; b < rec.Method.Count; b++)
+                {
+                    //string sentence = "Mahesh Chand"; =ing
+                    MethodArray = rec.Method[b].ToCharArray();
+                    for (i = 0; i < MethodArray.Length - 1; i++)
+                    {
+                        if (MethodArray[i] == '&' && (MethodArray[i + 1] == '#'))
+                        {
+                            count = 0;
+
+                            while (MethodArray[i] != ';')
+                            {
+                                count++;
+                            }
+                            count++;
+                            var aStringBuilder = new StringBuilder(rec.Method[b]);
+                            aStringBuilder.Remove(i, count);
+                            rec.Method[b] = aStringBuilder.ToString();
+
+                        }
+                    }
+                }
+            }
+
+        }
 
             #endregion
 
