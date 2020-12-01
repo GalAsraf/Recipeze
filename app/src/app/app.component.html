@@ -11,14 +11,15 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<body> 
+
+<body>
 
 
   <!-- <app-add-user></app-add-user> -->
   <!-- <app-categories></app-categories> -->
   <!--  <nav class="nav"> -->
 
-  <br>
+  <!-- <br>
   <nav class="user-nav" role="navigation" style=" position: fixed;;
   width: 100%;
   display:inline-block;">
@@ -57,28 +58,102 @@
     <li *ngIf="userLogedIn()" class="nav-link"><a (click)="logOut()" routerLinkActive="activeLink">logOut</a></li>
     <li class="nav-link"><a routerLink="category" routerLinkActive="activeLink">categories</a></li>
     <li class="nav-link"><a routerLink="allergies" routerLinkActive="activeLink">define allergies</a></li>
-    <!-- 
-      I think that for a cookbook, we should have one more database that we would pop and push recipes for each user.
-    -->
+   
     <li class="nav-link"><a routerLink="cookbook" routerLinkActive="activeLink">my cookbook</a></li>
-    
+     
 
   </ul>
-  <!--  </nav> -->
+-->
 
-  <script>
-    // When the user scrolls down 50px from the top of the document, resize the header's font size
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        document.getElementById("header").style.fontSize = "30px";
-      } else {
-        document.getElementById("header").style.fontSize = "90px";
-      }
-    }
-    </script>
+  <!-- Header Area wrapper Starts -->
+  <header id="header-wrap">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+            aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="icon-menu"></span>
+            <span class="icon-menu"></span>
+            <span class="icon-menu"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+        </div>
 
+        <div class="collapse navbar-collapse" id="main-navbar">
+          <ul class="navbar-nav mr-auto w-100 justify-content-end">
+            <li class="nav-item active">
+              <a class="nav-link" href="#header-wrap">
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="register" routerLinkActive="activeLink">
+                Join Us
+              </a>
+            </li>
+            <li *ngIf="!userLogedIn()" class="nav-item">
+              <a class="nav-link" routerLink="login" routerLinkActive="activeLink">
+                Login
+              </a>
+            </li>
+            <li *ngIf="userLogedIn()" class="nav-item">
+              <a class="nav-link" (click)="logOut()" routerLinkActive="activeLink">
+                Log-out
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="category" routerLinkActive="activeLink">
+                search a recipe
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="allergies" routerLinkActive="activeLink">
+                Define Sensitivities
+              </a>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Start -->
+      <!-- <ul class="mobile-menu">
+        <li>
+          <a class="page-scrool" href="#header-wrap">Home</a>
+        </li>
+        <li>
+          <a class="page-scrool" href="#about">About</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#schedules">schedules</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#team">Speakers</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#gallery">Gallery</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#faq">Faq</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#sponsors">Sponsors</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#pricing">pricing</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#google-map-area">Contact</a>
+        </li>
+      </ul> -->
+      <!-- Mobile Menu End -->
+
+    </nav>
+    <!-- Navbar End -->
+  </header>
 </body>
 
 </html>
