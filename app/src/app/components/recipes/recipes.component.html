@@ -20,7 +20,7 @@
             <!-- *ngFor='let recipe of recipes'-->
             <div class="p-col-12 p-md-3">
                 <label>{{recipe.RecipeName}}</label>
-                <img src={{recipe.PictureSource}}>
+                <img src={{recipe.PictureSource}} style="height: 268px;width: 275px;">
                 <button (click)="showRecipe(recipe)">Show recipe</button>
             </div>
         </ng-template>
