@@ -55,12 +55,12 @@ namespace BL
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
-                var user = db.Users.Where(a => a.UserId == userId).ToList();
-                var recp = CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId);
-                var c = db.CookbookRecipes.Where(a => a.userId == user[0].UserId).ToList();// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
-                if(c[0].recipeImage==recipe.PictureSource && c[0].recipeName == recipe.RecipeName)
-                    return true;
-                else
+                //var user = db.Users.Where(a => a.UserId == userId).ToList();
+                //var recp = CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId);
+                //var c = db.CookbookRecipes.Where(a => a.userId == user[0].UserId).ToList();// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
+                //if(c[0].recipeImage==recipe.PictureSource && c[0].recipeName == recipe.RecipeName)
+                //    return true;
+                //else
                     return false;
                              
             }
