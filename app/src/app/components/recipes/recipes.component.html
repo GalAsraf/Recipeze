@@ -61,6 +61,33 @@
 
 
 
+    <section id="about" class="section-padding">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="section-title-header text-center">
+                <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Recipes</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let recipe of recipes">
+              <div class="about-item">
+                <img class="img-fluid" src={{recipe.PictureSource}} alt="">
+                <div class="about-text">
+                  <h3><a href="#">{{recipe.RecipeName}}</a></h3>
+                  <p></p>
+                  <a class="btn btn-common btn-rm" href="#" (click)="showRecipe(recipe)">View Recipe</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- About Section End -->
+
+
 
 
     <div *ngFor="let recipe of recipes">
