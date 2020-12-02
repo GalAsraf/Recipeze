@@ -26,6 +26,7 @@ namespace BL.CONVERTERS
         {
             return new RecipeDTO
             {
+                RecipeId=recipe.recipeId,
                 RecipeName = recipe.recipeName,
                 PictureSource = recipe.recipeImage,
                 Ingredients = recipe.Ingredients.OrderBy(i=>i.Index).Select(r=>r.IngredientText).ToList(),

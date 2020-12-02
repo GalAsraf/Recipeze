@@ -23,11 +23,11 @@ namespace API.Controllers
             return Ok("added successfully!");
         }
 
-        [Route("deleteRecipeFromCookbook/{userId}")]
-        [HttpPost]
-        public IHttpActionResult deleteRecipeFromCookbook(int userId, RecipeDTO recipe)
+        [Route("deleteRecipeFromCookbook/{recipeId}")]
+        [HttpDelete]
+        public IHttpActionResult deleteRecipeFromCookbook(int recipeId)
         {
-            BL.RecipeBL.DeleteRecipeFromCookbook(userId, recipe);
+            BL.RecipeBL.DeleteRecipeFromCookbook(recipeId);
             return Ok("deleted successfully!");
         }
 

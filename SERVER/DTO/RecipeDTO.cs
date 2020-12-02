@@ -10,6 +10,7 @@ namespace DTO
     public class RecipeDTO
     {
 
+        public int RecipeId { get; set; }
         public List<string> Ingredients { get; set; }
         public List<string> Method { get; set; }
         public string RecipeName { get; set; }

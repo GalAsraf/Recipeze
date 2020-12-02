@@ -426,21 +426,12 @@ namespace BL.WebScraping
             }
 
             #region getting rid of empty lines in ingredients array
-            //foreach(var recipe in recipes)
-            //{
-            //    for(int i = 0; i < recipe.Ingredients.Count; i++)
-            //    {
-            //        if(recipe.Ingredients[i]==" "||recipe.Ingredients[i]==""||recipe.Ingredients[i]=="\n")
-            //        {
-            //            //here I have to remove the element fron array
-            //            for(int j = i; j < recipe.Ingredients.Count; j++)
-            //            {
-            //                recipe.Ingredients[j] = recipe.Ingredients[j + 1];
-            //            }
-            //            //the empty lines will be pushed to end of array, then in Angular don't show the emty lines that are at the end
-            //        }
-            //    }
-            //}
+            foreach (var recipe in recipes)
+            {
+                recipe.Ingredients = recipe.Ingredients.Except(recipe.Ingredients.Where(i => string.IsNullOrWhiteSpace(i) || i == "\n")).ToList(); 
+                recipe.Method = recipe.Method.Except(recipe.Method.Where(i => string.IsNullOrWhiteSpace(i) || i == "\n")).ToList() ;
+
+            }
 
             //we also have to get rid of icon numbers like &#78965;
             //what I'm trying to do here is that once there is "&#" -> emty out everything until it get's to ";"
@@ -495,12 +486,12 @@ namespace BL.WebScraping
 
             //        }
             //    }
-    //    }
-    //}
-        
-           
+            //    }
+            //}
 
-        
+
+
+
 
             #endregion
 

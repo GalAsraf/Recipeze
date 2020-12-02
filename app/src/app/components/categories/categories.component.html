@@ -88,6 +88,14 @@
             </ul>
         </div>
     </form> -->
+    <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            
+            <input type="text" pInputText placeholder="Search"  formControlName="search" id="search">
+    
+        </span>
+    </form>
 
     <form (submit)="googleSearch()">
 
@@ -107,12 +115,7 @@
     </div>     -->
 
 
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        
-        <input type="text" pInputText placeholder="Search">
-
-    </span>
+   
    
         <!--
             we have to fix it, that it won't open to many selects, just 3.
