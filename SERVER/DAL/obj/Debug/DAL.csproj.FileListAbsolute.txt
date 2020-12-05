@@ -27,4 +27,3 @@ C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\proje
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.pdb
-C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache

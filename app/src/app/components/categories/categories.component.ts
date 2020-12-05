@@ -24,7 +24,8 @@ export class CategoriesComponent implements OnInit {
   allergies: Allergy[] = []
   selectedAllergies: number[] = []
   searchText: string;
-  CategoriesForm:any;
+  
+  SearchForm:any;
 
 
   constructor(private categoryService: CategoryService,
@@ -38,10 +39,13 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.CategoriesForm = this.formBuilder.group({
+
+    this.SearchForm = this.formBuilder.group({
       'search': ['', Validators.required]
     });
 
+
+ 
     this.categoryService.getAllCategories().subscribe(
       res => {
         this.categories = res;
@@ -58,6 +62,11 @@ export class CategoriesComponent implements OnInit {
   //saves the selected value of the first combobox
   selectChangeHandler(event: any, index: number) {
     this.selected = event.target.value;
+    let len=this.categoriesToSelect.length
+    if(index<len-1)
+    {
+       this.categoriesToSelect.splice(index+1,len-(index+1));
+    }
     this.selectSubCategories(event.target.value)
   }
 
@@ -66,11 +75,12 @@ export class CategoriesComponent implements OnInit {
     //this.router.navigate(['recipes', this.selected]);
     this.router.navigate(['recipes',  this.selected, JSON.stringify(this.selectedAllergies) ]);
   }
-  // googleSearchByText(){
-  //   this.searchText = this.CategoriesForm.value.search;
-  //   this.router.navigate(['recipes', this.searchText , JSON.stringify(this.selectedAllergies)]);
+ 
+  googleSearchByText(){
+    this.searchText = this.SearchForm.value.search;
+    this.router.navigate(['recipes', this.searchText , JSON.stringify(this.selectedAllergies)]);
 
-  // }
+  }
 
   selectSubCategories(id: number) {
     let sub = this.categories.filter(c => c.MasterCategoryId == id);

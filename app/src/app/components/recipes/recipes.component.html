@@ -20,7 +20,7 @@
             <!-- *ngFor='let recipe of recipes'-->
             <div class="p-col-12 p-md-3">
                 <label>{{recipe.RecipeName}}</label>
-                <img src={{recipe.PictureSource}} style="height: 268px;width: 275px;">
+                <img src={{recipe.PictureSource}} style="width:268px;height: 268px;">
                 <button (click)="showRecipe(recipe)">Show recipe</button>
             </div>
         </ng-template>
@@ -74,7 +74,7 @@
           <div class="row">
             <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let recipe of recipes">
               <div class="about-item">
-                <img class="img-fluid" src={{recipe.PictureSource}} alt="">
+                <img class="img-fluid" src={{recipe.PictureSource}} alt="" style="width: 268px; height: 268px;margin-left: 5px; margin-right: 5px;">
                 <div class="about-text">
                   <h3><a href="#">{{recipe.RecipeName}}</a></h3>
                   <p></p>

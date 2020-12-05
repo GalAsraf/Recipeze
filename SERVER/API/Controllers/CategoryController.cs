@@ -1,6 +1,7 @@
 ﻿using DAL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -38,10 +39,14 @@ namespace API.Controllers
             string searchLine;
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
 
-            //if (selectedCategory.Contains(@"[a-zA-Z]"))
+            //if (selectedCategory.All(c=>Char.IsLetter(c)))
+            //it works in both ways - both if conditions.... so I don't know what to do.....
+            if (selectedCategory.Contains(@"[a-zA-Z]"))
                 searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-           // else
-           //     searchLine = selectedCategory;
+            else
+                searchLine = selectedCategory;
+
+      
 
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);

@@ -19,25 +19,19 @@ namespace BL
             }
         }
 
-        public static void DeleteRecipeFromCookbook(int userId, RecipeDTO recipe)
+        public static void DeleteRecipeFromCookbook(int recipeId)
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
                 //  var user = db.Users.Where(a => a.UserId == userId).ToList();
                 //Iits not deleting the recipe from cook book
                 // user[0].CookbookRecipes.Remove(recipe);
-                
-                foreach (var item in db.CookbookRecipes)
-                {
-                    if(item.User.UserId == userId)
-                        if(item.recipeName == recipe.RecipeName && item.recipeImage == recipe.PictureSource)
-                        {
-                            db.CookbookRecipes.Remove(item);
-                            break;
-                        }
-                }
+                var recipe = db.CookbookRecipes.FirstOrDefault(c => c.recipeId == recipeId);
+                db.Ingredients.RemoveRange(recipe.Ingredients);
+                db.Instructions.RemoveRange(recipe.Instructions);
+                db.CookbookRecipes.Remove(recipe);
                // db.CookbookRecipes.Remove(CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId));
-               // db.SaveChanges();
+                db.SaveChanges();
                 //CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId)
             }
         }
@@ -57,8 +51,8 @@ namespace BL
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 var recp = CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId);
-                var c = db.CookbookRecipes.Where(a => a.userId == user[0].UserId).ToList();// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
-                if(c[0].recipeImage==recipe.PictureSource && c[0].recipeName == recipe.RecipeName)
+                var c = db.CookbookRecipes.ToList().Where(a => a.userId == user[0].UserId).ToList();// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
+                if (c[0].recipeImage == recipe.PictureSource && c[0].recipeName == recipe.RecipeName)
                     return true;
                 else
                     return false;

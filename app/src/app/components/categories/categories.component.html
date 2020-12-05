@@ -88,6 +88,32 @@
             </ul>
         </div>
     </form> -->
+    <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            
+            <input type="text" pInputText placeholder="Search"  formControlName="search" id="search">
+    
+        </span>
+
+        <h1>treat my sensitivity</h1>
+        <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
+        <div *ngIf="checked">
+            <ul *ngFor="let sens of allergies;let i=index ">
+                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
+                    <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
+                        (change)="toggleAllergy(allergies[i].AllergyCode)">
+                </label>
+            </ul>
+        </div>
+        <br>
+
+        
+        <button type="submit">Search</button>
+    </form>
+
+
+
 
     <form (submit)="googleSearch()">
 
@@ -107,12 +133,7 @@
     </div>     -->
 
 
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        
-        <input type="text" pInputText placeholder="Search">
-
-    </span>
+   
    
         <!--
             we have to fix it, that it won't open to many selects, just 3.
