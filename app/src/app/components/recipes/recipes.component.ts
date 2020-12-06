@@ -7,18 +7,11 @@ import { CurrentRecipeComponent } from '../current-recipe/current-recipe.compone
 import { BrowserModule } from '@angular/platform-browser';
 import { GecoDialog, GecoDialogModule } from 'angular-dynamic-dialog'; // <-- import the module
 import { AppComponent } from '../../app.component';
-import {
-  GECO_DATA_DIALOG,
-
-  GECO_DIALOG_REF,
-  GecoDialogRef
-} from 'angular-dynamic-dialog'; // <-- import the components
 
 @NgModule({
   imports: [
-    BrowserModule,
-    GecoDialogModule
-  ],
+    BrowserModule
+    ],
   declarations: [CurrentRecipeComponent],
   bootstrap: [RecipesComponent],
   entryComponents: [CurrentRecipeComponent]
@@ -35,9 +28,8 @@ export class RecipesComponent implements OnInit {
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
-  constructor(@Inject(GECO_DATA_DIALOG) public data: any, @Inject(GECO_DIALOG_REF) public dialogRef: GecoDialogRef, private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, public dialogService: DialogService, private modal: GecoDialog) {
-    console.log('Data =>', this.data);
-  console.log('dialogRef =>', this.dialogRef);
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, public dialogService: DialogService, private modal: GecoDialog) {
+
    }
 
   //The first parameter is the component to be rendered in the modal's content
