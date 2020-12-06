@@ -25,6 +25,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import {InputTextModule} from 'primeng/inputtext';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 //import {DataViewModule} from 'primeng/dataview';
@@ -57,7 +58,8 @@ import {InputTextModule} from 'primeng/inputtext';
     ButtonModule,
     BrowserAnimationsModule,
     DataViewModule,
-    InputTextModule
+    InputTextModule,
+    NgbModule
   ],
   entryComponents: [
     CurrentRecipeComponent

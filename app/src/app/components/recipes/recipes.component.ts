@@ -1,31 +1,49 @@
-import { Component, OnInit, NgModule, Inject } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, NgModule, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers: [DialogService]
-
+  encapsulation: ViewEncapsulation.None,
+  providers: [DialogService],
+  styles: [`
+    .dark-modal .modal-content {
+      background-color: #292b2c;
+      color: white;
+    }
+    .dark-modal .close {
+      color: white;
+    }
+    .light-blue-backdrop {
+      background-color: #5cb3fd;
+    }
+  `]
 })
+
 export class RecipesComponent implements OnInit {
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
-  constructor( private route: ActivatedRoute, private categoryService: CategoryService, private router: Router, public dialogService: DialogService) {
-   
+  closeResult: string;
+
+  constructor( private route: ActivatedRoute, private categoryService: CategoryService,
+     private router: Router, public dialogService: DialogService,
+     private modalService: NgbModal) {
    }
 
   //The first parameter is the component to be rendered in the modal's content
   //The second parameter is the modal's configuration
 
-
-
+ 
+ 
   ngOnInit(): void {
 
 
@@ -51,6 +69,9 @@ export class RecipesComponent implements OnInit {
 
   }
 
+  // openScrollableContent(content) {
+  //   this.modalService.open(content, { scrollable: true });
+  // }
 
 
   showRecipe(recipe: Recipe) {
@@ -64,5 +85,6 @@ export class RecipesComponent implements OnInit {
     });
   }
 }
+
 
 

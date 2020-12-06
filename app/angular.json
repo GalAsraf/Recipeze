@@ -24,13 +24,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "./node_modules/primeng/resources/primeng.css",
               "./node_modules/primeflex/primeflex.css"
             ],
-            "scripts": [
-                  
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
