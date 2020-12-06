@@ -41,6 +41,8 @@ namespace API.Controllers
 
             //if (selectedCategory.All(c=>Char.IsLetter(c)))
             //it works in both ways - both if conditions.... so I don't know what to do.....
+            
+            
             if (selectedCategory.Contains(@"[a-zA-Z]"))
                 searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
             else
