@@ -15,7 +15,6 @@ C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.cspro
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csproj.CopyComplete
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.dll
 C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.pdb
-C:\Computers\final project\final project\Recipeze\SERVER\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\DAL.dll.config
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\DAL.dll
 C:\Users\אליהו אסרף\Desktop\ילדודס\גל\פרויקט גמר\project\SERVER\DAL\bin\Debug\DAL.pdb

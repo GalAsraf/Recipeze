@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-
+import { 
+  GECO_DATA_DIALOG, 
+  GecoDialog, 
+  GECO_DIALOG_REF, 
+  GecoDialogRef } from 'angular-dynamic-dialog'; // <-- import the components
+  
 @Component({
   selector: 'app-current-recipe',
   templateUrl: './current-recipe.component.html',
   styleUrls: ['./current-recipe.component.css']
 })
+
 export class CurrentRecipeComponent implements OnInit {
   inOrOut: boolean;
   recipe: Recipe = new Recipe();
   recipeToSend:Recipe;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
+  constructor(@Inject(GECO_DATA_DIALOG) public data: any, @Inject(GECO_DIALOG_REF) public dialogRef: GecoDialogRef,private route: ActivatedRoute, private recipeService: RecipeService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+    console.log('Data =>', this.data);
+  console.log('dialogRef =>', this.dialogRef);
+   }
 
   ngOnInit(): void {
     let r: Recipe;
