@@ -13,6 +13,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: any
+ // eyes: boolean;
+ // icon: string;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
@@ -42,4 +44,6 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
+
+  
 }

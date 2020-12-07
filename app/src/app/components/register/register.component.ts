@@ -36,18 +36,18 @@ export class RegisterComponent implements OnInit {
     this.user.Password = this.userForm.value.password
     this.user.Email = this.userForm.value.email
     this.userService.getUserExist(this.user).subscribe(
-      res=> {
-        if(res == -1)
-        alert("user allready exist. try again!");
-        else{
+      res => {
+        if (res == -1)
+          alert("user allready exist. try again!");
+        else {
           this.userService.addUser(this.user).subscribe(
-            res => { localStorage.setItem('currentUser',res.toString()) },
+            res => { localStorage.setItem('currentUser', res.toString()) },
             err => { console.error(err) }
           )
           this.loginUser(this.user);
         }
       }
-    ); 
+    );
   }
 
   loginUser(user) {
@@ -55,8 +55,9 @@ export class RegisterComponent implements OnInit {
     const currentUser = user;
     this.loginService.setCurrentUser(currentUser);
     console.log(currentUser);
-    
+
     this.router.navigate(['/allergies'])
 
   }
+
 }

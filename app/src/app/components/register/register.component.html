@@ -18,39 +18,54 @@
     <!--<div class="container">-->
     <!-- Main Carousel Section Start -->
     <div id="main-slide" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
+        <!-- <ol class="carousel-indicators">
             <li data-target="#main-slide" data-slide-to="0" class="active"></li>
             <li data-target="#main-slide" data-slide-to="1"></li>
             <li data-target="#main-slide" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="assets/Carousel/img1.jpg" alt="First slide" style="width: 1920px; height:400px">
-                <div class="carousel-caption d-md-block">
-                    <p class="fadeInUp wow" data-wow-delay=".6s">Global Grand Event on Digital Design</p>
-                    <h1 class="wow fadeInDown heading" data-wow-delay=".4s">Design Thinking Conference</h1>
-                    <a href="#" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">Get Ticket</a>
-                    <a href="#" class="fadeInRight wow btn btn-border btn-lg" data-wow-delay=".6s">Explore More</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img7.jpg" alt="Second slide" style="width: 1920px; height:400px">
-                <div class="carousel-caption d-md-block">
-                    <p class="fadeInUp wow" data-wow-delay=".6s">Global Grand Event on Digital Design</p>
-                    <h1 class="wow bounceIn heading" data-wow-delay=".7s">22 Amazing Speakers</h1>
-                    <a href="#" class="fadeInUp wow btn btn-border btn-lg" data-wow-delay=".8s">Learn More</a>
-                </div>
+            <li data-target="#main-slide" data-slide-to="3"></li>
+            <li data-target="#main-slide" data-slide-to="4"></li>
+            <li data-target="#main-slide" data-slide-to="5"></li>
+            <li data-target="#main-slide" data-slide-to="6"></li>
+            <li data-target="#main-slide" data-slide-to="7"></li>
+            <li data-target="#main-slide" data-slide-to="8"></li>
+            <li data-target="#main-slide" data-slide-to="9"></li>
+            <li data-target="#main-slide" data-slide-to="10"></li>
+            <li data-target="#main-slide" data-slide-to="11"></li>
 
+        </ol> -->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="assets/Carousel/img1.jpg" alt="First slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img6.jpg" alt="Third slide" style="width: 1920px; height:400px">
-                <div class="carousel-caption d-md-block">
-                    <p class="fadeInUp wow" data-wow-delay=".6s">Global Grand Event on Digital Design</p>
-                    <h1 class="wow fadeInUp heading" data-wow-delay=".6s">Book Your Seat Now!</h1>
-                    <a href="#" class="fadeInUp wow btn btn-common btn-lg" data-wow-delay=".8s">Explore</a>
-                </div>
+                <img class="d-block w-100" src="assets/Carousel/img2.jpg" alt="Second slide"
+                    style="width: 700px; height:130px">
             </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="assets/Carousel/img3.jpg" alt="Third slide"
+                    style="width: 700px; height:130px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="assets/Carousel/img4.jpg" alt="forth slide"
+                    style="width: 700px; height:130px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="assets/Carousel/img5.jpg" alt="fifth slide"
+                    style="width: 700px; height:130px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="assets/Carousel/img6.jpg" alt="sixth slide"
+                    style="width: 700px; height:130px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="assets/Carousel/img7.jpg" alt="seventh slide"
+                    style="width: 700px; height:130px">
+            </div>
+
         </div>
+
         <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
             <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-left"></i></span>
             <span class="sr-only">Previous</span>
@@ -61,6 +76,8 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
+
+
     <h2>Registration</h2>
     <form class="form-horizontal" [formGroup]="userForm" (submit)="addUser()">
         <div class="form-group">
@@ -73,14 +90,14 @@
             <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
                 <input class="form-control" formControlName="email" id="email" />
-
+    
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Password:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="password" formControlName="password" id="password" />
-
+    
             </div>
         </div>
         <div class="form-group">
@@ -100,8 +117,94 @@
             </div>
         </div>
     </form>
-    <!-- </div>-->
-    <br>
+    
+    
+    
+    
+    
+    <form class="form-horizontal" [formGroup]="userForm" (submit)="addUser()">
+        <section id="contact-map" class="section-padding">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="section-title-header text-center">
+                            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Login</h1>
+                            <p class="wow fadeInDown" data-wow-delay="0.2s">Stay in, so that you can search for recipes
+                                without your
+                                sensitivities!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12 col-xs-12">
+                        <div class="container-form wow fadeInLeft" data-wow-delay="0.2s">
+                            <div class="form-wrapper">
+                                <form role="form" method="post" id="contactForm" name="contact-form"
+                                    data-toggle="validator">
+                                    <div class="row">
+                                        <!--name-->
+                                        <div class="col-md-12 form-line">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="name" formControlName="name"
+                                                    name="name" placeholder="First Name" required
+                                                    data-error="Please enter your name">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <!--email-->
+                                        <div class="col-md-12 form-line">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="email" name="email"
+                                                    placeholder="Email" required data-error="Please enter your Email">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+    
+                                        <!-- password-->
+                                        <div class="col-md-12 form-line">
+                                            <div class="form-group">
+                                                <input id="password" type="password" class="form-control"
+                                                    name="password" placeholder="password" required
+                                                    data-error="Please enter your password">
+                                                <span toggle="#password-field"
+                                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+    
+                                        <!-- confim password-->
+                                        <div class="col-md-12 form-line">
+                                            <div class="form-group">
+                                                <input formControlName="confirmPassword" id="confirmPassword" type="password" class="form-control"
+                                                    name="password" placeholder="password" required
+                                                    data-error="Please enter your password">
+                                                <span toggle="#password-field"
+                                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+    
+                                      
+    
+                                        <div class="form-submit" style="text-align: center;">
+                                            <button type="submit" class="btn btn-common" id="form-submit">
+                                                Login</button>
+                                            <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        </div>
+                                        <div>
+                                            <br><br>
+                                            <span>Not registered?
+                                                <a [routerLink]="['/register']">Create An Account</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
 </body>
 
 </html>

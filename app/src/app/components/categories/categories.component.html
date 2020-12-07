@@ -20,7 +20,7 @@
 
     <!-- Main Carousel Section Start -->
     <div id="main-slide" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
+        <!-- <ol class="carousel-indicators">
             <li data-target="#main-slide" data-slide-to="0" class="active"></li>
             <li data-target="#main-slide" data-slide-to="1"></li>
             <li data-target="#main-slide" data-slide-to="2"></li>
@@ -34,51 +34,48 @@
             <li data-target="#main-slide" data-slide-to="10"></li>
             <li data-target="#main-slide" data-slide-to="11"></li>
 
-        </ol>
+        </ol> -->
         <div class="carousel-inner">
+
             <div class="carousel-item active">
-                <img class="d-block w-100" src="assets/img/slider/img1.jpg" alt="First slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img1.jpg" alt="First slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img2.jpg" alt="Second slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img2.jpg" alt="Second slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img3.jpg" alt="Third slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img3.jpg" alt="Third slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img4.jpg" alt="forth slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img4.jpg" alt="forth slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img5.jpg" alt="fifth slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img5.jpg" alt="fifth slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img6.jpg" alt="sixth slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img6.jpg" alt="sixth slide"
+                    style="width: 700px; height:130px">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img7.jpg" alt="seventh slide" style="width: 1920px; height:400px">
+                <img class="d-block w-100" src="assets/Carousel/img7.jpg" alt="seventh slide"
+                    style="width: 700px; height:130px">
             </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img8.jpg" alt="eighth slide" style="width: 1920px; height:400px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img9.jpg" alt="nineth slide" style="width: 1920px; height:400px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img10.jpg" alt="tenth slide" style="width: 1920px; height:400px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/img/slider/img11.jpg" alt="eleventh slide" style="width: 1920px; height:400px">
-            </div>
+
         </div>
 
-        <!-- <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
             <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-left"></i></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#main-slide" role="button" data-slide="next">
             <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-right"></i></span>
             <span class="sr-only">Next</span>
-        </a> -->
+        </a>
     </div>
     <!-- Main Carousel Section End -->
     <!--     <div id="grad1"></div>
@@ -108,12 +105,22 @@
         </div>
     </form> -->
     <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
-        <span class="p-input-icon-left">
+        <!-- <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             
             <input type="text" pInputText placeholder="Search"  formControlName="search" id="search">
     
-        </span>
+        </span> -->
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                aria-describedby="button-addon2" formControlName="search" id="search">
+            <div class="input-group-append">
+                <button style="visibility: visible;" class="fadeInLeft wow btn btn-common btn-lg animated" type="submit" id="button-addon2">
+                    <i class="fa fa-search"></i></button>
+                    <!--  class="btn btn-outline-secondary"
+                    -->
+            </div>
+        </div>
 
         <h1>treat my sensitivity</h1>
         <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
@@ -125,10 +132,6 @@
                 </label>
             </ul>
         </div>
-        <br>
-
-        
-        <button type="submit">Search</button>
     </form>
 
 
@@ -146,14 +149,14 @@
         </div>
      -->
 
-    <!-- <div class="md-form">
+        <!-- <div class="md-form">
         <input mdbInput type="text" id="form1" class="form-control">
         <label for="form1" class="">Search</label>
     </div>     -->
 
 
-   
-   
+
+
         <!--
             we have to fix it, that it won't open to many selects, just 3.
         -->
