@@ -24,7 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
     "@types/jest": "^26.0.13",
     "angular-dynamic-dialog": "^1.0.7",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^10.0.3",
