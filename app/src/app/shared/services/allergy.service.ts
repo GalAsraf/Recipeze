@@ -29,6 +29,12 @@ export class AllergyService {
     return this.http.get<Allergy[]>(environment.url+"allergy/getCurrentUserAllergies/"+userId)
   }
 
+  getSubstitutes():Observable<string[]>{
+    let userId=localStorage.getItem('currentUser');
+    return this.http.get<string[]>(environment.url+"allergy/getSubstitutes/"+userId)
+  }
+
+
 /* 
   defineAllergies(allergies: string): Observable<string> {
     return this.http.post<string>(environment.url + 'allergy/AddAllergie/'+allergies)
