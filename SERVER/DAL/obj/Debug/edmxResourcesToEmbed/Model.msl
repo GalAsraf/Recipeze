@@ -10,15 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="RecipezeModel.Category">
-        <MappingFragment StoreEntitySet="Categories">
-          <ScalarProperty Name="MasterCategoryId" ColumnName="MasterCategoryId" />
-          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="KeyWordForRecipeParts">
       <EntityTypeMapping TypeName="RecipezeModel.KeyWordForRecipePart">
         <MappingFragment StoreEntitySet="KeyWordForRecipePart">
@@ -82,6 +73,24 @@
           <ScalarProperty Name="Index" ColumnName="Index" />
           <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
           <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="RecipezeModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="MasterCategoryId" ColumnName="MasterCategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Substitutes">
+      <EntityTypeMapping TypeName="RecipezeModel.Substitute">
+        <MappingFragment StoreEntitySet="Substitutes">
+          <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
+          <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
+          <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
