@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
- 
 </head>
 <style>
   #grad1 {
@@ -28,7 +27,6 @@
             </div>
         </ng-template>
     </p-dataView> -->
-
 
   <!-- [loading]="loading" -->
   <!-- <p-dataView [value]="recipes" [paginator]="true" [rows]="10" >
@@ -62,8 +60,6 @@
         </ng-template>
     </p-dataView> -->
 
-
-
   <section id="about" class="section-padding">
     <div class="container">
       <div class="row">
@@ -91,8 +87,6 @@
   </section>
   <!-- About Section End -->
 
-
-
   <div *ngFor="let recipe of recipes">
     <button (click)="showRecipe(recipe)">
       <div class="card" style="width: 150px;">
@@ -102,12 +96,6 @@
         </div>
       </div>
     </button>
-
-
-
-
-
-
     <!-- <div class="card">
       <div class="card-header" id="headingOne">
         <div class="header-title" data-toggle="collapse" data-target="#questionOne" aria-expanded="true"
@@ -127,12 +115,6 @@
         <!-- </div>
       </div>
     </div> -->
-
-
-
-
-    
-
     <!-- the current recipe-->
     <!-- <ng-template #content let-modal>
       <div class="modal-header">
@@ -153,9 +135,6 @@
       </div>
     </ng-template> -->
     <!-- end current recipe-->
-
-
-
     <!-- <ng-template #longContent let-modal>
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
@@ -171,12 +150,9 @@
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
       </div>
     </ng-template>
-
     <button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable
       content</button>
       -->
   </div>
-
 </body>
-
 </html>
