@@ -67,6 +67,14 @@
     <Property Name="NumberOfPart" Type="int" Nullable="false" />
     <Property Name="PartName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Substitutes">
+    <Key>
+      <PropertyRef Name="AllergyId" />
+    </Key>
+    <Property Name="AllergyId" Type="int" Nullable="false" />
+    <Property Name="SubstituteId" Type="int" Nullable="false" />
+    <Property Name="SubstituteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
@@ -148,6 +156,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Substitut__Aller__160F4887">
+    <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
+    <End Role="Substitutes" Type="Self.Substitutes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Allergies">
+        <PropertyRef Name="AllergyCode" />
+      </Principal>
+      <Dependent Role="Substitutes">
+        <PropertyRef Name="AllergyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="RecipezeModelStoreContainer">
     <EntitySet Name="AllergieForUsers" EntityType="Self.AllergieForUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
@@ -157,6 +177,7 @@
     <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
       <End Role="Allergies" EntitySet="Allergies" />
@@ -181,6 +202,10 @@
     <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="Self.FK__KeyWordFo__PartI__5441852A">
       <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />
       <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipePart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="Self.FK__Substitut__Aller__160F4887">
+      <End Role="Allergies" EntitySet="Allergies" />
+      <End Role="Substitutes" EntitySet="Substitutes" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

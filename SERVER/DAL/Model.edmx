@@ -72,6 +72,14 @@
           <Property Name="NumberOfPart" Type="int" Nullable="false" />
           <Property Name="PartName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Substitutes">
+          <Key>
+            <PropertyRef Name="AllergyId" />
+          </Key>
+          <Property Name="AllergyId" Type="int" Nullable="false" />
+          <Property Name="SubstituteId" Type="int" Nullable="false" />
+          <Property Name="SubstituteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -153,6 +161,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Substitut__Aller__160F4887">
+          <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
+          <End Role="Substitutes" Type="Self.Substitutes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Allergies">
+              <PropertyRef Name="AllergyCode" />
+            </Principal>
+            <Dependent Role="Substitutes">
+              <PropertyRef Name="AllergyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RecipezeModelStoreContainer">
           <EntitySet Name="AllergieForUsers" EntityType="Self.AllergieForUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
@@ -162,6 +182,7 @@
           <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
             <End Role="Allergies" EntitySet="Allergies" />
@@ -187,6 +208,10 @@
             <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />
             <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipePart" />
           </AssociationSet>
+          <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="Self.FK__Substitut__Aller__160F4887">
+            <End Role="Allergies" EntitySet="Allergies" />
+            <End Role="Substitutes" EntitySet="Substitutes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -194,7 +219,6 @@
       <Schema Namespace="RecipezeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RecipezeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Allergies" EntityType="RecipezeModel.Allergy" />
-          <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
           <EntitySet Name="KeyWordForRecipeParts" EntityType="RecipezeModel.KeyWordForRecipePart" />
           <EntitySet Name="RecipeContentParts" EntityType="RecipezeModel.RecipeContentPart" />
           <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A">
@@ -221,6 +245,12 @@
             <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
             <End Role="Instruction" EntitySet="Instructions" />
           </AssociationSet>
+          <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
+          <EntitySet Name="Substitutes" EntityType="RecipezeModel.Substitute" />
+          <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="RecipezeModel.FK__Substitut__Aller__160F4887">
+            <End Role="Allergy" EntitySet="Allergies" />
+            <End Role="Substitute" EntitySet="Substitutes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Allergy">
           <Key>
@@ -230,14 +260,7 @@
           <Property Name="AllergyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsPersonal" Type="Boolean" />
           <NavigationProperty Name="Users" Relationship="RecipezeModel.AllergieForUsers" FromRole="Allergy" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MasterCategoryId" Type="Int32" />
+          <NavigationProperty Name="Substitute" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Allergy" ToRole="Substitute" />
         </EntityType>
         <EntityType Name="KeyWordForRecipePart">
           <Key>
@@ -352,6 +375,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MasterCategoryId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Substitute">
+          <Key>
+            <PropertyRef Name="AllergyId" />
+          </Key>
+          <Property Name="AllergyId" Type="Int32" Nullable="false" />
+          <Property Name="SubstituteId" Type="Int32" Nullable="false" />
+          <Property Name="SubstituteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Allergy" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Substitute" ToRole="Allergy" />
+        </EntityType>
+        <Association Name="FK__Substitut__Aller__160F4887">
+          <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="1" />
+          <End Type="RecipezeModel.Substitute" Role="Substitute" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Allergy">
+              <PropertyRef Name="AllergyCode" />
+            </Principal>
+            <Dependent Role="Substitute">
+              <PropertyRef Name="AllergyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -364,15 +416,6 @@
                 <ScalarProperty Name="IsPersonal" ColumnName="IsPersonal" />
                 <ScalarProperty Name="AllergyName" ColumnName="AllergyName" />
                 <ScalarProperty Name="AllergyCode" ColumnName="AllergyCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="RecipezeModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="MasterCategoryId" ColumnName="MasterCategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -439,6 +482,24 @@
                 <ScalarProperty Name="Index" ColumnName="Index" />
                 <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
                 <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="RecipezeModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="MasterCategoryId" ColumnName="MasterCategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Substitutes">
+            <EntityTypeMapping TypeName="RecipezeModel.Substitute">
+              <MappingFragment StoreEntitySet="Substitutes">
+                <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
+                <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
+                <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

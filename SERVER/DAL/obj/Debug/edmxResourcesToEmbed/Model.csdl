@@ -2,7 +2,6 @@
 <Schema Namespace="RecipezeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="RecipezeEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Allergies" EntityType="RecipezeModel.Allergy" />
-    <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
     <EntitySet Name="KeyWordForRecipeParts" EntityType="RecipezeModel.KeyWordForRecipePart" />
     <EntitySet Name="RecipeContentParts" EntityType="RecipezeModel.RecipeContentPart" />
     <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A">
@@ -29,6 +28,12 @@
       <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
       <End Role="Instruction" EntitySet="Instructions" />
     </AssociationSet>
+    <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
+    <EntitySet Name="Substitutes" EntityType="RecipezeModel.Substitute" />
+    <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="RecipezeModel.FK__Substitut__Aller__160F4887">
+      <End Role="Allergy" EntitySet="Allergies" />
+      <End Role="Substitute" EntitySet="Substitutes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Allergy">
     <Key>
@@ -38,14 +43,7 @@
     <Property Name="AllergyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsPersonal" Type="Boolean" />
     <NavigationProperty Name="Users" Relationship="RecipezeModel.AllergieForUsers" FromRole="Allergy" ToRole="User" />
-  </EntityType>
-  <EntityType Name="Category">
-    <Key>
-      <PropertyRef Name="CategoryId" />
-    </Key>
-    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MasterCategoryId" Type="Int32" />
+    <NavigationProperty Name="Substitute" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Allergy" ToRole="Substitute" />
   </EntityType>
   <EntityType Name="KeyWordForRecipePart">
     <Key>
@@ -157,6 +155,35 @@
       </Principal>
       <Dependent Role="Instruction">
         <PropertyRef Name="recipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MasterCategoryId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Substitute">
+    <Key>
+      <PropertyRef Name="AllergyId" />
+    </Key>
+    <Property Name="AllergyId" Type="Int32" Nullable="false" />
+    <Property Name="SubstituteId" Type="Int32" Nullable="false" />
+    <Property Name="SubstituteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Allergy" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Substitute" ToRole="Allergy" />
+  </EntityType>
+  <Association Name="FK__Substitut__Aller__160F4887">
+    <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="1" />
+    <End Type="RecipezeModel.Substitute" Role="Substitute" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Allergy">
+        <PropertyRef Name="AllergyCode" />
+      </Principal>
+      <Dependent Role="Substitute">
+        <PropertyRef Name="AllergyId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

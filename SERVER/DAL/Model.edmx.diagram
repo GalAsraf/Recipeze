@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="993b7a2be264470589c6b4a01babf44e" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="RecipezeModel.Allergy" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="RecipezeModel.KeyWordForRecipePart" Width="1.5" PointX="3" PointY="3.875" />
         <EntityTypeShape EntityType="RecipezeModel.RecipeContentPart" Width="1.5" PointX="0.75" PointY="3.875" />
         <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A" />
@@ -18,6 +17,9 @@
         <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__04E4BC85" />
         <AssociationConnector Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE" />
         <AssociationConnector Association="RecipezeModel.FK__Instructi__recip__08B54D69" />
+        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RecipezeModel.Substitute" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="RecipezeModel.FK__Substitut__Aller__160F4887" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

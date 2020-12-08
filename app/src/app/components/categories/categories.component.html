@@ -104,6 +104,7 @@
             </ul>
         </div>
     </form> -->
+    <br>
     <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
         <!-- <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -121,6 +122,7 @@
                     -->
             </div>
         </div>
+        <input type="text" name="search" placeholder="Search.."> 
 
         <h1>treat my sensitivity</h1>
         <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
