@@ -9,7 +9,17 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
   styleUrls: ['./cookbook.component.css']
 })
 export class CookbookComponent implements OnInit {
-  cookbookList: Recipe[] = []
+  cookbookList: Recipe[] = [];
+  title = "angular-text-search-hightlight";
+  searchText='';
+  characters=[
+    'chocolate chip cookies',
+    'tuna pasta salad',
+    'sweet potato fries',
+    'avocado salad',
+    'vanilla cake',
+    'chocolate mousse'
+  ]
   constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
 
   ngOnInit(): void {

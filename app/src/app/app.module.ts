@@ -27,6 +27,8 @@ import { DataViewModule } from 'primeng/dataview';
 import {InputTextModule} from 'primeng/inputtext';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { HighlightDirective } from './highlight.directive'; // ->  imported directive
+import {FilterPipe} from './filter.pipe'
 
 //import {DataViewModule} from 'primeng/dataview';
 
@@ -45,6 +47,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RecipesComponent,
     CookbookComponent,
     CurrentRecipeComponent,
+    HighlightDirective,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
