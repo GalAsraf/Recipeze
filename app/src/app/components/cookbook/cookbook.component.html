@@ -1,3 +1,4 @@
+<br><br> <br>
 <div>
     <!--
         we want the presentation of the cookbook to be ordered by categories.
@@ -13,3 +14,28 @@
         height:40px;border-radius: 4px;text-align: center;">remove recipe</button>
     </div>
 </div>
+<div class="col-12">
+    <div class="section-title-header text-center">
+      <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">My Cookbook</h1>
+      <p class="wow fadeInDown" data-wow-delay="0.2s">View your saved recipes from your cookbook</p>
+    </div>
+  </div>
+
+<div class="content" role="main" style="width: 100%;">
+    <div class="card">
+      <div class="form-group">
+        <label for="search-text">Search a Recipe</label>
+        <input type="email" class="form-control" id="search-text" aria-describedby="search-text" 
+          [(ngModel)]="searchText" placeholder="Enter text to search a recipe from your cookbook" 
+          autofocus>
+      </div>
+      <ul class="list-group list-group-flush">
+        <!-- results of ngFor is passed to appFilter with argument searchText -->
+        <li class="list-group-item" *ngFor="let c of characters | appFilter: searchText"
+        appHighlight [searchedWord]="searchText" [content]="c"  
+        [classToApply]="'font-weight-bold'" [setTitle]="'true'">
+        {{c}}
+      </li>
+      </ul>
+    </div>
+  </div>
