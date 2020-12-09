@@ -30,6 +30,13 @@ namespace API.Controllers
             return Ok(BL.AllergyBL.DefineAllergiesForUser(userId,allergies));
         }
 
+        [Route("getSubstitutes/{userId}")]
+        [HttpGet]
+        public IHttpActionResult getSubstitutes(int userId)
+        {
+            return Ok(BL.AllergyBL.getSubstitutes(userId));
+        }
+
 
         //[Route("AddAllergy"), HttpPost]
         //public IHttpActionResult AddAllergy(AllergyDTO allergy)

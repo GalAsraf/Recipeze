@@ -47,18 +47,22 @@ namespace BL
             }
         }
 
-       
-
-
-        //public static void AddAllergie(AllergyDTO allergy)
-        //{
-        //    using (RecipezeEntities db = new RecipezeEntities())
-        //    {
-        //        //allergy has to be added according to user, so I also have to get the current user that's logged in
-
-        //        //db.Allergies.Add(CONVERTERS.AllergyConverter.ConvertAllergyToDAL(allergy));
-        //        //db.SaveChanges();
-        //    }
-        //}
+        public static List<string> getSubstitutes(int userId)
+        {
+            using (RecipezeEntities db = new RecipezeEntities())
+            {
+                List<AllergyDTO> allergies = getCurrentUserAllergies(userId);
+                if (allergies == null)
+                    return null;
+                List<string> substitutes= new List<string>();
+                allergies.ForEach(a =>
+                {
+                   var ans = db.Substitutes.Where(s => s.AllergyId == a.AllergyCode).ToList();
+                    substitutes.Add(ans[0].SubstituteName);
+                });
+                return substitutes;
+            }
+            
+        }
     }
 }
