@@ -92,8 +92,8 @@
 
 
       <div class="row" *ngFor="let subs of substitutes; let i = index">
-        <div [ngSwitch]="places">
-          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="'fadeInLeft'">
+        <div [ngSwitch]="i">
+          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="i%3 == 0">
             <div class="price-block-wrapper wow fadeInLeft" data-wow-delay="0.2s">
               <div class="icon">
                 <i class="lni-write"></i>
@@ -106,11 +106,11 @@
                 <h2>instead of</h2>
                 <p>{{allergiesForUser[i].AllergyName}}</p>
               </div>
-            </div>
+            </div>  
           </div>
           <!-- #secondBlock -->
-          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="'fadeInUp'">
-            <div class="price-block-wrapper wow fadeInLeft" data-wow-delay="0.2s">
+          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="i%3 == 1">
+            <div class="price-block-wrapper wow fadeInUp" data-wow-delay="0.2s">
               <div class="icon">
                 <i class="lni-write"></i>
               </div>
@@ -124,8 +124,9 @@
             </div>
           </div>
           <!-- #thirdBlock  -->
-          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="'fadeInRight'">
-            <div class="price-block-wrapper wow fadeInLeft" data-wow-delay="0.2s">
+          <!-- *ngIf="substitutes[i+2]!=null" -->
+          <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngSwitchCase="i%3 == 2">
+            <div class="price-block-wrapper wow fadeInRight" data-wow-delay="0.2s">
               <div class="icon">
                 <i class="lni-write"></i>
               </div>
