@@ -26,6 +26,7 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import {InputTextModule} from 'primeng/inputtext';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationService } from 'primeng/api';
 
 import { HighlightDirective } from './highlight.directive'; // ->  imported directive
 import {FilterPipe} from './filter.pipe'
@@ -68,7 +69,7 @@ import {FilterPipe} from './filter.pipe'
   entryComponents: [
     CurrentRecipeComponent
   ],
-  providers: [AllergyService, CategoryService, UserService],
+  providers: [AllergyService, CategoryService, UserService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

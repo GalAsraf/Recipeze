@@ -32,7 +32,8 @@ namespace DAL
         public virtual DbSet<Instruction> Instructions { get; set; }
         public virtual DbSet<CookbookRecipe> CookbookRecipes { get; set; }
         public virtual DbSet<Ingredient> Ingredients { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Substitute> Substitutes { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<HealthFoodArticle> HealthFoodArticles { get; set; }
     }
 }

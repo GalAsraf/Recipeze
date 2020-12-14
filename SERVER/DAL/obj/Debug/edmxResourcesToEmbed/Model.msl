@@ -76,6 +76,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Substitutes">
+      <EntityTypeMapping TypeName="RecipezeModel.Substitute">
+        <MappingFragment StoreEntitySet="Substitutes">
+          <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
+          <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
+          <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="RecipezeModel.Category">
         <MappingFragment StoreEntitySet="Categories">
@@ -85,12 +94,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Substitutes">
-      <EntityTypeMapping TypeName="RecipezeModel.Substitute">
-        <MappingFragment StoreEntitySet="Substitutes">
-          <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
-          <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
-          <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
+    <EntitySetMapping Name="HealthFoodArticles">
+      <EntityTypeMapping TypeName="RecipezeModel.HealthFoodArticle">
+        <MappingFragment StoreEntitySet="HealthFoodArticles">
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="siteName" ColumnName="siteName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

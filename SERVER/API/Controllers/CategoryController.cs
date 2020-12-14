@@ -44,11 +44,12 @@ namespace API.Controllers
             
             
             if (selectedCategory.Contains(@"[a-zA-Z]"))
-                searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-            else
                 searchLine = selectedCategory;
 
-      
+            else
+                searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
+
+
 
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);

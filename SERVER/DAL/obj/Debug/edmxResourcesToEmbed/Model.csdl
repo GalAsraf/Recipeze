@@ -28,12 +28,13 @@
       <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
       <End Role="Instruction" EntitySet="Instructions" />
     </AssociationSet>
-    <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
     <EntitySet Name="Substitutes" EntityType="RecipezeModel.Substitute" />
     <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="RecipezeModel.FK__Substitut__Aller__160F4887">
       <End Role="Allergy" EntitySet="Allergies" />
       <End Role="Substitute" EntitySet="Substitutes" />
     </AssociationSet>
+    <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
+    <EntitySet Name="HealthFoodArticles" EntityType="RecipezeModel.HealthFoodArticle" />
   </EntityContainer>
   <EntityType Name="Allergy">
     <Key>
@@ -158,14 +159,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Category">
-    <Key>
-      <PropertyRef Name="CategoryId" />
-    </Key>
-    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="MasterCategoryId" Type="Int32" />
-  </EntityType>
   <EntityType Name="Substitute">
     <Key>
       <PropertyRef Name="AllergyId" />
@@ -187,4 +180,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MasterCategoryId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="HealthFoodArticle">
+    <Key>
+      <PropertyRef Name="siteName" />
+    </Key>
+    <Property Name="siteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
