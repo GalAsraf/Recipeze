@@ -33,6 +33,13 @@
     <Property Name="recipeName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="recipeImage" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="HealthFoodArticles">
+    <Key>
+      <PropertyRef Name="siteName" />
+    </Key>
+    <Property Name="siteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="link" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="Ingredients">
     <Key>
       <PropertyRef Name="IngredientId" />
@@ -173,6 +180,7 @@
     <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CookbookRecipes" EntityType="Self.CookbookRecipes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HealthFoodArticles" EntityType="Self.HealthFoodArticles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />

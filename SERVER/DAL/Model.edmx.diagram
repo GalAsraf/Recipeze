@@ -17,9 +17,10 @@
         <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__04E4BC85" />
         <AssociationConnector Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE" />
         <AssociationConnector Association="RecipezeModel.FK__Instructi__recip__08B54D69" />
-        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="RecipezeModel.Substitute" Width="1.5" PointX="3" PointY="7.125" />
         <AssociationConnector Association="RecipezeModel.FK__Substitut__Aller__160F4887" />
+        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RecipezeModel.HealthFoodArticle" Width="1.5" PointX="5.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

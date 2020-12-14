@@ -60,6 +60,9 @@
     <Compile Include="CookbookRecipe.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="HealthFoodArticle.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ingredient.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
