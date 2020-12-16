@@ -60,6 +60,32 @@
         </ng-template>
     </p-dataView> -->
 
+
+  <!-- popup modal -->
+  <ng-template #mymodal let-modal style="background-color: pink;">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img src={{currentRecipe.PictureSource}} />
+      <h3>Ingredients</h3>
+      <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+      <h3>Method</h3>
+      <li *ngFor="let method of currentRecipe.Method">{{method}}</li>     
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+  </ng-template>
+
+
+
+
+
+
   <section id="about" class="section-padding">
     <div class="container">
       <div class="row">
@@ -78,7 +104,7 @@
             <div class="about-text">
               <h3><a href="#">{{recipe.RecipeName}}</a></h3>
               <p></p>
-              <a class="btn btn-common btn-rm"  (click)="showRecipe(recipe)">Let's Cook</a>
+              <a class="btn btn-common btn-rm" (click)="open(mymodal, recipe)">Let's Cook</a>
             </div>
           </div>
         </div>
@@ -88,7 +114,7 @@
   <!-- About Section End -->
 
   <div *ngFor="let recipe of recipes">
-    <button (click)="showRecipe(recipe)">
+    <button (click)="open(mymodal, recipe)">
       <div class="card" style="width: 150px;">
         <img src={{recipe.PictureSource}} alt="Avatar" style="width:150px">
         <div class="container1">
@@ -106,13 +132,13 @@
       <div id="questionOne" class="collapse" aria-labelledby="headingOne" data-parent="#question">
         <div class="card-body">
           <span>Gal Asraf</span> -->
-          <!-- <h1>{{recipe.RecipeName}}</h1>
+    <!-- <h1>{{recipe.RecipeName}}</h1>
           <img src={{recipe.PictureSource}} />
           <h3>Ingredients</h3>
           <li *ngFor="let Ingredient of recipe.Ingredients">{{Ingredient}}</li>
           <h3>Method</h3>
           <li *ngFor="let method of recipe.Method">{{method}}</li> -->
-        <!-- </div>
+    <!-- </div>
       </div>
     </div> -->
     <!-- the current recipe-->
@@ -155,4 +181,5 @@
       -->
   </div>
 </body>
+
 </html>

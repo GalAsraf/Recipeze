@@ -4,7 +4,7 @@ import { Recipe } from 'src/app/shared/models/recipe.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -33,17 +33,18 @@ export class RecipesComponent implements OnInit {
   treatSens: string;
   recipes: Recipe[];
   closeResult: string;
+  currentRecipe:Recipe;
 
-  constructor( private route: ActivatedRoute, private categoryService: CategoryService,
-     private router: Router, public dialogService: DialogService,
-     private modalService: NgbModal) {
-   }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryService,
+    private router: Router, public dialogService: DialogService,
+    private modalService: NgbModal) {
+  }
 
   //The first parameter is the component to be rendered in the modal's content
   //The second parameter is the modal's configuration
 
- 
- 
+
+
   ngOnInit(): void {
 
 
@@ -75,14 +76,32 @@ export class RecipesComponent implements OnInit {
 
 
   showRecipe(recipe: Recipe) {
-    this.router.navigate(['current-recipe',JSON.stringify(recipe)]);
-
-    
-      const ref = this.dialogService.open(CurrentRecipeComponent, {
-        data: {currentRecipe:recipe},
-        header: recipe.RecipeName,
-        width: '70%'
+    this.router.navigate(['current-recipe', JSON.stringify(recipe)]);
+    const ref = this.dialogService.open(CurrentRecipeComponent, {
+      data: { currentRecipe: recipe },
+      header: recipe.RecipeName,
+      width: '70%'
     });
+  }
+
+
+  open(content, recipe) {
+    this.currentRecipe = recipe;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
 
