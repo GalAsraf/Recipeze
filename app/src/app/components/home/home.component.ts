@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Allergy } from 'src/app/shared/models/allergy.model';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 
 @Component({
@@ -15,14 +17,19 @@ export class HomeComponent implements OnInit {
   substitutes: string[];
   allergiesForUser: Allergy[] = [];
   places: string[];
- lastRecipes:Recipe[]
-  constructor(private allergiesService: AllergyService) {
-    //how can i make it like a carousel? that it would repeat the three options?
+  lastRecipes: Recipe[]
+  closeResult: string;
+  currentRecipe: Recipe;
+  inOrOut: boolean;
+
+
+  constructor(private allergiesService: AllergyService, private modalService: NgbModal, private recipeService: RecipeService) {
     this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight'];
   }
 
   ngOnInit(): void {
- this.lastRecipes=JSON.parse(localStorage.getItem('last-search'))
+    this.lastRecipes = JSON.parse(localStorage.getItem('last-search'));
+
     this.allergiesService.getCurrentUserAllergies().subscribe(
       res => {
         this.allergiesForUser = res;
@@ -38,5 +45,40 @@ export class HomeComponent implements OnInit {
     }
     else
       this.login == false;
+  }
+
+
+  open(content, recipe) {
+    this.currentRecipe = recipe;
+    this.recipeService.checkIfRecipeExist(this.currentRecipe).subscribe(
+      res => {
+        this.inOrOut = res
+        console.log(res)
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+      });
+
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+
+  
+  addRecipeToCookbook(recipe: Recipe) {
+    this.inOrOut = true;
+    this.recipeService.addRecipeToCookbook(recipe).subscribe(
+      res => console.log(res)),
+      err => this.inOrOut = false
   }
 }
