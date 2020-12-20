@@ -124,10 +124,11 @@
 
                     <div class="col-md-12 form-line">
                       <div class="form-group">
-                        <input id="password-field" type="password" class="form-control" name="password"
+                        <input id="password-field" [type]="currentStatus" class="form-control" name="password"
                           placeholder="password" required data-error="Please enter your password">
-                        <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                        <div class="help-block with-errors"></div> -->
+                        <span toggle="#password-field" [class]="currenttype" (click)="toggle()"></span>
+                        <div class="help-block with-errors"></div>
+                        <!--fa fa-fw fa-eye field-icon toggle-password-->
                       </div>
                     </div>
 
@@ -152,19 +153,7 @@
 
   <!-- Contact Us Section End -->
 
-  <script>
-    $(".toggle-password").click(function () {
-
-      $(this).toggleClass("fa-eye fa-eye-slash");
-      var input = $($(this).attr("toggle"));
-      if (input.attr("type") == "password") {
-        input.attr("type", "text");
-      } else {
-        input.attr("type", "password");
-      }
-    });
-  </script>
-
+ 
 
   <br>
 

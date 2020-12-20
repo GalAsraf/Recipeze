@@ -14,7 +14,8 @@ namespace DAL
     
     public partial class HealthFoodArticle
     {
-        public string siteName { get; set; }
-        public string link { get; set; }
+        public int LinkId { get; set; }
+        public string Link { get; set; }
+        public string LinkName { get; set; }
     }
 }

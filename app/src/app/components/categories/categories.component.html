@@ -106,23 +106,16 @@
     </form> -->
     <br>
     <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
-        <!-- <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            
-            <input type="text" pInputText placeholder="Search"  formControlName="search" id="search">
-    
-        </span> -->
+
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search" aria-label="Search"
                 aria-describedby="button-addon2" formControlName="search" id="search">
             <div class="input-group-append">
                 <button style="visibility: visible;" class="fadeInLeft wow btn btn-common btn-lg animated" type="submit" id="button-addon2">
                     <i class="fa fa-search"></i></button>
-                    <!--  class="btn btn-outline-secondary"
-                    -->
             </div>
         </div>
-        <input type="text" name="search" placeholder="Search.."> 
+        <!-- <input type="text" name="search" placeholder="Search..">  -->
 
         <h1>treat my sensitivity</h1>
         <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
@@ -140,28 +133,6 @@
 
 
     <form (submit)="googleSearch()">
-
-        <!-- <div class="relative flex w-full flex-wrap items-stretch mb-3">
-        <span
-            class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-lg items-center justify-center w-8 pl-3 py-4">
-            <i class="fas fa-search"></i>
-        </span>
-        <input type="text" placeholder="Large Input"
-            class="px-3 py-4 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10" />
-        </div>
-     -->
-
-        <!-- <div class="md-form">
-        <input mdbInput type="text" id="form1" class="form-control">
-        <label for="form1" class="">Search</label>
-    </div>     -->
-
-
-
-
-        <!--
-            we have to fix it, that it won't open to many selects, just 3.
-        -->
         <div>
             <br><br><br><br>
             <div *ngFor="let category of categoriesToSelect; let j=index" class="custom-select" style="width:230px">

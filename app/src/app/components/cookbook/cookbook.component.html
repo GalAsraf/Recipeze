@@ -1,8 +1,28 @@
 <br><br> <br>
-<div>
-  <!--
-        we want the presentation of the cookbook to be ordered by categories.
-    -->
+
+<!-- popup modal -->
+<ng-template #mymodal let-modal style="background-color: pink;">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img src={{currentRecipe.PictureSource}}>
+    <h3>Ingredients</h3>
+    <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+    <h3>Method</h3>
+    <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
+  </div>
+  <div class="modal-footer">
+    <button (click)="deleteRecipeFromCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+    height:40px;border-radius: 4px;text-align: center;">delete recipe</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- <div>
   <div *ngFor="let recipe of cookbookList">
     <h1>{{recipe.RecipeName}}</h1>
     <h1>{{recipe.PictureSource}}</h1>
@@ -13,7 +33,9 @@
     <button (click)="removeRecipeFromCookbook(recipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
         height:40px;border-radius: 4px;text-align: center;">remove recipe</button>
   </div>
-</div>
+</div> -->
+
+
 <div class="col-12">
   <div class="section-title-header text-center">
     <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">My Cookbook</h1>
@@ -31,14 +53,10 @@
     <ul class="list-group list-group-flush">
       <!-- results of ngFor is passed to appFilter with argument searchText -->
       <li class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
-        [searchedWord]="searchText" [content]="c.RecipeName" [classToApply]="'font-weight-bold'" [setTitle]="'true'">
+        [searchedWord]="searchText" [content]="c.RecipeName" [classToApply]="'font-weight-bold'" [setTitle]="'true'"
+        (click)="open(mymodal, c)">
         {{c.RecipeName}}
       </li>
-      <!--
-        i cant do it a button because primeng doesnt work and its intrupt the code
-      -->
     </ul>
   </div>
 </div>
-
-        <!-- <a class="btn btn-common btn-rm"  (click)="showRecipe(recipe)">VIEW</a> -->

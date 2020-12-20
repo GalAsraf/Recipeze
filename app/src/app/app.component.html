@@ -110,9 +110,15 @@
                 search a recipe
               </a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="userLogedIn()" class="nav-item">
               <a class="nav-link" routerLink="allergies" routerLinkActive="activeLink">
                 Define Sensitivities
+              </a>
+            </li>
+           
+            <li *ngIf="userLogedIn()" class="nav-item">
+              <a class="nav-link" routerLink="cookbook" routerLinkActive="activeLink">
+               My CookBook
               </a>
             </li>
            

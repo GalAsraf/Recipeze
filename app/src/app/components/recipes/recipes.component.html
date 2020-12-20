@@ -14,52 +14,6 @@
 </style>
 
 <body>
-  <!-- <div id="grad1"></div>
- -->
-  <!-- <p-dataView [value]="recipes">
-
-        <ng-template let-recipe pTemplate="listItem"> -->
-  <!-- *ngFor='let recipe of recipes'-->
-  <!-- <div class="p-col-12 p-md-3">
-                <label>{{recipe.RecipeName}}</label>
-                <img src={{recipe.PictureSource}} style="width:268px;height: 268px;">
-                <button (click)="showRecipe(recipe)">Show recipe</button>
-            </div>
-        </ng-template>
-    </p-dataView> -->
-
-  <!-- [loading]="loading" -->
-  <!-- <p-dataView [value]="recipes" [paginator]="true" [rows]="10" >
-        <p-header>
-            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-            Asraf
-        </p-header>
-        <p-footer>
-            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-            Gal
-        </p-footer>
-        <ng-template let-recipe pTemplate="listItem">
-            <div>
-                {{recipe.RecipeName}}
-            </div>
-        </ng-template>
-        <ng-template let-recipe pTemplate="gridItem">
-            <div class="p-col-12 p-md-3">
-                <img src={{recipe.pictureSource}}>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="paginatorleft" let-state>
-            {{state.first}}
-            <button type="button" pButton icon="pi-refresh"></button>
-        </ng-template>
-        <ng-template pTemplate="paginatorright">
-            <button type="button" pButton icon="pi-cloud-upload"></button>
-        </ng-template>
-        <ng-template let-item pTemplate="paginatordropdownitem">
-            {{item.value}} - per page
-        </ng-template>
-    </p-dataView> -->
-
 
   <!-- popup modal -->
   <ng-template #mymodal let-modal style="background-color: pink;">
@@ -74,15 +28,16 @@
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       <h3>Method</h3>
-      <li *ngFor="let method of currentRecipe.Method">{{method}}</li>     
+      <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+      <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+      height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
+      <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
     </div>
   </ng-template>
-
-
-
+  <!-- end popup modal-->
 
 
 
@@ -102,8 +57,7 @@
             <img class="img-fluid" src={{recipe.PictureSource}} alt=""
               style="width: 268px; height: 268px;margin-left: 5px; margin-right: 5px;">
             <div class="about-text">
-              <h3><a href="#">{{recipe.RecipeName}}</a></h3>
-              <p></p>
+              <h3><a (click)="open(mymodal, recipe)">{{recipe.RecipeName}}</a></h3>
               <a class="btn btn-common btn-rm" (click)="open(mymodal, recipe)">Let's Cook</a>
             </div>
           </div>
@@ -111,8 +65,8 @@
       </div>
     </div>
   </section>
-  <!-- About Section End -->
 
+  
   <div *ngFor="let recipe of recipes">
     <button (click)="open(mymodal, recipe)">
       <div class="card" style="width: 150px;">

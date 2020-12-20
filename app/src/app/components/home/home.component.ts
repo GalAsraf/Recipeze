@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Allergy } from 'src/app/shared/models/allergy.model';
+import { Recipe } from 'src/app/shared/models/recipe.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
 
 
@@ -14,14 +15,14 @@ export class HomeComponent implements OnInit {
   substitutes: string[];
   allergiesForUser: Allergy[] = [];
   places: string[];
-
+ lastRecipes:Recipe[]
   constructor(private allergiesService: AllergyService) {
     //how can i make it like a carousel? that it would repeat the three options?
-    this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight', 'fadeInLeft', 'fadeInUp', 'fadeInRight'];
+    this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight'];
   }
 
   ngOnInit(): void {
-
+ this.lastRecipes=JSON.parse(localStorage.getItem('last-search'))
     this.allergiesService.getCurrentUserAllergies().subscribe(
       res => {
         this.allergiesForUser = res;

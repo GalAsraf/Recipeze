@@ -77,7 +77,8 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
-    --> <form class="content" (submit)="defineAllergies()">
+
+    <form (submit)="defineAllergies()">
         <h1>Here you can define all your allergies. <br> Just select your allergies and they will be considered when you
             search for a recipe.</h1> <br>
         <div style="text-align: center;">
@@ -89,11 +90,13 @@
 
         <div>
             <ul *ngFor="let allergy of allergies;let i=index ">
-                <label class="container">{{allergies[i].AllergyName}}
+                <label class="container">
+                    {{allergies[i].AllergyName}}
                     <input type="checkbox" [checked]="isChecked(allergy.AllergyCode)" [value]="allergies[i].AllergyName"
                         id={{allergies[i].AllergyName}} (change)="toggleAllergy(allergies[i].AllergyCode)">
                     <span class="checkmark"></span>
                 </label>
+                {{allergies[i].AllergyName}}
             </ul>
         </div>
 
