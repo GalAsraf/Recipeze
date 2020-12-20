@@ -13,8 +13,12 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: any
- // eyes: boolean;
- // icon: string;
+  currenttype: string;
+  currentStatus: string;
+  eye: string = "fa fa-fw fa-eye field-icon"
+  slash: string = ""
+  // eyes: boolean;
+  // icon: string;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
@@ -44,6 +48,18 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/home'])
   }
 
+  toggle() {
+    if (this.currenttype == this.eye) {
+      this.currenttype = this.slash;
+      this.currentStatus = "password"
+    }
+    else {
+      this.currenttype = this.eye;
+      this.currentStatus = "text"
+    }
 
-  
+  }
+
+
+
 }

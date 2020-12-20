@@ -4,6 +4,7 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -17,21 +18,31 @@ export class CookbookComponent implements OnInit {
   cookbookToShow: Recipe[] = [];
   title = "angular-text-search-hightlight";
   searchText = '';
-  characters = [
-    'chocolate chip cookies',
-    'tuna pasta salad',
-    'sweet potato fries',
-    'avocado salad',
-    'vanilla cake',
-    'chocolate mousse'
-  ];
+  currentRecipe: Recipe;
+  closeResult: string;
+
+  // characters = [
+  //   'chocolate chip cookies',
+  //   'tuna pasta salad',
+  //   'sweet potato fries',
+  //   'avocado salad',
+  //   'vanilla cake',
+  //   'chocolate mousse'
+  // ];
   // cookbookToShow: string[] = [];
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService,
+  constructor(  private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
      private router: Router) { }
 // public dialogService: DialogService
 
   ngOnInit(): void {
+   this.loadRecipes();
+
+  }
+
+  loadRecipes()
+  {
+    debugger
     this.recipeService.getUserCookbook().subscribe(
       res => {
         this.cookbookList = res;
@@ -40,7 +51,6 @@ export class CookbookComponent implements OnInit {
       },
       err => { console.error(err) }
     );
-
 
   }
 
@@ -54,7 +64,16 @@ export class CookbookComponent implements OnInit {
 
   removeRecipeFromCookbook(recipe: Recipe) {
     this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
-      res => console.log(res));
+      res =>{ console.log(res);
+        //this.loadRecipes();
+        this.aa();
+      }
+      );
+  }
+
+  aa()
+  {
+    alert("yy")
   }
 
 
@@ -69,6 +88,30 @@ export class CookbookComponent implements OnInit {
   // });
   }
 
+
+  open(content, recipe) {
+    this.currentRecipe = recipe;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  deleteRecipeFromCookbook(recipe: Recipe) {
+    this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
+      res => console.log(res));
+  }
 
 }
 

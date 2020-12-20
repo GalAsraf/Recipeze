@@ -22,7 +22,7 @@ export class RecipeService {
 
   deleteRecipeFromCookbook(recipe: Recipe): Observable<string> {
     let userId = localStorage.getItem('currentUser');
-    return this.http.delete<string>(environment.url + 'recipe/deleteRecipeFromCookbook/' + recipe.RecipeId );
+    return this.http.delete<string>(environment.url + 'recipe/deleteRecipeFromCookbook/' + recipe.RecipeId +'/'+ userId);
   }
 
   getUserCookbook(): Observable<Recipe[]> {

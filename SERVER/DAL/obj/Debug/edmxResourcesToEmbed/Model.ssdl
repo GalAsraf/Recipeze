@@ -35,10 +35,11 @@
   </EntityType>
   <EntityType Name="HealthFoodArticles">
     <Key>
-      <PropertyRef Name="siteName" />
+      <PropertyRef Name="LinkId" />
     </Key>
-    <Property Name="siteName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LinkName" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Ingredients">
     <Key>

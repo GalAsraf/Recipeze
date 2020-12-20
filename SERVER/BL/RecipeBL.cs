@@ -19,20 +19,19 @@ namespace BL
             }
         }
 
-        public static void DeleteRecipeFromCookbook(int recipeId)
+        public static void DeleteRecipeFromCookbook(int recipeId, int userId)
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
-                //  var user = db.Users.Where(a => a.UserId == userId).ToList();
-                //Iits not deleting the recipe from cook book
+                  var user = db.Users.Where(a => a.UserId == userId).ToList();
                 // user[0].CookbookRecipes.Remove(recipe);
-                var recipe = db.CookbookRecipes.FirstOrDefault(c => c.recipeId == recipeId);
-                db.Ingredients.RemoveRange(recipe.Ingredients);
-                db.Instructions.RemoveRange(recipe.Instructions);
-                db.CookbookRecipes.Remove(recipe);
-               // db.CookbookRecipes.Remove(CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId));
+
+                //i didnt make a check with the id because its null - it has no id
+                var recp = user[0].CookbookRecipes.FirstOrDefault(c => c.recipeId==recipeId);
+                db.Ingredients.RemoveRange(recp.Ingredients);
+                db.Instructions.RemoveRange(recp.Instructions);
+                db.CookbookRecipes.Remove(recp);
                 db.SaveChanges();
-                //CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId)
             }
         }
 
@@ -51,8 +50,10 @@ namespace BL
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 var recp = CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId);
-                var c = db.CookbookRecipes.ToList().Where(a => a.userId == user[0].UserId).ToList();// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
-                if (c[0].recipeImage == recipe.PictureSource && c[0].recipeName == recipe.RecipeName)
+                var c = db.CookbookRecipes.ToList().FirstOrDefault(a => a.userId == user[0].UserId&&a.recipeName==recipe.RecipeName&&
+                a.recipeImage==recipe.PictureSource);// && a.recipeName == recp.recipeName && a.recipeImage == recp.recipeImage).ToList(); 
+               
+               if(c!=null)
                     return true;
                 else
                     return false;

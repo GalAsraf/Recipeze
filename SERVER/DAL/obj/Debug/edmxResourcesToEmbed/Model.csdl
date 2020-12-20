@@ -190,9 +190,10 @@
   </EntityType>
   <EntityType Name="HealthFoodArticle">
     <Key>
-      <PropertyRef Name="siteName" />
+      <PropertyRef Name="LinkId" />
     </Key>
-    <Property Name="siteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

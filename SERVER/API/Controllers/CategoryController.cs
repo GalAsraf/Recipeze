@@ -39,17 +39,16 @@ namespace API.Controllers
             string searchLine;
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
 
-            //if (selectedCategory.All(c=>Char.IsLetter(c)))
-            //it works in both ways - both if conditions.... so I don't know what to do.....
+         
+            //it works in both ways - both if conditions.... I don't know whats better
+            // if (selectedCategory.Contains(@"[a-zA-Z]"))
             
             
-            if (selectedCategory.Contains(@"[a-zA-Z]"))
+            if (selectedCategory.All(c => Char.IsLetter(c)))
                 searchLine = selectedCategory;
 
             else
                 searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
-
-
 
             string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);

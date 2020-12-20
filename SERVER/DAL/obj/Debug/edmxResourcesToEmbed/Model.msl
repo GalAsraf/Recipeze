@@ -97,8 +97,9 @@
     <EntitySetMapping Name="HealthFoodArticles">
       <EntityTypeMapping TypeName="RecipezeModel.HealthFoodArticle">
         <MappingFragment StoreEntitySet="HealthFoodArticles">
-          <ScalarProperty Name="link" ColumnName="link" />
-          <ScalarProperty Name="siteName" ColumnName="siteName" />
+          <ScalarProperty Name="LinkName" ColumnName="LinkName" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="LinkId" ColumnName="LinkId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

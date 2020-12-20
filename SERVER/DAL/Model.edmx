@@ -40,10 +40,11 @@
         </EntityType>
         <EntityType Name="HealthFoodArticles">
           <Key>
-            <PropertyRef Name="siteName" />
+            <PropertyRef Name="LinkId" />
           </Key>
-          <Property Name="siteName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="link" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LinkName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -415,10 +416,11 @@
         </EntityType>
         <EntityType Name="HealthFoodArticle">
           <Key>
-            <PropertyRef Name="siteName" />
+            <PropertyRef Name="LinkId" />
           </Key>
-          <Property Name="siteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LinkName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -522,8 +524,9 @@
           <EntitySetMapping Name="HealthFoodArticles">
             <EntityTypeMapping TypeName="RecipezeModel.HealthFoodArticle">
               <MappingFragment StoreEntitySet="HealthFoodArticles">
-                <ScalarProperty Name="link" ColumnName="link" />
-                <ScalarProperty Name="siteName" ColumnName="siteName" />
+                <ScalarProperty Name="LinkName" ColumnName="LinkName" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="LinkId" ColumnName="LinkId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
