@@ -169,7 +169,6 @@ namespace BL.WebScraping
                // Console.WriteLine(ingredients);
                 
                 organizedIngredients = ingredients.Replace("1", "\n1");
-
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
                 organizedIngredients = organizedIngredients.Replace("4", "\n4");
@@ -211,7 +210,7 @@ namespace BL.WebScraping
                // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
                 foreach (var ic in icons)
                 {
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "&#" + ic[2]  + ic[3]  + ic[4] + ";");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "\n");
 
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]+ "\n"+ic[3]+ "\n" +ic[4]+ "\n"+ic[5] +";" , "\n");
@@ -232,11 +231,17 @@ namespace BL.WebScraping
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5]  + ic[6] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
-
-
                 }
 
-
+                string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                foreach (var num1 in array1)
+                {
+                    foreach(var num2 in array2)
+                    {
+                        organizedIngredients = organizedIngredients.Replace(num1 + "\n" + num2, num1 + num2);
+                    }
+                }
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
