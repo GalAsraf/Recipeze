@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Text.RegularExpressions;
 
 namespace API.Controllers
 {
@@ -39,12 +40,17 @@ namespace API.Controllers
             string searchLine;
             List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
 
-         
+
             //it works in both ways - both if conditions.... I don't know whats better
-            // if (selectedCategory.Contains(@"[a-zA-Z]"))
-            
-            
-            if (selectedCategory.All(c => Char.IsLetter(c)))
+
+
+
+            //if (selectedCategory.All(c => Char.IsLetter(c)))
+            //            if (selectedCategory.Contains(@"[a-zA-Z]"))
+
+
+           int errorCounter = Regex.Matches(selectedCategory, @"[a-zA-Z]").Count;
+            if(errorCounter > 0)
                 searchLine = selectedCategory;
 
             else

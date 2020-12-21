@@ -54,17 +54,17 @@ export class RecipesComponent implements OnInit {
     this.route.params.subscribe(
       p => {
         allergies = JSON.parse(p.whatChecked)
-        //     this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
-        //       res => {
-        //         this.recipes = res;
-        //         console.log(res)
-        //         localStorage.setItem('last-search',JSON.stringify(res))
-        //       },
-        //       err => { console.error(err) }
-        //     )
+            this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
+              res => {
+                this.recipes = res;
+                console.log(res)
+                localStorage.setItem('last-search',JSON.stringify(res))
+              },
+              err => { console.error(err) }
+            )
          }
          );
-        this.recipes = JSON.parse(localStorage.getItem('last-search'))
+        //this.recipes = JSON.parse(localStorage.getItem('last-search'))
 
       }
     
@@ -111,8 +111,6 @@ export class RecipesComponent implements OnInit {
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
       res => console.log(res)),
       err => this.inOrOut = false
-
-
   }
 
   deleteRecipeFromCookbook(recipe: Recipe) {

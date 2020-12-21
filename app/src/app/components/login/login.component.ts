@@ -15,8 +15,9 @@ export class LoginComponent implements OnInit {
   loginForm: any
   currenttype: string;
   currentStatus: string;
-  eye: string = "fa fa-fw fa-eye field-icon"
-  slash: string = ""
+  // field-icon
+  eye: string = "fa fa-fw fa-eye field-icon toggle-password";
+  slash: string = "fa fa-eye-slash";
   // eyes: boolean;
   // icon: string;
 
@@ -26,7 +27,9 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       'email': ['', Validators.required],
       'password': ['', [Validators.required]]
-    })
+    });
+    this.currenttype = "fa fa-fw fa-eye field-icon toggle-password";
+    this.currentStatus = "password";
   }
 
   getUserExist() {
@@ -49,12 +52,12 @@ export class LoginComponent implements OnInit {
   }
 
   toggle() {
-    if (this.currenttype == this.eye) {
-      this.currenttype = this.slash;
+    if (this.currentStatus == "text") {
+      this.currenttype = this.eye;
       this.currentStatus = "password"
     }
     else {
-      this.currenttype = this.eye;
+      this.currenttype = this.slash;
       this.currentStatus = "text"
     }
 

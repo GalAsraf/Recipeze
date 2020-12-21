@@ -177,7 +177,7 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("7", "\n7");
                 organizedIngredients = organizedIngredients.Replace("8", "\n8");
                 organizedIngredients = organizedIngredients.Replace("9", "\n9");
-                organizedIngredients = organizedIngredients.Replace("1 1/3", "\n1 1/3");
+                organizedIngredients = organizedIngredients.Replace("1 \n1/3", "1 1/3");
                 organizedIngredients = organizedIngredients.Replace("/\n2", "/2");
                 organizedIngredients = organizedIngredients.Replace("/\n3", "/2");
                 organizedIngredients = organizedIngredients.Replace("/\n4", "/4");
@@ -190,6 +190,8 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "\n");
                 //the problem here is, how can I make it print 1 1/2 ?
                 organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
+                organizedIngredients = organizedIngredients.Replace("1 \n½", "1 ½");
+
                 organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
 
                 organizedIngredients = organizedIngredients.Replace("(\n1", "(1");
@@ -232,6 +234,8 @@ namespace BL.WebScraping
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
                 }
+                organizedIngredients = organizedIngredients.Replace("&amp;"," &");
+
 
                 string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
                 string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
@@ -240,6 +244,10 @@ namespace BL.WebScraping
                     foreach(var num2 in array2)
                     {
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n" + num2, num1 + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 +"-" +num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "-\n" + num2, num1 + "-" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "\n." + num2, num1 + "." + num2);
+
                     }
                 }
 
@@ -294,6 +302,8 @@ namespace BL.WebScraping
                 string directions = parentDirectionsElement.InnerText;
                 directions = directions.Replace(".", ".\n");
                 directions = directions.Replace("&nbsp;", " ");
+                directions = directions.Replace("Instructions", "");
+
 
                 flag = true;
                 List<string> src = new List<string>();
