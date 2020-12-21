@@ -25,8 +25,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService } from 'primeng/api';
 import { HighlightDirective } from './highlight.directive'; // ->  imported directive
-import {FilterPipe} from './filter.pipe'
-
+import {FilterPipe} from './filter.pipe';
 //import {DataViewModule} from 'primeng/dataview';
 
 
