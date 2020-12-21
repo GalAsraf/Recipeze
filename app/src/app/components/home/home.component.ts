@@ -4,6 +4,8 @@ import { Recipe } from 'src/app/shared/models/recipe.model';
 import { AllergyService } from 'src/app/shared/services/allergy.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
+import { healthArticles } from 'src/app/shared/models/healthArticles.modal';
+import { HealthArticlesService } from 'src/app/shared/services/health-articles.service';
 
 
 @Component({
@@ -21,14 +23,21 @@ export class HomeComponent implements OnInit {
   closeResult: string;
   currentRecipe: Recipe;
   inOrOut: boolean;
+  articles: healthArticles[];
 
 
-  constructor(private allergiesService: AllergyService, private modalService: NgbModal, private recipeService: RecipeService) {
+  constructor(private allergiesService: AllergyService, private modalService: NgbModal,
+    private recipeService: RecipeService, private healthArticlesService: HealthArticlesService) {
     this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight'];
   }
 
   ngOnInit(): void {
     this.lastRecipes = JSON.parse(localStorage.getItem('last-search'));
+    
+    this.healthArticlesService.getRandomArticles().subscribe(
+      res => {
+        this.articles = res
+      });
 
     this.allergiesService.getCurrentUserAllergies().subscribe(
       res => {
@@ -74,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  
+
   addRecipeToCookbook(recipe: Recipe) {
     this.inOrOut = true;
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
