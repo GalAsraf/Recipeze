@@ -90,7 +90,9 @@
     <Compile Include="CategoryBL.cs" />
     <Compile Include="CONVERTERS\AllergyConverter.cs" />
     <Compile Include="CONVERTERS\CategoryConverter.cs" />
+    <Compile Include="CONVERTERS\HealthArticlesConverter.cs" />
     <Compile Include="CONVERTERS\RecipeConverter.cs" />
+    <Compile Include="HealthArticlesBL.cs" />
     <Compile Include="RecipeBL.cs" />
     <Compile Include="UserBL.cs" />
     <Compile Include="CONVERTERS\UserConverter.cs" />

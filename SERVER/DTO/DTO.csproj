@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AllergyDTO.cs" />
     <Compile Include="CategoryDTO.cs" />
+    <Compile Include="HealthArticlesDTO.cs" />
     <Compile Include="RecipeDTO.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
