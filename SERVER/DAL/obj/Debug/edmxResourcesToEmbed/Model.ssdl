@@ -59,22 +59,6 @@
     <Property Name="Index" Type="int" />
     <Property Name="recipeId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="KeyWordForRecipePart">
-    <Key>
-      <PropertyRef Name="KeyWordId" />
-    </Key>
-    <Property Name="KeyWordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PartId" Type="int" Nullable="false" />
-    <Property Name="TheKeyWord" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RecipeContentPart">
-    <Key>
-      <PropertyRef Name="PartId" />
-    </Key>
-    <Property Name="PartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NumberOfPart" Type="int" Nullable="false" />
-    <Property Name="PartName" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
   <EntityType Name="Substitutes">
     <Key>
       <PropertyRef Name="AllergyId" />
@@ -152,18 +136,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__KeyWordFo__PartI__5441852A">
-    <End Role="RecipeContentPart" Type="Self.RecipeContentPart" Multiplicity="1" />
-    <End Role="KeyWordForRecipePart" Type="Self.KeyWordForRecipePart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RecipeContentPart">
-        <PropertyRef Name="PartId" />
-      </Principal>
-      <Dependent Role="KeyWordForRecipePart">
-        <PropertyRef Name="PartId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Substitut__Aller__160F4887">
     <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
     <End Role="Substitutes" Type="Self.Substitutes" Multiplicity="0..1" />
@@ -184,8 +156,6 @@
     <EntitySet Name="HealthFoodArticles" EntityType="Self.HealthFoodArticles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="KeyWordForRecipePart" EntityType="Self.KeyWordForRecipePart" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="RecipeContentPart" EntityType="Self.RecipeContentPart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
@@ -207,10 +177,6 @@
     <AssociationSet Name="FK__Instructi__recip__08B54D69" Association="Self.FK__Instructi__recip__08B54D69">
       <End Role="CookbookRecipes" EntitySet="CookbookRecipes" />
       <End Role="Instructions" EntitySet="Instructions" />
-    </AssociationSet>
-    <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="Self.FK__KeyWordFo__PartI__5441852A">
-      <End Role="RecipeContentPart" EntitySet="RecipeContentPart" />
-      <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipePart" />
     </AssociationSet>
     <AssociationSet Name="FK__Substitut__Aller__160F4887" Association="Self.FK__Substitut__Aller__160F4887">
       <End Role="Allergies" EntitySet="Allergies" />

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { JsonpInterceptor } from '@angular/common/http';

@@ -5,22 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="993b7a2be264470589c6b4a01babf44e" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="RecipezeModel.Allergy" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="RecipezeModel.KeyWordForRecipePart" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="RecipezeModel.RecipeContentPart" Width="1.5" PointX="0.75" PointY="3.875" />
-        <AssociationConnector Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A" />
-        <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="RecipezeModel.Allergy" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="RecipezeModel.User" Width="1.5" PointX="2.875" PointY="0.5" />
         <AssociationConnector Association="RecipezeModel.AllergieForUsers" />
-        <EntityTypeShape EntityType="RecipezeModel.Instruction" Width="1.5" PointX="7.5" PointY="6.625" />
-        <EntityTypeShape EntityType="RecipezeModel.CookbookRecipe" Width="1.5" PointX="5.25" PointY="9.75" />
-        <EntityTypeShape EntityType="RecipezeModel.Ingredient" Width="1.5" PointX="7.5" PointY="10" />
+        <EntityTypeShape EntityType="RecipezeModel.Instruction" Width="1.5" PointX="4.875" PointY="2.875" />
+        <EntityTypeShape EntityType="RecipezeModel.CookbookRecipe" Width="1.5" PointX="2.875" PointY="3.125" />
+        <EntityTypeShape EntityType="RecipezeModel.Ingredient" Width="1.5" PointX="6.625" PointY="3.625" />
         <AssociationConnector Association="RecipezeModel.FK__CookbookR__userI__04E4BC85" />
         <AssociationConnector Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE" />
         <AssociationConnector Association="RecipezeModel.FK__Instructi__recip__08B54D69" />
-        <EntityTypeShape EntityType="RecipezeModel.Substitute" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="RecipezeModel.Substitute" Width="1.5" PointX="0.5" PointY="3.25" />
         <AssociationConnector Association="RecipezeModel.FK__Substitut__Aller__160F4887" />
-        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="RecipezeModel.HealthFoodArticle" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5" PointY="0.5" />
+        <EntityTypeShape EntityType="RecipezeModel.HealthFoodArticle" Width="1.5" PointX="7" PointY="0.5" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -13,7 +13,11 @@ import { CheckPassword } from 'src/app/shared/validators/valid';
 })
 export class RegisterComponent implements OnInit {
   user: User = new User();
-  userForm: any
+  userForm: any;
+  currenttype: string;
+  currentStatus: string;
+  eye: string = "fa fa-fw fa-eye field-icon toggle-password";
+  slash: string = "fa fa-eye-slash";
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
@@ -27,7 +31,10 @@ export class RegisterComponent implements OnInit {
     }
     //  { validators: CheckPassword('password', 'confirm') });
 
-  ,)
+  ,);
+
+  this.currenttype = "fa fa-fw fa-eye field-icon toggle-password";
+  this.currentStatus = "password";
   }
 
   addUser() {
@@ -59,5 +66,18 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/allergies'])
 
   }
+
+  toggle() {
+    if (this.currentStatus == "text") {
+      this.currenttype = this.eye;
+      this.currentStatus = "password"
+    }
+    else {
+      this.currenttype = this.slash;
+      this.currentStatus = "text"
+    }
+
+  }
+
 
 }

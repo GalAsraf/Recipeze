@@ -40,6 +40,7 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
     this.SearchForm = this.formBuilder.group({
       'search': ['', Validators.required]
     });

@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   // eyes: boolean;
   // icon: string;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder,
+     private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({

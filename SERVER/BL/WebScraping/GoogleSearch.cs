@@ -94,6 +94,7 @@ namespace BL.WebScraping
                     links[i].Contains("allrecipes") ||
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
+                    links[i].Contains("delish") ||
                     links[i].Contains("leitesculinaria"))
                     continue;
                 var htmlurl = links[i];//the link to scrape
@@ -123,6 +124,10 @@ namespace BL.WebScraping
 
                 //this code doesn't work on allrecipes, foodnetwork, bbcgoodfoods.
                 var ingredientParentElement = ingredientElement.ParentNode;
+                if (ingredientParentElement == null)
+                {
+                    continue;//meaning-> if ingredient element wasn't found, end this round in loop and do i++
+                }
                 bool flag = true;
                 //in reality this doesn't work accurately!
 
@@ -187,10 +192,9 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("½", "\n½");
                 organizedIngredients = organizedIngredients.Replace("¼", "\n¼");
                 organizedIngredients = organizedIngredients.Replace("⅓", "\n⅓");
-                organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "\n");
+                organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "");
                 //the problem here is, how can I make it print 1 1/2 ?
                 organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
-                organizedIngredients = organizedIngredients.Replace("1 \n½", "1 ½");
 
                 organizedIngredients = organizedIngredients.Replace("\n\n", "\n");
 
@@ -208,15 +212,16 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("\n2x", " ");
                 organizedIngredients = organizedIngredients.Replace("\n3x", " ");
                 organizedIngredients = organizedIngredients.Replace("\n&#\n \n \n \n ;", " ");
+                organizedIngredients = organizedIngredients.Replace("&quot;", " ");
 
-               // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
+                // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
                 foreach (var ic in icons)
                 {
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
-                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "\n");
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]+ "\n"+ic[3]+ "\n" +ic[4]+ "\n"+ic[5] +";" , "\n");
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "\n");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]+ "\n"+ic[3]+ "\n" +ic[4]+ "\n"+ic[5] +";" , "");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "");
 
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
@@ -234,7 +239,28 @@ namespace BL.WebScraping
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
                 }
-                organizedIngredients = organizedIngredients.Replace("&amp;"," &");
+                organizedIngredients = organizedIngredients.Replace("&#x", "");
+              
+                organizedIngredients = organizedIngredients.Replace("frac\n1\n2", " 1/2");
+                organizedIngredients = organizedIngredients.Replace("frac\n3\n4", " 3/4");
+                organizedIngredients = organizedIngredients.Replace("frac\n1\n4", " 1/4");
+                organizedIngredients = organizedIngredients.Replace("frac\n1\n3", " 1/3");
+                organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
+                organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
+                organizedIngredients = organizedIngredients.Replace("&frac34;", " 3/4");
+                organizedIngredients = organizedIngredients.Replace("&frac14;", " 1/4");
+                organizedIngredients = organizedIngredients.Replace("&frac13;", " 1/3");
+
+
+
+
+                // organizedIngredients = organizedIngredients.Replace("&#", "");
+                organizedIngredients = organizedIngredients.Replace("&amp", " &");
+                organizedIngredients = organizedIngredients.Replace(";", "");
+                 organizedIngredients = organizedIngredients.Replace("&nbsp", " ");
+                 organizedIngredients = organizedIngredients.Replace("Scale", "");
+
+
 
 
                 string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
@@ -247,9 +273,31 @@ namespace BL.WebScraping
                         organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 +"-" +num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "-\n" + num2, num1 + "-" + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n." + num2, num1 + "." + num2);
+                        organizedIngredients = organizedIngredients.Replace("\n" + num2 + ")", num2+")");
+                        organizedIngredients = organizedIngredients.Replace("(\n"+num1, "(");
+
+                        organizedIngredients = organizedIngredients.Replace(num1 + ".\n" + num2, num1 + "." + num2);
+                        organizedIngredients = organizedIngredients.Replace(  "/\n" + num2, "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace(  "/ \n" + num2, "/" + num2);
+
+                        organizedIngredients = organizedIngredients.Replace(num1+" \n½", num1+" ½");
+                        organizedIngredients = organizedIngredients.Replace(num1+ " \n¼", num1+ " ¼");
+                        organizedIngredients = organizedIngredients.Replace(num1+ " \n⅓", num1+ " ⅓");
+
+                   
 
                     }
                 }
+                organizedIngredients = organizedIngredients.Replace("25a2", "");
+             //   organizedIngredients = organizedIngredients.Replace("25a", "");
+                organizedIngredients = organizedIngredients.Replace("25a\n2", "");
+                organizedIngredients = organizedIngredients.Replace("25a\n 2", "");
+                organizedIngredients = organizedIngredients.Replace("25a \n 2", "");
+                organizedIngredients = organizedIngredients.Replace("25a\n  2", "");
+                organizedIngredients = organizedIngredients.Replace("25a \n2", "");
+                organizedIngredients = organizedIngredients.Replace("25a  \n2", "");
+                organizedIngredients = organizedIngredients.Replace("&frac\n1\n2", " 1/2");
+
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
@@ -303,6 +351,15 @@ namespace BL.WebScraping
                 directions = directions.Replace(".", ".\n");
                 directions = directions.Replace("&nbsp;", " ");
                 directions = directions.Replace("Instructions", "");
+                directions = directions.Replace("&quot;", "");
+                directions = directions.Replace("&#8217;", "'");
+                directions = directions.Replace("25a2", "");
+                directions = directions.Replace("&frac12;", " 1/2");
+                directions = directions.Replace("&frac12;", " 1/2");
+                directions = directions.Replace("&frac34;", " 3/4");
+                directions = directions.Replace("&frac14;", " 1/4");
+                directions = directions.Replace("&frac13;", " 1/3");
+
 
 
                 flag = true;
@@ -311,46 +368,49 @@ namespace BL.WebScraping
                 var flag1 = true;
                 while (flag)
                 {
-                    if (!ingredientParentElement.InnerHtml.Contains("img") || !flag1)
+                    if (ingredientParentElement.InnerHtml!=null)
                     {
-                        flag = true;
-                        flag1 = true;
-                        ingredientParentElement = ingredientParentElement.ParentNode;
-                    }
-                    else
-                    {
-                        //flag = false;
-                        //Console.WriteLine("img found!!!!!!!!!!!!!!!");
-                        //HtmlNode[] nodeItem;
-                        var nodeItem = ingredientParentElement.Descendants("img").ToList();
-
-                        foreach (var item in nodeItem)
-                        {
-
-                            if (item.Attributes["src"] == null)
-                                src.Add(item.Attributes["data-src"].Value);
-                            else
-                                src.Add(item.Attributes["src"].Value);
-
-                            Console.WriteLine(src);
-                        }
-                        foreach (var item in src)
-                        {
-                            if (item.Contains("jpg"))
-                            {
-                                jpgSource = item;
-                                break;
-                            }
-                        }
-                        if (jpgSource == null)
+                        if (!ingredientParentElement.InnerHtml.Contains("img") || !flag1)
                         {
                             flag = true;
-                            flag1 = false;
+                            flag1 = true;
+                            ingredientParentElement = ingredientParentElement.ParentNode;
                         }
                         else
                         {
-                            flag = false;
-                            flag1 = true;
+                            //flag = false;
+                            //Console.WriteLine("img found!!!!!!!!!!!!!!!");
+                            //HtmlNode[] nodeItem;
+                            var nodeItem = ingredientParentElement.Descendants("img").ToList();
+
+                            foreach (var item in nodeItem)
+                            {
+
+                                if (item.Attributes["src"] == null)
+                                    src.Add(item.Attributes["data-src"].Value);
+                                else
+                                    src.Add(item.Attributes["src"].Value);
+
+                                Console.WriteLine(src);
+                            }
+                            foreach (var item in src)
+                            {
+                                if (item.Contains("jpg"))
+                                {
+                                    jpgSource = item;
+                                    break;
+                                }
+                            }
+                            if (jpgSource == null)
+                            {
+                                flag = true;
+                                flag1 = false;
+                            }
+                            else
+                            {
+                                flag = false;
+                                flag1 = true;
+                            }
                         }
                     }
                 }

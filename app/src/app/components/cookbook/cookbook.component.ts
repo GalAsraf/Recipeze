@@ -3,7 +3,6 @@ import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -31,17 +30,16 @@ export class CookbookComponent implements OnInit {
   // ];
   // cookbookToShow: string[] = [];
 
-  constructor(  private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
-     private router: Router) { }
-// public dialogService: DialogService
+  constructor(private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
+    private router: Router) { }
+  // public dialogService: DialogService
 
   ngOnInit(): void {
-   this.loadRecipes();
+    this.loadRecipes();
 
   }
 
-  loadRecipes()
-  {
+  loadRecipes() {
     debugger
     this.recipeService.getUserCookbook().subscribe(
       res => {
@@ -64,28 +62,24 @@ export class CookbookComponent implements OnInit {
 
   removeRecipeFromCookbook(recipe: Recipe) {
     this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
-      res =>{ console.log(res);
-        //this.loadRecipes();
-        this.aa();
+      res => {
+        console.log(res);
+       
       }
-      );
+    );
   }
 
-  aa()
-  {
-    alert("yy")
-  }
+  
+
+  showRecipe(recipe: Recipe) {
+    this.router.navigate(['current-recipe', JSON.stringify(recipe)]);
 
 
-  showRecipe(recipe:Recipe){
-    this.router.navigate(['current-recipe',JSON.stringify(recipe)]);
-
-    
-  //   const ref = this.dialogService.open(CurrentRecipeComponent, {
-  //     data: {currentRecipe:recipe},
-  //     header: recipe.RecipeName,
-  //     width: '70%'
-  // });
+    //   const ref = this.dialogService.open(CurrentRecipeComponent, {
+    //     data: {currentRecipe:recipe},
+    //     header: recipe.RecipeName,
+    //     width: '70%'
+    // });
   }
 
 
@@ -110,7 +104,10 @@ export class CookbookComponent implements OnInit {
 
   deleteRecipeFromCookbook(recipe: Recipe) {
     this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
-      res => console.log(res));
+      res => {
+        console.log(res);
+        this.loadRecipes(); 
+      });
   }
 
 }
