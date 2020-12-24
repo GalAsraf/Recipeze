@@ -19,16 +19,10 @@ export class CookbookComponent implements OnInit {
   searchText = '';
   currentRecipe: Recipe;
   closeResult: string;
+  sentEmail1: string;
+  sentEmail2: string;
+  sentEmail3: string;
 
-  // characters = [
-  //   'chocolate chip cookies',
-  //   'tuna pasta salad',
-  //   'sweet potato fries',
-  //   'avocado salad',
-  //   'vanilla cake',
-  //   'chocolate mousse'
-  // ];
-  // cookbookToShow: string[] = [];
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
     private router: Router) { }
@@ -36,6 +30,9 @@ export class CookbookComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRecipes();
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.sentEmail2 = "&body=";
+    this.sentEmail3 = "&tf=1";
 
   }
 
@@ -108,6 +105,15 @@ export class CookbookComponent implements OnInit {
         console.log(res);
         this.loadRecipes(); 
       });
+  }
+
+  
+  email(subject: string, ingredients: string[], method: string[]) {
+    this.sentEmail1.concat(subject);
+    this.sentEmail1.concat(this.sentEmail2);
+    ingredients.forEach(a=>this.sentEmail1.concat(a));
+    method.forEach(a=>this.sentEmail1.concat(a));
+    this.sentEmail1.concat(this.sentEmail3);
   }
 
 }

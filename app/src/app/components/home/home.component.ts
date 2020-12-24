@@ -6,6 +6,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { healthArticles } from 'src/app/shared/models/healthArticles.modal';
 import { HealthArticlesService } from 'src/app/shared/services/health-articles.service';
+import Speech from 'speak-tts'
 
 
 @Component({
@@ -24,16 +25,59 @@ export class HomeComponent implements OnInit {
   currentRecipe: Recipe;
   inOrOut: boolean;
   articles: healthArticles[];
-
+  sentEmail1: string;
+  sentEmail2: string;
+  sentEmail3: string;
 
   constructor(private allergiesService: AllergyService, private modalService: NgbModal,
     private recipeService: RecipeService, private healthArticlesService: HealthArticlesService) {
     this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight'];
+
+    // const speech = new Speech()
+    // speech.init().then((data) => {
+    //   // The "data" object contains the list of available voices and the voice synthesis params
+    //   console.log("Speech is ready, voices are available", data)
+    // }).catch(e => {
+    //   console.error("An error occured while initializing : ", e)
+    // })
+
+    // Speech.setLanguage('en-US');
+    // Speech.setVoice('Fiona');
+    // Speech.setRate(1);
+    // Speech.setVolume(1);
+    // Speech.setPitch(1);
+
+
+    // Speech.init({
+    //   'volume': 1,
+    //   'lang': 'en-GB',
+    //   'rate': 1,
+    //   'pitch': 1,
+    //   'voice': 'Google UK English Male',
+    //   'splitSentences': true,
+    //   'listeners': {
+    //     'onvoiceschanged': (voices) => {
+    //       console.log("Event voiceschanged", voices)
+    //     }
+    //   }
+    // })
+
+    // speech.speak({
+    //   text: 'Hello, how are you today ?',
+    // }).then(() => {
+    //   console.log("Success !")
+    // }).catch(e => {
+    //   console.error("An error occurred :", e)
+    // })
   }
 
+
   ngOnInit(): void {
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.sentEmail2 = "&body=";
+    this.sentEmail3 = "&tf=1";
     this.lastRecipes = JSON.parse(localStorage.getItem('last-search'));
-    
+
     this.healthArticlesService.getRandomArticles().subscribe(
       res => {
         this.articles = res
@@ -59,6 +103,7 @@ export class HomeComponent implements OnInit {
 
   open(content, recipe) {
     this.currentRecipe = recipe;
+    this.email(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
     this.recipeService.checkIfRecipeExist(this.currentRecipe).subscribe(
       res => {
         this.inOrOut = res
@@ -90,4 +135,36 @@ export class HomeComponent implements OnInit {
       res => console.log(res)),
       err => this.inOrOut = false
   }
+
+  email(subject: string, ingredients: string[], method: string[]) {
+    this.sentEmail1 = this.sentEmail1.concat(subject);
+    this.sentEmail1 = this.sentEmail1.concat(this.sentEmail2);
+    ingredients.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a), this.sentEmail1 = this.sentEmail1.concat("\n"));
+    method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a), this.sentEmail1 = this.sentEmail1.concat("\n"));
+    this.sentEmail1 = this.sentEmail1.concat(this.sentEmail3);
+    console.log(this.sentEmail1)
+  }
+
+
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section') as HTMLInputElement;
+    //innerHtml doesn't work!
+    //printContents= printContents.innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
+
 }

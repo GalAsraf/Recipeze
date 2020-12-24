@@ -24,7 +24,7 @@
       </button>
     </div>
     <div class="modal-body" style="color: black;">
-      <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;"/>
+      <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;" />
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       <h3>Method</h3>
@@ -36,10 +36,22 @@
       <!-- <a title="print recipe" alt="print recipe" (click)="window.print()"  target="_blank"></a> -->
       <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      <button (click)="email(currentRecipe.RecipeName,currentRecipe.Ingredients,currentRecipe.Method)"><i
+          class="fa fa-envelope-o" aria-hidden="true"></i></button>
     </div>
   </ng-template>
   <!-- end popup modal-->
 
+  
+<!-- speak -->
+  <!-- <div>
+    <textarea id="text" style="width: 500px; height: 300px">Hello, how are you today ?</textarea>
+  </div>
+  <button id="play"> Play </button>
+  <button id="pause"> Pause </button>
+  <button id="resume"> Resume </button>
+  <script src="src/index.js"></script> -->
+<!-- speak end -->
 
 
   <section id="about" class="section-padding">
@@ -67,7 +79,7 @@
     </div>
   </section>
 
-  
+
   <!-- <div *ngFor="let recipe of recipes">
     <button (click)="open(mymodal, recipe)">
       <div class="card" style="width: 150px;">

@@ -14,8 +14,10 @@ import { CheckPassword } from 'src/app/shared/validators/valid';
 export class RegisterComponent implements OnInit {
   user: User = new User();
   userForm: any;
-  currenttype: string;
-  currentStatus: string;
+  currenttype1: string;
+  currentStatus1: string;
+  currenttype2: string;
+  currentStatus2: string;
   eye: string = "fa fa-fw fa-eye field-icon toggle-password";
   slash: string = "fa fa-eye-slash";
 
@@ -33,8 +35,10 @@ export class RegisterComponent implements OnInit {
 
   ,);
 
-  this.currenttype = "fa fa-fw fa-eye field-icon toggle-password";
-  this.currentStatus = "password";
+  this.currenttype1 = "fa fa-fw fa-eye field-icon toggle-password";
+  this.currentStatus1 = "password";
+  this.currenttype2 = "fa fa-fw fa-eye field-icon toggle-password";
+  this.currentStatus2 = "password";
   }
 
   addUser() {
@@ -67,16 +71,27 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  toggle() {
-    if (this.currentStatus == "text") {
-      this.currenttype = this.eye;
-      this.currentStatus = "password"
+  toggle1() {
+    if (this.currentStatus1 == "text") {
+      this.currenttype1 = this.eye;
+      this.currentStatus1 = "password"
     }
     else {
-      this.currenttype = this.slash;
-      this.currentStatus = "text"
+      this.currenttype1 = this.slash;
+      this.currentStatus1 = "text"
     }
+  }
 
+
+  toggle2() {
+    if (this.currentStatus2 == "text") {
+      this.currenttype2 = this.eye;
+      this.currentStatus2 = "password"
+    }
+    else {
+      this.currenttype2 = this.slash;
+      this.currentStatus2 = "text"
+    }
   }
 
 

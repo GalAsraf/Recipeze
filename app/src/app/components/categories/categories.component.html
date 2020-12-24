@@ -78,8 +78,9 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
-    <!--     <div id="grad1"></div>
- -->
+
+
+
     <!-- <form [formGroup]="CategoriesForm" (submit)="googleSearchByText()">
         <div class="p-inputgroup" class="p-input-filled">
             <span class="p-input-icon-left">
@@ -131,20 +132,30 @@
 
 
 
-    <form (submit)="googleSearch()">
-        <div>
-            <br><br><br><br>
-            <div *ngFor="let category of categoriesToSelect; let j=index" class="custom-select" style="width:230px">
-                <select (change)="selectChangeHandler($event,j)">
-                    <option value="202" disabled selected> Select category: &nbsp;</option>
+    <form [formGroup]="SearchForm" (submit)="googleSearch()">
 
-                    <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
-                        <label>
-                            <p>{{subCategory.CategoryName}}</p>
-                        </label>
-                    </option>
-                </select>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                aria-describedby="button-addon2" formControlName="search" id="search">
+            <div class="input-group-append">
+                <button style="visibility: visible;" class="fadeInLeft wow btn btn-common btn-lg animated" type="submit"
+                    id="button-addon2">
+                    <i class="fa fa-search"></i></button>
             </div>
+        </div>
+
+
+
+        <div *ngFor="let category of categoriesToSelect; let j=index" class="custom-select" style="width:230px">
+            <select (change)="selectChangeHandler($event,j)">
+                <option value="202" disabled selected> Select category: &nbsp;</option>
+
+                <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
+                    <label>
+                        <p>{{subCategory.CategoryName}}</p>
+                    </label>
+                </option>
+            </select>
         </div>
 
 

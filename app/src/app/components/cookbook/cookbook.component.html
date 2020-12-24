@@ -20,6 +20,7 @@
     <button (click)="deleteRecipeFromCookbook(currentRecipe)" (click)="modal.close('Save click')" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
     height:40px;border-radius: 4px;text-align: center;">delete recipe</button>
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    <button (click)="email(currentRecipe.RecipeName,currentRecipe.Ingredients,currentRecipe.Method)"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
   </div>
 </ng-template>
 

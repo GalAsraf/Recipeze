@@ -95,6 +95,7 @@ namespace BL.WebScraping
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
                     links[i].Contains("delish") ||
+                    links[i].Contains("taste") ||
                     links[i].Contains("leitesculinaria"))
                     continue;
                 var htmlurl = links[i];//the link to scrape
