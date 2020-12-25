@@ -76,10 +76,13 @@
   <!-- Main Carousel Section End -->
 
   <br><br><br><br>
-  <!-- Ticket Pricing Area Start -->
-  <section id="pricing" class="section-padding" *ngIf="login == true">
 
-    <div class="container" *ngIf="substitutes != null">
+
+  <!-- Ticket Pricing Area Start -->
+
+  <section id="pricing" class="section-padding" *ngIf="login == true && substitutes != null">
+
+    <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="section-title-header text-center">
@@ -91,10 +94,11 @@
       </div>
 
 
-      <div class="row" *ngFor="let subs of substitutes; let i = index">
 
-        <div class="col-lg-4 col-sm-6 col-xa-12 mb-3">
-          <div [class]="'price-block-wrapper wow '+places[i%3]+ ' animated'" data-wow-delay="0.2s"
+      <div class="row">
+
+        <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngFor="let subs of substitutes; let i = index">
+          <div [class]="'price-block-wrapper wow '+places[i%3]+ ' animated'" data-wow-delay="0.4s"
             style="visibility: visible;-webkit-animation-delay: 0.3s; -moz-animation-delay: 0.3s; animation-delay: 0.3s;">
             <div class="icon">
               <i class="lni-write"></i>
@@ -105,6 +109,8 @@
             <div class="price">
               <h2>instead of</h2>
               <p>{{allergiesForUser[i].AllergyName}}</p>
+            </div>
+            <div class="pricing-list">
             </div>
           </div>
         </div>
@@ -205,25 +211,15 @@
   <!-- Team Section End -->
 
 
-  <!-- <div >
-    <img src={{currentRecipe.PictureSource}} style="width: 310px; height: 310px;" />
-    <h3>Ingredients</h3>
-    <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
-    <h3>Method</h3>
-    <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
-  </div> -->
-
-
-
   <!-- popup modal -->
-  <ng-template id="print-section" #mymodal let-modal>
+  <ng-template #mymodal let-modal>
     <div class="modal-header" style="color: black;">
       <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="modal-body" style="color: black;">
+    <div class="modal-body" id="printElement" style="color: black;">
       <img src={{currentRecipe.PictureSource}} style="width: 310px; height: 310px;" />
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
@@ -231,12 +227,21 @@
       <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
     </div>
     <div class="modal-footer">
+
+      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> start</button>
+      <button (click)="pause()"> pause </button>
+      <button (click)="resume()"> resume </button>
+      <br>
+      <!-- <button (click)="speech.volume = speech.volume - 1"> - </button> <button
+        (click)="speech.volume = speech.volume + 1"> +
+      </button> {{speech.volume}} -->
+
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
       height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
       <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-      <button (click)="print()"><i class="lni lni-printer"></i> </button>
-      <a [href]="sentEmail1"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+      <button (click)="print(currentRecipe.RecipeName)"><i class="lni lni-printer"></i> </button>
+      <a [href]="sentEmail1" target="_blank"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
     </div>
     <!-- <a [href]="sentEmail1"> -->
   </ng-template>
@@ -275,70 +280,6 @@
   </section>
   <!-- Services Section End -->
 
-
-
-
-
-
-  <!-- <form class="col s8 offset-s2">
-    <div class="row">
-      <label>Choose voice</label>
-      <select id="voices"></select>
-    </div>
-    <div class="row">
-      <div class="col s6">
-        <label>Rate</label>
-        <p class="range-field">
-          <input type="range" id="rate" min="1" max="100" value="10" />
-        </p>
-      </div>
-      <div class="col s6">
-        <label>Pitch</label>
-        <p class="range-field">
-          <input type="range" id="pitch" min="0" max="2" value="1" />
-        </p>
-      </div>
-      <div class="col s12">
-        <p>N.B. Rate and Pitch only work with native voice.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <textarea id="message" class="materialize-textarea"></textarea>
-        <label>Write message</label>
-      </div>
-    </div>
-    <a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
-  </form>  
-
-<div id="modal1" class="modal">
-  <h4>Speech Synthesis not supported</h4>
-  <p>Your browser does not support speech synthesis.</p>
-  <p>We recommend you use Google Chrome.</p>
-  <div class="action-bar">
-    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
-  </div>
-</div>
-
-<script src="./code.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.1/js/materialize.min.js"></script> -->
-
-
-
-<h1> Speech synthesis </h1>
-	
-	<h2 id="support"></h2>
-	
-	<div>
-		<textarea id="text" style="width: 500px; height: 300px">Hello, how are you today ?</textarea>
-  </div>
-	
-			<button id="play"> Play </button>
-			<button id="pause"> Pause </button>
-			<button id="resume"> Resume </button>
-
-	<script src="./index.js"></script>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   currentStatus: string;
   // field-icon
   eye: string = "fa fa-fw fa-eye field-icon toggle-password";
-  slash: string = "fa fa-eye-slash";
+  slash: string = "fa fa-fw fa-eye-slash field-icon toggle-password";
   // eyes: boolean;
   // icon: string;
 

@@ -25,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService } from 'primeng/api';
 import { HighlightDirective } from './highlight.directive'; // ->  imported directive
 import {FilterPipe} from './filter.pipe';
+import { TtsComponent } from './components/tts/tts.component';
 //import {DataViewModule} from 'primeng/dataview';
 
 
@@ -42,7 +43,8 @@ import {FilterPipe} from './filter.pipe';
     RecipesComponent,
     CookbookComponent,
     HighlightDirective,
-    FilterPipe
+    FilterPipe,
+    TtsComponent
   ],
   imports: [
     BrowserModule,
