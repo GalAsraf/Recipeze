@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CurrentRecipeComponent } from '../current-recipe/current-recipe.component';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { JsonpInterceptor } from '@angular/common/http';
+import { Speech } from 'speak-tts'
 
 
 
@@ -37,37 +37,43 @@ export class RecipesComponent implements OnInit {
   closeResult: string;
   currentRecipe: Recipe;
   inOrOut: boolean;
-
+  sentEmail1: string;
+  sentEmail2: string;
+  sentEmail3: string;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,
     private router: Router, public dialogService: DialogService,
     private modalService: NgbModal, private recipeService: RecipeService) {
+   
   }
-
+  
   //The first parameter is the component to be rendered in the modal's content
   //The second parameter is the modal's configuration
 
 
 
   ngOnInit(): void {
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.sentEmail2 = "&body=";
+    this.sentEmail3 = "&tf=1";
     let allergies: number[];
     this.route.params.subscribe(
       p => {
         allergies = JSON.parse(p.whatChecked)
-            this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
-              res => {
-                this.recipes = res;
-                console.log(res)
-                localStorage.setItem('last-search',JSON.stringify(res))
-              },
-              err => { console.error(err) }
-            )
-         }
-         );
-        //this.recipes = JSON.parse(localStorage.getItem('last-search'))
-
+        this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
+          res => {
+            this.recipes = res;
+            console.log(res)
+            localStorage.setItem('last-search', JSON.stringify(res))
+          },
+          err => { console.error(err) }
+        )
       }
-    
+    );
+    //this.recipes = JSON.parse(localStorage.getItem('last-search'))
+
+  }
+
 
   // showRecipe(recipe: Recipe) {
   //   this.router.navigate(['current-recipe', JSON.stringify(recipe)]);
@@ -77,7 +83,7 @@ export class RecipesComponent implements OnInit {
   //     width: '70%'
   //   });
   // }
-    
+
 
   open(content, recipe) {
     this.currentRecipe = recipe;
@@ -116,6 +122,14 @@ export class RecipesComponent implements OnInit {
   deleteRecipeFromCookbook(recipe: Recipe) {
     this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
       res => console.log(res));
+  }
+
+  email(subject: string, ingredients: string[], method: string[]) {
+    this.sentEmail1.concat(subject);
+    this.sentEmail1.concat(this.sentEmail2);
+    ingredients.forEach(a => this.sentEmail1.concat(a));
+    method.forEach(a => this.sentEmail1.concat(a));
+    this.sentEmail1.concat(this.sentEmail3);
   }
 
 }

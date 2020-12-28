@@ -2,12 +2,6 @@
 <Schema Namespace="RecipezeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="RecipezeEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Allergies" EntityType="RecipezeModel.Allergy" />
-    <EntitySet Name="KeyWordForRecipeParts" EntityType="RecipezeModel.KeyWordForRecipePart" />
-    <EntitySet Name="RecipeContentParts" EntityType="RecipezeModel.RecipeContentPart" />
-    <AssociationSet Name="FK__KeyWordFo__PartI__5441852A" Association="RecipezeModel.FK__KeyWordFo__PartI__5441852A">
-      <End Role="RecipeContentPart" EntitySet="RecipeContentParts" />
-      <End Role="KeyWordForRecipePart" EntitySet="KeyWordForRecipeParts" />
-    </AssociationSet>
     <EntitySet Name="Users" EntityType="RecipezeModel.User" />
     <AssociationSet Name="AllergieForUsers" Association="RecipezeModel.AllergieForUsers">
       <End Role="Allergy" EntitySet="Allergies" />
@@ -46,36 +40,6 @@
     <NavigationProperty Name="Users" Relationship="RecipezeModel.AllergieForUsers" FromRole="Allergy" ToRole="User" />
     <NavigationProperty Name="Substitute" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Allergy" ToRole="Substitute" />
   </EntityType>
-  <EntityType Name="KeyWordForRecipePart">
-    <Key>
-      <PropertyRef Name="KeyWordId" />
-    </Key>
-    <Property Name="KeyWordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PartId" Type="Int32" Nullable="false" />
-    <Property Name="TheKeyWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="RecipeContentPart" Relationship="RecipezeModel.FK__KeyWordFo__PartI__5441852A" FromRole="KeyWordForRecipePart" ToRole="RecipeContentPart" />
-  </EntityType>
-  <EntityType Name="RecipeContentPart">
-    <Key>
-      <PropertyRef Name="PartId" />
-    </Key>
-    <Property Name="PartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NumberOfPart" Type="Int32" Nullable="false" />
-    <Property Name="PartName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="KeyWordForRecipeParts" Relationship="RecipezeModel.FK__KeyWordFo__PartI__5441852A" FromRole="RecipeContentPart" ToRole="KeyWordForRecipePart" />
-  </EntityType>
-  <Association Name="FK__KeyWordFo__PartI__5441852A">
-    <End Type="RecipezeModel.RecipeContentPart" Role="RecipeContentPart" Multiplicity="1" />
-    <End Type="RecipezeModel.KeyWordForRecipePart" Role="KeyWordForRecipePart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RecipeContentPart">
-        <PropertyRef Name="PartId" />
-      </Principal>
-      <Dependent Role="KeyWordForRecipePart">
-        <PropertyRef Name="PartId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserId" />

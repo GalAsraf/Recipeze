@@ -10,24 +10,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="KeyWordForRecipeParts">
-      <EntityTypeMapping TypeName="RecipezeModel.KeyWordForRecipePart">
-        <MappingFragment StoreEntitySet="KeyWordForRecipePart">
-          <ScalarProperty Name="TheKeyWord" ColumnName="TheKeyWord" />
-          <ScalarProperty Name="PartId" ColumnName="PartId" />
-          <ScalarProperty Name="KeyWordId" ColumnName="KeyWordId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RecipeContentParts">
-      <EntityTypeMapping TypeName="RecipezeModel.RecipeContentPart">
-        <MappingFragment StoreEntitySet="RecipeContentPart">
-          <ScalarProperty Name="PartName" ColumnName="PartName" />
-          <ScalarProperty Name="NumberOfPart" ColumnName="NumberOfPart" />
-          <ScalarProperty Name="PartId" ColumnName="PartId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="RecipezeModel.User">
         <MappingFragment StoreEntitySet="Users">

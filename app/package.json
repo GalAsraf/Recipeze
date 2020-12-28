@@ -31,6 +31,7 @@
     "primeicons": "^4.1.0",
     "primeng": "^10.0.3",
     "rxjs": "~6.5.4",
+    "speak-tts": "^2.0.8",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
@@ -53,6 +54,7 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "parcel-bundler": "^1.6.1"
   }
 }

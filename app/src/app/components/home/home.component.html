@@ -76,10 +76,13 @@
   <!-- Main Carousel Section End -->
 
   <br><br><br><br>
-  <!-- Ticket Pricing Area Start -->
-  <section id="pricing" class="section-padding" *ngIf="login == true">
 
-    <div class="container" *ngIf="substitutes != null">
+
+  <!-- Ticket Pricing Area Start -->
+
+  <section id="pricing" class="section-padding" *ngIf="login == true && substitutes != null">
+
+    <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="section-title-header text-center">
@@ -91,10 +94,11 @@
       </div>
 
 
-      <div class="row" *ngFor="let subs of substitutes; let i = index">
 
-        <div class="col-lg-4 col-sm-6 col-xa-12 mb-3">
-          <div [class]="'price-block-wrapper wow '+places[i%3]+ ' animated'" data-wow-delay="0.2s"
+      <div class="row">
+
+        <div class="col-lg-4 col-sm-6 col-xa-12 mb-3" *ngFor="let subs of substitutes; let i = index">
+          <div [class]="'price-block-wrapper wow '+places[i%3]+ ' animated'" data-wow-delay="0.4s"
             style="visibility: visible;-webkit-animation-delay: 0.3s; -moz-animation-delay: 0.3s; animation-delay: 0.3s;">
             <div class="icon">
               <i class="lni-write"></i>
@@ -105,6 +109,8 @@
             <div class="price">
               <h2>instead of</h2>
               <p>{{allergiesForUser[i].AllergyName}}</p>
+            </div>
+            <div class="pricing-list">
             </div>
           </div>
         </div>
@@ -164,7 +170,7 @@
 
 
   <!-- Team Section Start -->
-  <section id="team" class="section-padding text-center"  *ngIf="lastRecipes!=null">
+  <section id="team" class="section-padding text-center" *ngIf="lastRecipes!=null">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -176,7 +182,7 @@
       </div>
 
       <div class="row">
-    
+
         <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let lastRecipe of lastRecipes; let i=index">
           <!-- Team Item Starts -->
           <div class="team-item wow fadeInUp" data-wow-delay="0.2s">
@@ -205,27 +211,39 @@
   <!-- Team Section End -->
 
 
-   <!-- popup modal -->
-   <ng-template #mymodal let-modal>
+  <!-- popup modal -->
+  <ng-template #mymodal let-modal>
     <div class="modal-header" style="color: black;">
       <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="modal-body" style="color: black;">
-      <img src={{currentRecipe.PictureSource}} />
+    <div class="modal-body" id="printElement" style="color: black;">
+      <img src={{currentRecipe.PictureSource}} style="width: 310px; height: 310px;" />
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       <h3>Method</h3>
       <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
     </div>
     <div class="modal-footer">
+
+      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> start</button>
+      <button (click)="pause()"> pause </button>
+      <button (click)="resume()"> resume </button>
+      <br>
+      <!-- <button (click)="speech.volume = speech.volume - 1"> - </button> <button
+        (click)="speech.volume = speech.volume + 1"> +
+      </button> {{speech.volume}} -->
+
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
       height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
       <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      <button (click)="print(currentRecipe.RecipeName)"><i class="lni lni-printer"></i> </button>
+      <a [href]="sentEmail1" target="_blank"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
     </div>
+    <!-- <a [href]="sentEmail1"> -->
   </ng-template>
   <!-- end popup modal-->
 
@@ -234,38 +252,33 @@
 
 
   <!-- Services Section Start -->
-<section id="services" class="services section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-title-header text-center">
-          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Articles You May Be Interested In</h1>
-          <p class="wow fadeInDown" data-wow-delay="0.2s">Healthy Food Articles</p>
-        </div>
-      </div>
-    </div>
-    <div class="row services-wrapper">
-      <!-- Services item -->
-      <div class="col-md-6 col-lg-4 col-xs-12 padding-none" *ngFor="let article of articles; let i = index">
-        <div class="services-item wow fadeInDown" data-wow-delay="0.4s">    
-          <div class="icon">
-            <i class="lni-heart"></i>
-          </div>
-          <div class="services-content">
-            <h3><a href={{article.Link}}>{{article.LinkName}}</a></h3>
+  <section id="services" class="services section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title-header text-center">
+            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Articles You May Be Interested In</h1>
+            <p class="wow fadeInDown" data-wow-delay="0.2s">Healthy Food Articles</p>
           </div>
         </div>
       </div>
-     
+      <div class="row services-wrapper">
+        <!-- Services item -->
+        <div class="col-md-6 col-lg-4 col-xs-12 padding-none" *ngFor="let article of articles; let i = index">
+          <div class="services-item wow fadeInDown" data-wow-delay="0.4s">
+            <div class="icon">
+              <i class="lni-heart"></i>
+            </div>
+            <div class="services-content">
+              <h3><a href={{article.Link}}>{{article.LinkName}}</a></h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
-<!-- Services Section End -->
-
-
-
-
-
+  </section>
+  <!-- Services Section End -->
 
 </body>
 

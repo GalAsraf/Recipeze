@@ -14,7 +14,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { CookbookComponent } from './components/cookbook/cookbook.component';
-import { CurrentRecipeComponent } from './components/current-recipe/current-recipe.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
@@ -26,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService } from 'primeng/api';
 import { HighlightDirective } from './highlight.directive'; // ->  imported directive
 import {FilterPipe} from './filter.pipe';
+import { TtsComponent } from './components/tts/tts.component';
 //import {DataViewModule} from 'primeng/dataview';
 
 
@@ -42,9 +42,9 @@ import {FilterPipe} from './filter.pipe';
     HomeComponent,
     RecipesComponent,
     CookbookComponent,
-    CurrentRecipeComponent,
     HighlightDirective,
-    FilterPipe
+    FilterPipe,
+    TtsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,9 +61,7 @@ import {FilterPipe} from './filter.pipe';
     InputTextModule,
     NgbModule
   ],
-  entryComponents: [
-    CurrentRecipeComponent
-  ],
+  
   providers: [AllergyService, CategoryService, UserService,ConfirmationService],
   bootstrap: [AppComponent]
 })
