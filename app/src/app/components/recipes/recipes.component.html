@@ -31,28 +31,26 @@
       <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
     </div>
     <div class="modal-footer">
-      <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
-      height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button>
-      <!-- <a title="print recipe" alt="print recipe" (click)="window.print()"  target="_blank"></a> -->
+      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm">To View Recipe Source Click Here</a>
+      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> glyphicon glyphicon-play-circle  start <i class="fas fa-play"></i></button>
+      <button (click)="pause()">glyphicon glyphicon-pause  pause </button>
+      <button (click)="resume()">glyphicon glyphicon-play resume  <i class="far fa-play-circle"></i></button>
+      <br>
+      <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+
+
+      <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm" >Add To CookBook</button>
       <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-      <button (click)="email(currentRecipe.RecipeName,currentRecipe.Ingredients,currentRecipe.Method)"><i
-          class="fa fa-envelope-o" aria-hidden="true"></i></button>
+      <button (click)="print(currentRecipe.RecipeName)"><i class="lni lni-printer"></i> </button>
+      <a [href]="sentEmail1" target="_blank" style="color: black;"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
     </div>
   </ng-template>
   <!-- end popup modal-->
-
-  
-<!-- speak -->
-  <!-- <div>
-    <textarea id="text" style="width: 500px; height: 300px">Hello, how are you today ?</textarea>
-  </div>
-  <button id="play"> Play </button>
-  <button id="pause"> Pause </button>
-  <button id="resume"> Resume </button>
-  <script src="src/index.js"></script> -->
-<!-- speak end -->
-
+  <!-- <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
+  height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button> -->
 
   <section id="about" class="section-padding">
     <div class="container">
@@ -79,18 +77,6 @@
     </div>
   </section>
 
-
-  <!-- <div *ngFor="let recipe of recipes">
-    <button (click)="open(mymodal, recipe)">
-      <div class="card" style="width: 150px;">
-        <img src={{recipe.PictureSource}} alt="Avatar" style="width:150px">
-        <div class="container1">
-          <h4><b>{{recipe.RecipeName}}</b></h4>
-        </div>
-      </div>
-    </button>
-  
-  </div> -->
 </body>
 
 </html>

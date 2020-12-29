@@ -22,18 +22,29 @@ using System.Drawing;
 
 namespace BL.WebScraping
 {
+    /// <summary>
+    /// GoogleSearch is a class where all the recipes retrieval actions from google take place.
+    /// It is done by Web Scraping recipes from websites google gives when doing a google search. 
+    /// </summary>
     public class GoogleSearch
     {
         public static WebClient webClient = new WebClient();
         public static Regex extractUrl = new Regex(@"[&?](?:q|url)=([^&]+)", RegexOptions.Compiled);
 
+
         #region CustomSearch function
-        public static string CustomSearch(string searchText, int userId, List<string> allergiesForUser)
+        /// <summary>
+        /// Method makes a searchline to search on google
+        /// </summary>
+        /// <param name="searchText" type="string"> it is the search text that is used to search on google. </param>
+        /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities</param>
+        /// <returns> the HTML google page of the search result that contains links of websites with recipes to scrape. </returns>
+        public static string CustomSearch(string searchText, List<string> allergiesForUser)
         {
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
+            //the searchline includes each allergy the user has plus the word "free" in order not to include it in recipes ingredients.
             allergiesForUser.ForEach(a =>
             {
-                //we must check if that kind of searching works, for example: "sugar free egg free cocoa free chocolate cake recipe"
                 sb.Append(a.ToString() + " free ");
             });
             sb.Append(searchText + " recipe");
@@ -41,17 +52,24 @@ namespace BL.WebScraping
         }
         #endregion
 
+
         #region ParseSearchResultHtml function
+        /// <summary>
+        /// A method that extracts all links from the google result web page and puts it in a list.
+        /// the method sends the list of links to the web scraping method: RecipeScraping. 
+        /// </summary>
+        /// <param name="searchLine" type="string">  it is the search text that is used to search on google. </param>
+        /// <param name="html" type="string"> HTML page that was returned from CustomSearch method, which from it the links are taken</param>
+        /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities </param>
+        /// <returns type="List<DTO.RecipeDTO>"> list of recipes which were extracted from web pages </returns>
         public static List<DTO.RecipeDTO> ParseSearchResultHtml(string searchLine, string html, List<string> allergiesForUser)
         {
-
             List<string> searchResults = new List<string>();
-
-            List<string> recipeImages = new List<string>();
-
+            //using package called HtmlAgilityPack to extract data from a website
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.LoadHtml(html);
 
+            //extracts all links from google result web page's HTML, by taking the content of the href in every <a> element.
             var nodes = (from node in doc.DocumentNode.SelectNodes("//a")
                          let href = node.Attributes["href"]
                          where null != href
@@ -59,80 +77,104 @@ namespace BL.WebScraping
                          select href.Value).ToList();
 
 
-
+            //filtering multiplied links, putting links in a new list.
             foreach (var node in nodes)
             {
-
                 var match = extractUrl.Match(node);
                 string test = HttpUtility.UrlDecode(match.Groups[1].Value);
                 if (searchResults.Contains(test))
                     continue;
                 else
                     searchResults.Add(test);
-                Console.WriteLine(searchResults);
-
                 HtmlWeb hw = new HtmlWeb();
                 HtmlDocument resultdoc = hw.Load(test);
             }
 
             List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
+            //calling RecipeScraping method where the process of recipe scraping- recipe extracting, is done
             recipesList = RecipeScraping(searchLine, searchResults, allergiesForUser);
             return recipesList;
         }
         #endregion
 
         #region RecipeScraping function
-        //RecipeScraping function gets the filtered list of links, scrapes each link; pushes the ingredients 
-        //into the list 'recipes' then the directions, and continues with all links. returns list of recipes. 
+        /// <summary>
+        /// gets the filtered list of links, extracts a recipe from each link's HTML web page
+        /// </summary>
+        /// <param name="searchLine" type="string"> it is the search text that is used to search on google </param>
+        /// <param name="links" type="List<string>"> list of links that were extracted from google page  </param>
+        /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities </param>
+        /// <returns type="List<DTO.RecipeDTO>"> list of recipes from the recipe websites </returns>
+
         public static List<DTO.RecipeDTO> RecipeScraping(string searchLine, List<string> links, List<string> allergiesForUser)
         {
             List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
-
+            //loops over list of links, and axtract recipe from each links HTMl page
             for (var i = 0; i < links.Count; i++)
             {
+                //websites to ignore and not scrape because there HTML structure is irregular
                 if (links[i].Contains("bbcgoodfood") ||
+                    links[i].Contains("bbcfood") ||
+                    links[i].Contains("bbc") ||
+                    links[i].Contains("sugarfreemom") ||
+                    links[i].Contains("veggieinspired") ||
+                    links[i].Contains("hersheys") ||
+                    links[i].Contains("dovesfarm") ||
                     links[i].Contains("allrecipes") ||
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
                     links[i].Contains("delish") ||
+                    links[i].Contains("myfoodstory") ||
+                    links[i].Contains("littlehouseliving") ||
+                    links[i].Contains("NatashasKitchen") ||
                     links[i].Contains("taste") ||
+                    links[i].Contains("asweetpeachef") ||
+                    links[i].Contains("HERSHEY's") ||
+                    links[i].Contains("wholesomeyum") ||
                     links[i].Contains("leitesculinaria"))
                     continue;
+
                 var htmlurl = links[i];//the link to scrape
-                //https://www.tasteofhome.com/recipes/asian-vegetable-beef-soup
                 HtmlWeb web1 = new HtmlWeb();
                 var htmlDoc1 = web1.Load(htmlurl);
+                //extracting the recipe's title from the <title> element
                 var titleElement = htmlDoc1.DocumentNode.SelectSingleNode("//head/title");
                 string title = null;
+
+                //checks if <title> element exists, if does, takes it's inner text as the title
+                //if not, uses the searchline as the recipe's title
                 if (titleElement != null)
                 {
                     title = titleElement.InnerText;
+                    title = title.Replace("&amp", "&");
+                    title = title.Replace("&#039", "'");
+                    title = title.Replace("&#034", "") ;
+                    title = title.Replace(";", "") ;
+                    title = title.Replace("&ndash", "-") ;
+                    title = title.Replace("&frasl", "/") ;
+                    
                 }
                 else
                 {
                     title = searchLine;
                 }
 
-                //have to add title to recipes, after adding prop to object
+                //finding the element which only contains the word 'Ingredients' as it's inner text
                 var ingredientElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Ingredients']");
                 if (ingredientElement == null)
                 {
-                    continue;//meaning-> if ingredient element wasn't found, end this round in loop and do i++
+                    continue;
                 }
-                Console.WriteLine("Node Name: " + ingredientElement.Name + "\n" + ingredientElement.OuterHtml + "\n" + ingredientElement.InnerText);
 
-
-
-                //this code doesn't work on allrecipes, foodnetwork, bbcgoodfoods.
+                //ingredientParentElement gets the parent of ingredientElement
                 var ingredientParentElement = ingredientElement.ParentNode;
                 if (ingredientParentElement == null)
                 {
-                    continue;//meaning-> if ingredient element wasn't found, end this round in loop and do i++
+                    continue;
                 }
                 bool flag = true;
-                //in reality this doesn't work accurately!
 
-
+                //fiinding the node that contains the ingredients
                 while (flag)
                 {
                     if (ingredientElement.InnerText == ingredientParentElement.InnerText)
@@ -144,36 +186,18 @@ namespace BL.WebScraping
                         flag = false;
                 }
 
-
-
                 string ingredients = ingredientParentElement.InnerText;
-                List<string> icons = new List<string>();
-                List<char> fixedList = new List<char>();            
-                
-                char[] IngredientsArray = ingredients.ToCharArray();
-                for (int x = 0; x < IngredientsArray.Length; x++)
-                {
-                    if (IngredientsArray[x] == '&' && (IngredientsArray[x + 1] == '#'))
-                    {
-                        while (IngredientsArray[x] != ';')
-                        {
-                            fixedList.Add(IngredientsArray[x]);
-                            x++;
-                        }
-                        fixedList.Add(IngredientsArray[x]);
-                        fixedList.Add(IngredientsArray[x]);
-                        fixedList.Add(IngredientsArray[x]);
 
+                //filtering and fixing up the ingredients which were extracted from the HTML web page as a long string
 
-                        var myString = new string(fixedList.ToArray());
-                        fixedList.Clear();
-                        icons.Add(myString);
-                     }
-                }
+               
 
                 string organizedIngredients;
-               // Console.WriteLine(ingredients);
-                
+                string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string[] array3 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+
+
                 organizedIngredients = ingredients.Replace("1", "\n1");
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
@@ -215,42 +239,75 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("\n&#\n \n \n \n ;", " ");
                 organizedIngredients = organizedIngredients.Replace("&quot;", " ");
 
-                // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
+
+                //getting rid of unicode universal character sets from ingredients
+                List<string> icons = new List<string>();
+                List<char> fixedList = new List<char>();
+
+                char[] IngredientsArray = ingredients.ToCharArray();
+                for (int x = 0; x < IngredientsArray.Length; x++)
+                {
+                    if (IngredientsArray[x] == '&' && (IngredientsArray[x + 1] == '#'))
+                    {
+                        while (IngredientsArray[x] != ';')
+                        {
+                            fixedList.Add(IngredientsArray[x]);
+                            x++;
+                        }
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+                        var myString = new string(fixedList.ToArray());
+                        fixedList.Clear();
+                        icons.Add(myString); //icons contains all the unicodes for ex. &#7839;
+                    }
+                }
+                //foreach icon found in ingredients checking type of icon (length, number, or letter), and removing it from ingredients so that it won't appear in results
+                //knowing if number or letter by checking if has "\n" before -> if does, it's a number
                 foreach (var ic in icons)
                 {
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]+ "\n"+ic[3]+ "\n" +ic[4]+ "\n"+ic[5] +";" , "");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", "");
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "");
 
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] +  ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  + ic[4] + "\n" + ic[5] + ";", " ");
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3]  +"\n" +ic[4]  + ic[5] + ";", " ");
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n"+ ic[4]  + ic[5] + "\n" + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + "\n" + ic[6] + ";", " ");
 
-                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5]  + ic[6] + ";", " ");
-                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2]  + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
+                    organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
                 }
                 organizedIngredients = organizedIngredients.Replace("&#x", "");
-              
-                organizedIngredients = organizedIngredients.Replace("frac\n1\n2", " 1/2");
-                organizedIngredients = organizedIngredients.Replace("frac\n3\n4", " 3/4");
-                organizedIngredients = organizedIngredients.Replace("frac\n1\n4", " 1/4");
-                organizedIngredients = organizedIngredients.Replace("frac\n1\n3", " 1/3");
-                organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
-                organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
-                organizedIngredients = organizedIngredients.Replace("&frac34;", " 3/4");
-                organizedIngredients = organizedIngredients.Replace("&frac14;", " 1/4");
-                organizedIngredients = organizedIngredients.Replace("&frac13;", " 1/3");
+
+                foreach (var num1 in array1)
+                {
+                    foreach (var num2 in array2)
+                    {
+                        organizedIngredients = organizedIngredients.Replace("frac\n" + num1 + "\n" + num2, num1 + "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace("&frac" + num1 + num2 + ";", num1 + "/" + num2);
+                    }
+
+                }
+                //organizedIngredients = organizedIngredients.Replace("frac\n1\n2", " 1/2");
+                //organizedIngredients = organizedIngredients.Replace("frac\n3\n4", " 3/4");
+                //organizedIngredients = organizedIngredients.Replace("frac\n1\n4", " 1/4");
+                //organizedIngredients = organizedIngredients.Replace("frac\n1\n3", " 1/3");
+                //organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
+                //organizedIngredients = organizedIngredients.Replace("&frac12;", " 1/2");
+                //organizedIngredients = organizedIngredients.Replace("&frac34;", " 3/4");
+                //organizedIngredients = organizedIngredients.Replace("&frac14;", " 1/4");
+                //organizedIngredients = organizedIngredients.Replace("&frac13;", " 1/3");
 
 
 
@@ -258,39 +315,69 @@ namespace BL.WebScraping
                 // organizedIngredients = organizedIngredients.Replace("&#", "");
                 organizedIngredients = organizedIngredients.Replace("&amp", " &");
                 organizedIngredients = organizedIngredients.Replace(";", "");
-                 organizedIngredients = organizedIngredients.Replace("&nbsp", " ");
-                 organizedIngredients = organizedIngredients.Replace("Scale", "");
+                organizedIngredients = organizedIngredients.Replace("&nbsp", " ");
+                organizedIngredients = organizedIngredients.Replace("Scale", "");
 
 
 
 
-                string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
-                string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
                 foreach (var num1 in array1)
                 {
-                    foreach(var num2 in array2)
+                    foreach (var num2 in array2)
                     {
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n" + num2, num1 + num2);
-                        organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 +"-" +num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n" + num2, num1 + " " + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " - \n" + num2, num1 + "-" + num2);
+                        organizedIngredients = organizedIngredients.Replace(" - \n" + num2, " -" + num2);
+                        organizedIngredients = organizedIngredients.Replace(" -\n" + num2, " -" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 + "-" + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "-\n" + num2, num1 + "-" + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n." + num2, num1 + "." + num2);
-                        organizedIngredients = organizedIngredients.Replace("\n" + num2 + ")", num2+")");
-                        organizedIngredients = organizedIngredients.Replace("(\n"+num1, "(");
-
+                        organizedIngredients = organizedIngredients.Replace("\n" + num2 + ")", num2 + ")");
+                        organizedIngredients = organizedIngredients.Replace("(\n" + num1, "(" + num1);
+                        organizedIngredients = organizedIngredients.Replace("and \n" + num1, "and " + num1);
+                        organizedIngredients = organizedIngredients.Replace("and \n" + num1 + "/" + num2, "and " + num1 + "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace("& \n" + num1, "& " + num1);
+                        organizedIngredients = organizedIngredients.Replace("& \n" + num1 + "/" + num2, "& " + num1 + "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "|\n" + num2, num1 + "|" + num2);
+                        organizedIngredients = organizedIngredients.Replace("g |\n" + num2, "g |" + num2);
+                        organizedIngredients = organizedIngredients.Replace("z |\n" + num2, "z |" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " |\n" + num2, num1 + "|" + num2);
+                        organizedIngredients = organizedIngredients.Replace("g | \n" + num2, "g |" + num2);
+                        organizedIngredients = organizedIngredients.Replace("z | \n" + num2, "z |" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " | \n" + num2, num1 + " | " + num2);
+                        organizedIngredients = organizedIngredients.Replace(". | \n" + num2, ". | " + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + ".\n" + num2, num1 + "." + num2);
-                        organizedIngredients = organizedIngredients.Replace(  "/\n" + num2, "/" + num2);
-                        organizedIngredients = organizedIngredients.Replace(  "/ \n" + num2, "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace("/\n" + num2, "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace("/ \n" + num2, "/" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n½", num1 + " ½");
+                        organizedIngredients = organizedIngredients.Replace(num1 + "\n½", num1 + " ½");
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n¼", num1 + " ¼");
+                        organizedIngredients = organizedIngredients.Replace(num1 + "\n¼", num1 + " ¼");
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n⅓", num1 + " ⅓");
+                        organizedIngredients = organizedIngredients.Replace(num1 + "\n⅓", num1 + " ⅓");
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n" + "1/", num1 + " "  + "1/"+num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n" + "2/", num1 + " " + "2/" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " \n" + "3/", num1 + " " + "3/" + num2);
+                        organizedIngredients = organizedIngredients.Replace(",\n"+num1, ","+num1);
+                        organizedIngredients = organizedIngredients.Replace(", \n"+num1, ", "+num1);
+                        organizedIngredients = organizedIngredients.Replace("to \n"+num1, "to "+num1);
+                        organizedIngredients = organizedIngredients.Replace("or \n"+num1, "or "+num1);
+                        organizedIngredients = organizedIngredients.Replace(num1+" x \n"+num2, num1 + " x " + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + "x\n" + num2, num1 + "x" + num2);
+                        organizedIngredients = organizedIngredients.Replace("\n"+num1 + ":\n"+num2, "  "+num1 + ":"+num2);
+                        organizedIngredients = organizedIngredients.Replace(" +\n"+num1, " + "+num1);
+                        organizedIngredients = organizedIngredients.Replace(" +\n "+num1, " + "+num1);
+                        organizedIngredients = organizedIngredients.Replace(" + \n"+num1, " + "+num1);
+                        organizedIngredients = organizedIngredients.Replace(" + \n "+num1, " + "+num1);
+                        organizedIngredients = organizedIngredients.Replace(" + \n", " + ");
+                        
 
-                        organizedIngredients = organizedIngredients.Replace(num1+" \n½", num1+" ½");
-                        organizedIngredients = organizedIngredients.Replace(num1+ " \n¼", num1+ " ¼");
-                        organizedIngredients = organizedIngredients.Replace(num1+ " \n⅓", num1+ " ⅓");
-
-                   
 
                     }
                 }
                 organizedIngredients = organizedIngredients.Replace("25a2", "");
-             //   organizedIngredients = organizedIngredients.Replace("25a", "");
+                //   organizedIngredients = organizedIngredients.Replace("25a", "");
                 organizedIngredients = organizedIngredients.Replace("25a\n2", "");
                 organizedIngredients = organizedIngredients.Replace("25a\n 2", "");
                 organizedIngredients = organizedIngredients.Replace("25a \n 2", "");
@@ -298,14 +385,47 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("25a \n2", "");
                 organizedIngredients = organizedIngredients.Replace("25a  \n2", "");
                 organizedIngredients = organizedIngredients.Replace("&frac\n1\n2", " 1/2");
+                organizedIngredients = organizedIngredients.Replace("*", "");
+                organizedIngredients = organizedIngredients.Replace("&ndash","-");
+                organizedIngredients = organizedIngredients.Replace("&frasl", "/");
+
+
+
+                List<string> parenthesis = new List<string>();
+                List<char> counting = new List<char>();
+                for (int x = 0; x < IngredientsArray.Length; x++)
+                {
+                    if (IngredientsArray[x] == '(')
+                    {
+                        while (IngredientsArray[x] != ')')
+                        {
+                            counting.Add(IngredientsArray[x]);
+                            x++;
+                        }
+                        counting.Add(IngredientsArray[x]);
+                        counting.Add(IngredientsArray[x]);
+                        counting.Add(IngredientsArray[x]);
+                        parenthesis.Add(new string(counting.ToArray()));
+                        counting.Clear();
+                        
+                    }
+                }
+                for (int g = 0; g < counting.Count; g++)
+                {
+                    organizedIngredients = organizedIngredients.Replace(counting[i]+"\n", counting[i]+" ");
+                }
+                //foreach (var count in counting)
+                //{
+                //    organizedIngredients = organizedIngredients.Replace(count"\n"," ");
+                //}
+
 
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
 
-                //still didn't take care of &...;
                 organizedIngredients = organizedIngredients.Replace("  ", string.Empty);
-                //organizedIngredients.Replace("\n", "");
+
 
                 var directionsElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Directions']");
                 if (directionsElement != null)
@@ -348,28 +468,85 @@ namespace BL.WebScraping
                         flag = false;
                 }
 
+
                 string directions = parentDirectionsElement.InnerText;
                 directions = directions.Replace(".", ".\n");
+                directions = directions.Replace("\n)", ")");
                 directions = directions.Replace("&nbsp;", " ");
+                directions = directions.Replace("&amp;", "&");
+                directions = directions.Replace(";", "");
+
                 directions = directions.Replace("Instructions", "");
+                directions = directions.Replace("Method", "");
                 directions = directions.Replace("&quot;", "");
                 directions = directions.Replace("&#8217;", "'");
                 directions = directions.Replace("25a2", "");
-                directions = directions.Replace("&frac12;", " 1/2");
-                directions = directions.Replace("&frac12;", " 1/2");
-                directions = directions.Replace("&frac34;", " 3/4");
-                directions = directions.Replace("&frac14;", " 1/4");
-                directions = directions.Replace("&frac13;", " 1/3");
+                foreach (var num1 in array1)
+                {
+                    foreach (var num2 in array2)
+                    {
+                        directions = directions.Replace("frac\n" + num1 + "\n" + num2, num1 + "/" + num2);
+                        directions = directions.Replace("&frac" + num1 + num2 + ";", num1 + "/" + num2);
+                    }
+                }
 
+                //getting rid of &#...;
+                //List<string> directionicons = new List<string>();
+                //List<char> directionfixedlist = new List<char>();
+
+                //char[] directionsarray = directions.ToCharArray();
+                //for (int x = 0; x < directionsarray.Length; x++)
+                //{
+                //    if (directionsarray[x] == '&' && (directionsarray[x + 1] == '#'))
+                //    {
+                //        while (directionsarray[x] != ';')
+                //        {
+                //            directionfixedlist.Add(directionsarray[x]);
+                //            x++;
+                //        }
+                //        directionfixedlist.Add(directionsarray[x]);
+                //        directionfixedlist.Add(directionsarray[x]);
+                //        directionfixedlist.Add(directionsarray[x]);
+
+
+                //        var mystring = new string(directionfixedlist.ToArray());
+                //        directionfixedlist.Clear();
+                //        directionicons.Add(mystring);
+                //    }
+                //}
+
+                //foreach (var ic in directionicons)
+                //{
+                //    directions = directions.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", "");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "");
+                //    directions = directions.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
+                //    directions = directions.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + "\n" + ic[6] + ";", " ");
+                //    directions = directions.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
+                //    directions = directions.Replace("&#" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
+
+                //}
 
 
                 flag = true;
                 List<string> src = new List<string>();
                 string jpgSource = null;
                 var flag1 = true;
+                
                 while (flag)
                 {
-                    if (ingredientParentElement.InnerHtml!=null)
+                    if (ingredientParentElement == null)
+                    {
+                        continue;
+                    }
+                    else if(ingredientParentElement.InnerHtml!=null)
                     {
                         if (!ingredientParentElement.InnerHtml.Contains("img") || !flag1)
                         {
@@ -474,7 +651,7 @@ namespace BL.WebScraping
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;
                 recipe.PictureSource = jpgSource;
-
+                recipe.Url = links[i];
                 //inside checking if the recipe object contains allergic ingredients.
                 var checkAllergy = 0;
                 List<string> listOfAllergies = new List<string>();
@@ -580,21 +757,7 @@ namespace BL.WebScraping
 
 //tryings
 
-#region trying - api key
-//string apiKey = "nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCu3UfnJ1xAPHlf\nyT7H+lipgXzodlh2T24VnT+OsVse/BTsdHvmDt9KjirtnxoXUMc1z4UUVbTytiK6\neGeUeNJYI8UGrejKELk0BAFOMyCiW0h5BPZD3avosluHOUYGCdru5nG2t26u+QWf\nglyINFTH54gCHBbDNWSzqdSSgIBuHPdpvytp/OCyCfMKxB+hBUSev/y8BWXmStcg\nCxZXM5ubRsDQ19bFniAkkea6QTe4ThMYRGlNOJdb1xc1Fcn0x86umnQ/eqE4aKFI\npWd0YnSMvHMzNUg2LiXuttHgHr8PZ3C9wd0CcZ4OgprfnncEM7OHpNZmlMV/r36Y\nHEVEqunrAgMBAAECggEACPDWKXEPUVbUdBvGS4yhjwPWy1scYlyr/yhBITrbXaQ0\noFbf7DgRj5IaNZSPahFT7/5pbfa9qm3zZYMq9RPJS7f07eMqe6/EGjZOqB0nVjsl\n8bMEXHKhUuPfQp9nuH7gDw2rjBvhzR8nwx07BKBDBlvUBuJBOlwov/fTrYHySARI\nkGk4jPlhcQ23qH4PYEymZkVZi9d+TLoDXJwqXPXsi+ZtRlmGvQKaDDnZ6UAm66bv\n+XLMoqGFx1DFYXhg4T5wy+6FGL13xro7YW8azUSAFtNo+dwXPuiMHFo89ldc7z9q\neLU2uHrHtwaagpgkMjN8N7ISKQPP/GTMrY2WkJpt8QKBgQDiIpNjVDi3CfqlVPIc\n1RPYUpMdc5Oz4BRZl680pqmz5VM+JeJONKTipJvsxJTE1udp0v1R93oskeUcWT06\njyFq1DhkX65B9Ns6GpxheBXlmXShQBIexjXDGudqnYUC2LUbJtPrh4MspQ5ZYSV4\nkd51v54hnZh4BBHMM7HDHTXEFwKBgQDF9UoHjE6DNleslH+hXuVq64JMeXraMU+p\nLzsB1+drZlaivxV4LRzlguwv4VAlt4MTYgdriOJcU/8IfXQuTI7+B2zMRsGWCNgp\noPwwAn+Ftxm5m/ZpBpdeOcho/54NRHA6uNtp8LTxc8TZLd2kgkgwE0xbn1wDCfG4\nZGmmierpTQKBgEICCbfCy9NSDGHaS9nysJpCcEL2i7TDweztA+2AgKTMWeIYONjP\nMRofJoyUTUCv4ljXh643aOg9pf0CZ4cCZKTEUbmq3DjQenWZcvBYlzuv8YVoKGHn\nRaYv4kESvdK44xSL3uwvYDDV9TxNyRxKp/8C8euqDulpdrB+nnLvwdP9AoGAD5ha\nY6vXB5lBYPQ19dWPB1RUaIfteMEHwJFa+bMzpQ9j5eBd5aDQNPiSeNcsRDxn1CAV\n64/WHWX0oouXmoonfbXCCXnNiG9b8DOhinq35yXcnfW+fNmrFR5CPptcrTjmCopD\npt3ys07mhCGL44jr/PWYP2OXkRm4dElc1WTqH8UCgYEAx2Xz26jySwBdSNWWWwVN\ncPDz7q5SBoXGOLj0RWNR4DdIDRCXRf31j3QCo6MPNgi2XXNbO+razCuveXV72RGi\n9x+9eheoUa1xQ3zCpVJomTv6TmKwIrn2XxUb3U+2T5vhFHP8JNmPvuQ7RHYH0Sa+\nvdXff8zYgzOpaqxJFGSxePQ=";
-//string cx = "e565f9cc6248f12a3";
-//string query = "cake";
 
-//string result =new WebClient().DownloadString(String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&alt=json", apiKey, cx, query));
-//JavaScriptSerializer serializer = new JavaScriptSerializer();
-//Dictionary<string, object> collection = serializer.Deserialize<Dictionary<string, object>>(result);
-//foreach (Dictionary<string, object> item in (IEnumerable)collection["items"])
-//{
-//    Console.WriteLine("Title: {0}", item["title"]);
-//    Console.WriteLine("Link: {0}", item["link"]);
-//    Console.WriteLine();
-//}
-#endregion
 
 #region trying fillter function
 

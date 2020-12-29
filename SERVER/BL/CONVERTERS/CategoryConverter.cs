@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.CONVERTERS
 {
+    /// <summary>
+    /// CategoryConverter is in charge of converting between different layers and the database
+    /// </summary>
     public static class CategoryConverter
     {
         public static Category ConvertCategoryToDAL(CategoryDTO category)

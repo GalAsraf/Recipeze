@@ -77,30 +77,62 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
-
+    <br>
     <form (submit)="defineAllergies()">
-        <h1>Here you can define all your allergies. <br> Just select your allergies and they will be considered when you
-            search for a recipe.</h1> <br>
+        <!--  <h1>Here you can define all your allergies. <br> Just select your allergies and they will be considered when you
+            search for a recipe.</h1> <br> -->
+
+        <div class="col-12">
+            <div class="section-title-header text-center">
+                <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">My sensitivities</h1>
+                <p style="font-size: 15px;"  class="wow fadeInDown" data-wow-delay="0.2s">just select your sensitivities and you can exclude them
+                    from your ingredients when searching for a recipe</p>
+            </div>
+        </div>
         <div style="text-align: center;">
-            <button type="submit" style="background-color:rgb(209, 113, 61);border-color: white; width: 100px;
-        height:40px;border-radius: 4px;text-align: center;">Submit</button>
-            <button onclick="skip()" style="background-color:rgb(209, 113, 61);border-color: white; width: 100px;
-        height:40px;border-radius: 4px;text-align: center;">skip</button>
+            <button type="submit" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30"
+                name="submit" id="submit" style="font-family: inherit;">
+                <span class="ladda-label"><i class="lni-check-box"></i>
+                    submit</span>
+            </button>
+            <button onclick="skip()" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30"
+                style="font-family: inherit;">
+                <span class="ladda-label">
+                    skip</span>
+            </button>
         </div>
 
-        <div>
+        <div style="text-align: center; margin-left: 100px;">
+            <div id="middle" *ngFor="let allergy of allergies; ;let i=index ">
+                <label class="container11" style="font-size: 20px; float: left; margin-top: 5px;">
+                    <input type="checkbox" [checked]="isChecked(allergy.AllergyCode)" [value]="allergies[i].AllergyName"
+                        id={{allergies[i].AllergyName}} (change)="toggleAllergy(allergies[i].AllergyCode)" style="margin-left: 25px;">
+                    {{allergies[i].AllergyName}}
+                    <span class="checkmark"></span>
+                </label>
+               
+            
+            </div>
+        </div>
+
+       
+
+        <!-- <div class="container">
             <ul *ngFor="let allergy of allergies;let i=index ">
-                <label class="container">
+                <label class="container" style="font-size: 20px;">
                     {{allergies[i].AllergyName}}
                     <input type="checkbox" [checked]="isChecked(allergy.AllergyCode)" [value]="allergies[i].AllergyName"
                         id={{allergies[i].AllergyName}} (change)="toggleAllergy(allergies[i].AllergyCode)">
                     <span class="checkmark"></span>
                 </label>
-                {{allergies[i].AllergyName}}
             </ul>
-        </div>
+        </div> -->
 
     </form>
+    <br>
+    <br>
+    <br>
+    <br>
 </body>
 
 </html>

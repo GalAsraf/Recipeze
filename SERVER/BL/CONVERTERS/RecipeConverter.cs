@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.CONVERTERS
 {
+    /// <summary>
+    /// RecipeConverter is in charge of converting between different layers and the database
+    /// </summary>
     public class RecipeConverter
     {
         public static CookbookRecipe ConvertRecipeToDAL(RecipeDTO recipe, int userId)
@@ -17,6 +20,7 @@ namespace BL.CONVERTERS
                 userId = userId,
                 recipeName = recipe.RecipeName,
                 recipeImage = recipe.PictureSource,
+               
                 Ingredients = recipe.Ingredients.Select((val, index) => new Ingredient { IngredientText = val, Index = index }).ToList(),
                 Instructions = recipe.Method.Select((val, index) => new Instruction { InstructionText = val, Index = index }).ToList(),
             };

@@ -13,6 +13,12 @@ export class DefineAllergyComponent implements OnInit {
   allergies: Allergy[] = [];
   allergiesForUser: Allergy[] = [];
   selectedAllergies: number[] = [];
+  allergies1: Allergy[] = [];
+  allergies2: Allergy[] = [];
+  allergies3: Allergy[] = [];
+  allergies4: Allergy[] = [];
+  allergies5: Allergy[] = [];
+
 
   constructor(private allergiesService: AllergyService, private router: Router) { }
 
@@ -21,14 +27,28 @@ export class DefineAllergyComponent implements OnInit {
       res => {
         this.allergies = res;
         // this.selectSubCategories(null);
+        // this.allergies1 = this.allergies.slice(0, 9);
+        // console.log(this.allergies1);
+        // this.allergies2 = this.allergies.slice(10, 19);
+        // console.log(this.allergies2);
+        // this.allergies3 = this.allergies.splice(20, 29);
+        // console.log(this.allergies3);
+        // this.allergies4 = this.allergies.splice(30, 39);
+        // console.log(this.allergies4);
+        // this.allergies5 = this.allergies.splice(40, 49);
+        // console.log(this.allergies5);
       }
     );
+
+   
+
+
     if (localStorage.getItem('currentUser') != undefined) {
       this.allergiesService.getCurrentUserAllergies().subscribe(
         res => {
           this.allergiesForUser = res;
-          this.selectedAllergies=Array.from(this.allergiesForUser,a=>a.AllergyCode)
-          console.log(Array.from(this.allergiesForUser,a=>a.AllergyCode))
+          this.selectedAllergies = Array.from(this.allergiesForUser, a => a.AllergyCode)
+          console.log(Array.from(this.allergiesForUser, a => a.AllergyCode))
         }
       );
     }
@@ -60,16 +80,16 @@ export class DefineAllergyComponent implements OnInit {
 
   isChecked(allergy: number) {
     // this.allergiesForUser.forEach(a => {
-      
+
     //   if (a.AllergyCode == allergy)
     //     return true;
     // });
     // return false;
-   if(this.allergiesForUser.findIndex(a=>a.AllergyCode==allergy)==-1)
-   return false;
-   return true;
+    if (this.allergiesForUser.findIndex(a => a.AllergyCode == allergy) == -1)
+      return false;
+    return true;
   }
-  skip(){
+  skip() {
     this.router.navigate(['/home'])
   }
 

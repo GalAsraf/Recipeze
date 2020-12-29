@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
   speech: any;
   speechData: any;
   stringToRead:string="";
-  // @ViewChild('printElement', { static: false }) printElement: ElementRef;
 
   constructor(private allergiesService: AllergyService, private modalService: NgbModal,
     private recipeService: RecipeService, private healthArticlesService: HealthArticlesService,
@@ -137,6 +136,7 @@ export class HomeComponent implements OnInit {
 
   open(content, recipe) {
     this.currentRecipe = recipe;
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
     this.email(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
     this.recipeService.checkIfRecipeExist(this.currentRecipe).subscribe(
       res => {
@@ -146,13 +146,13 @@ export class HomeComponent implements OnInit {
           this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
         });
       });
-
   }
 
   private getDismissReason(reason: any): string {
-    this.pause();
+    //this.pause();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -174,10 +174,12 @@ export class HomeComponent implements OnInit {
   email(subject: string, ingredients: string[], method: string[]) {
     this.sentEmail1 = this.sentEmail1.concat(subject);
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail2);
+    this.sentEmail1 = this.sentEmail1.concat("%0A"+"ingredients"+"%0A");
     ingredients.forEach(a =>
       { 
          this.sentEmail1 = this.sentEmail1.concat(a+"%0A")}
       );
+      this.sentEmail1 = this.sentEmail1.concat("%0A"+"instruction"+"%0A");
     method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a+"%0A"));
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail3);
     console.log(this.sentEmail1)

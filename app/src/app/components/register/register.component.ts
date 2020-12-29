@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   currenttype2: string;
   currentStatus2: string;
   eye: string = "fa fa-fw fa-eye field-icon toggle-password";
-  slash: string = "fa fa-eye-slash";
+  slash: string = "fa fa-fw fa-eye-slash field-icon toggle-password";
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private loginService: LoginService, private router: Router) { }
 
@@ -35,10 +35,10 @@ export class RegisterComponent implements OnInit {
 
   ,);
 
-  this.currenttype1 = "fa fa-fw fa-eye field-icon toggle-password";
-  this.currentStatus1 = "password";
-  this.currenttype2 = "fa fa-fw fa-eye field-icon toggle-password";
-  this.currentStatus2 = "password";
+    this.currenttype1 = "fa fa-fw fa-eye field-icon toggle-password";
+    this.currentStatus1 = "password";
+    this.currenttype2 = "fa fa-fw fa-eye field-icon toggle-password";
+    this.currentStatus2 = "password";
   }
 
   addUser() {
