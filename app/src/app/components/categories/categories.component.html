@@ -14,27 +14,16 @@
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-4ZPLezkTZTsojWFhpdFembdzFudphhoOzIunR1wH6g1WQDzCAiPvDyitaK67mp0+" crossorigin="anonymous">
 
 <body>
 
 
     <!-- Main Carousel Section Start -->
     <div id="main-slide" class="carousel slide" data-ride="carousel">
-        <!-- <ol class="carousel-indicators">
-            <li data-target="#main-slide" data-slide-to="0" class="active"></li>
-            <li data-target="#main-slide" data-slide-to="1"></li>
-            <li data-target="#main-slide" data-slide-to="2"></li>
-            <li data-target="#main-slide" data-slide-to="3"></li>
-            <li data-target="#main-slide" data-slide-to="4"></li>
-            <li data-target="#main-slide" data-slide-to="5"></li>
-            <li data-target="#main-slide" data-slide-to="6"></li>
-            <li data-target="#main-slide" data-slide-to="7"></li>
-            <li data-target="#main-slide" data-slide-to="8"></li>
-            <li data-target="#main-slide" data-slide-to="9"></li>
-            <li data-target="#main-slide" data-slide-to="10"></li>
-            <li data-target="#main-slide" data-slide-to="11"></li>
-
-        </ol> -->
+       
+       
         <div class="carousel-inner">
 
             <div class="carousel-item active">
@@ -78,60 +67,9 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
-
-
-
-    <!-- <form [formGroup]="CategoriesForm" (submit)="googleSearchByText()">
-        <div class="p-inputgroup" class="p-input-filled">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search" style="font-size: 2rem;"></i>
-            </span>
-            <input type="text" pInputText placeholder="Search" class="p-inputtext-lg" placeholder="Large"
-                formControlName="search" id="search">
-
-        </div>
-        <p-button type="submit" label="Search" icon="pi pi-search" iconPos="right" class="p-button-text p-button-text">
-        </p-button>
-
-
-        <h1>treat my sensitivity</h1>
-        <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
-        <div *ngIf="checked">
-            <ul *ngFor="let sens of allergies;let i=index ">
-                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
-                    <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
-                        (change)="toggleAllergy(allergies[i].AllergyCode)">
-                </label>
-            </ul>
-        </div>
-    </form> -->
+   
     <br>
-    <!-- <form [formGroup]="SearchForm" (submit)="googleSearchByText()">
-
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
-                aria-describedby="button-addon2" formControlName="search" id="search">
-            <div class="input-group-append">
-                <button style="visibility: visible;" class="fadeInLeft wow btn btn-common btn-lg animated" type="submit" id="button-addon2">
-                    <i class="fa fa-search"></i></button>
-            </div>
-        </div>
-
-        <h1>treat my sensitivity</h1>
-        <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
-        <div *ngIf="checked">
-            <ul *ngFor="let sens of allergies;let i=index ">
-                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
-                    <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
-                        (change)="toggleAllergy(allergies[i].AllergyCode)">
-                </label>
-            </ul>
-        </div>
-    </form> -->
-
-
-
-
+ 
     <form [formGroup]="SearchForm" (submit)="googleSearch()">
 
         <div class="input-group mb-3">
@@ -145,9 +83,47 @@
         </div>
 
 
+        <!-- tryings-->
 
-        <div *ngFor="let category of categoriesToSelect; let j=index" class="custom-select" style="width:230px">
-            <select (change)="selectChangeHandler($event,j)">
+        <!-- <div id="tt2" class="icon material-icons">print</div>
+        <div class="mdl-tooltip mdl-tooltip--large" for="tt2">
+            Print
+        </div> -->
+
+
+
+
+        <!-- <div class="pure-u-1 pure-u-md-1-3">
+            <label for="multi-state">State</label>
+            <select id="multi-state" class="pure-input-1-2">
+                <option>AL</option>
+                <option>CA</option>
+                <option>IL</option>
+            </select>
+        </div>
+
+
+
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div> -->
+
+        <!-- end of tryings -->
+
+        <div >
+            <select (change)="selectChangeHandler($event,j)"  *ngFor="let category of categoriesToSelect; let j=index"  class="custom-select" style="width:230px">
                 <option value="202" disabled selected> Select category: &nbsp;</option>
 
                 <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
@@ -157,22 +133,52 @@
                 </option>
             </select>
         </div>
+        <div class="container" style="margin-bottom: 1px">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title-header text-center">
+                        <h6 class="section-title wow fadeInUp" data-wow-delay="0.2s" style="font-size: 40px;">treat my
+                            sensitivities <input type="checkbox" (change)="TreatSensitivity()"
+                                value="do you want to treat your sensitivity?"> </h6>
 
+                        <!-- <div *ngIf="checked" id="middle">
+                            <ul *ngFor="let sens of allergies;let i=index ">
+                                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
+                                    <input type="checkbox" [value]="allergies[i].AllergyName"
+                                        id={{allergies[i].AllergyName}}
+                                        (change)="toggleAllergy(allergies[i].AllergyCode)">
+                                </label>
+                            </ul>
+                        </div> -->
+                        <div *ngIf="checked">
+                            <div id="middle" *ngFor="let sens of allergies;let i=index " style="margin-left: 100px;">
+                                <label class="container11" style="font-size: 20px; float: left; margin-top: 5px;">
+                                    <input type="checkbox" [value]="allergies[i].AllergyName"
+                                        id={{allergies[i].AllergyName}}
+                                        (change)="toggleAllergy(allergies[i].AllergyCode)" style="margin-left: 250px;">
+                                    {{allergies[i].AllergyName}}
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
 
-        <h1>treat my sensitivity</h1>
-        <input type="checkbox" (change)="TreatSensitivity()" value="do you want to treat your sensitivity?">
-        <div *ngIf="checked">
-            <ul *ngFor="let sens of allergies;let i=index ">
-                <label class="container" style="font-size: 20px;">{{allergies[i].AllergyName}}
-                    <input type="checkbox" [value]="allergies[i].AllergyName" id={{allergies[i].AllergyName}}
-                        (change)="toggleAllergy(allergies[i].AllergyCode)">
-                </label>
-            </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <br>
 
-        <button type="submit"
-            style="background-color:rgb(209, 113, 61) ;border-color: white; width: 100px;height:40px;border-radius: 4px;">Search</button>
+        <!-- <button type="submit"
+            style="background-color:rgb(209, 113, 61) ;border-color: white; width: 100px;height:40px;border-radius: 4px;">Search</button>-->
+
+        <button type="submit" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30" name="submit"
+            id="submit" style="font-family: inherit;">
+            <span class="ladda-label"><i class="lni-check-box"></i>
+                Find my recipe</span>
+        </button>
+        <div id="msgSubmit" class="h3 text-center hidden"></div>
         <br><br><br>
 
 

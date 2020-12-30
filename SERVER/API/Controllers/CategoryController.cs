@@ -38,7 +38,7 @@ namespace API.Controllers
         {
             //you should check if that kind of code is OK, cause on one search, it gave strang results for chocolate cake recipe....
             string searchLine;
-            List<string> allergiesForUser = BL.CategoryBL.GetAllergies(whatChecked);
+            List<string> allergiesForUser = BL.AllergyBL.GetAllergies(whatChecked);
 
 
             //it works in both ways - both if conditions.... I don't know whats better
@@ -56,7 +56,7 @@ namespace API.Controllers
             else
                 searchLine = BL.CategoryBL.GetCurrentCategory(int.Parse(selectedCategory));
 
-            string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, userId, allergiesForUser);
+            string res = BL.WebScraping.GoogleSearch.CustomSearch(searchLine, allergiesForUser);
             List<DTO.RecipeDTO> result = BL.WebScraping.GoogleSearch.ParseSearchResultHtml(searchLine, res, allergiesForUser);
 
             return Ok(result);

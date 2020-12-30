@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.CONVERTERS
 {
+    /// <summary>
+    /// HealthArticlesConverter is in charge of converting between different layers and the database
+    /// </summary>
     public class HealthArticlesConverter
     {
         public static HealthFoodArticle ConvertArticleToDAL(HealthArticlesDTO articles)

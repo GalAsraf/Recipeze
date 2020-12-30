@@ -121,24 +121,27 @@
      -->
 
 
-
-    <form class="form-horizontal" [formGroup]="userForm">
-        <section id="contact-map" class="section-padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="section-title-header text-center">
-                            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Register</h1>
-                            <p class="wow fadeInDown" data-wow-delay="0.2s">Stay in, so that you can search for recipes
-                                without your
-                                sensitivities!</p>
-                        </div>
+    <section id="contact-map" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="section-title-header text-center">
+                        <h1 class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                            Register</h1>
+                        <p class="wow fadeInDown" data-wow-delay="0.4s">Stay in, so that
+                            you can search for recipes
+                            without your
+                            sensitivities!</p>
                     </div>
-                    <div class="col-lg-7 col-md-12 col-xs-12">
-                        <div class="container-form wow fadeInLeft" data-wow-delay="0.2s">
-                            <div class="form-wrapper">
-                                <!-- <form role="form" method="post" id="contactForm" name="contact-form" 
-                                    data-toggle="validator" (submit)="addUser()"> -->
+                </div>
+                <div class="col-lg-7 col-md-12 col-xs-12">
+                    <div class="container-form wow fadeInLeft" data-wow-delay="0.4s">
+                        <div class="form-wrapper">
+
+                            <form class="form-horizontal" [formGroup]="userForm" data-toggle="validator"
+                                (submit)="addUser()">
+
+
                                 <div class="row">
                                     <!--name-->
                                     <div class="col-md-12 form-line">
@@ -158,18 +161,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- password-->
-                                    <!-- <div class="col-md-12 form-line">
-                                            <div class="form-group">
-                                                <input id="password" type="password" class="form-control"
-                                                    name="password" placeholder="password" required
-                                                    data-error="Please enter your password">
-                                                <span toggle="#password-field"
-                                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div> -->
-
+                                    <!-- password -->
                                     <div class="col-md-12 form-line">
                                         <div class="form-group">
                                             <input id="password-field" [type]="currentStatus1" class="form-control"
@@ -186,31 +178,29 @@
                                             <input id="confirmPassword" [type]="currentStatus2" class="form-control"
                                                 name="password" placeholder="password" required
                                                 data-error="Please enter your password">
-                                                <span [class]="currenttype2" (click)="toggle2()"></span>
+                                            <span [class]="currenttype2" (click)="toggle2()"></span>
                                             <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-
-
 
                                     <div class="form-submit" style="text-align: center;">
                                         <button type="submit" class="btn btn-common sub-btn" data-style="zoom-in"
                                             data-spinner-size="30" name="submit" id="submit"
                                             style="font-family: inherit;">
-                                            <span class="ladda-label"><i class="lni-check-box"></i> Submit</span>
+                                            <span class="ladda-label"><i class="lni-check-box"></i>
+                                                Submit</span>
                                         </button>
                                         <div id="msgSubmit" class="h3 text-center hidden"></div>
                                     </div>
 
                                 </div>
-                                <!-- </form> -->
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </form>
+        </div>
+    </section>
 
 </body>
 

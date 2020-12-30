@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: any
   currenttype: string;
   currentStatus: string;
+  loginAlert:boolean;
   // field-icon
   eye: string = "fa fa-fw fa-eye field-icon toggle-password";
   slash: string = "fa fa-fw fa-eye-slash field-icon toggle-password";
@@ -34,11 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   getUserExist() {
+    debugger
     this.user.Email = this.loginForm.controls.email.value
     this.user.Password = this.loginForm.controls.password.value
     this.userService.getUserExist(this.user).subscribe(
       res => { localStorage.setItem('currentUser', res.toString()) },
-      err => { alert("user not found") }
+      err => { alert("user not found");
+    this.loginAlert==true; }
       //console.error(err)
     )
     this.loginUser(this.user);

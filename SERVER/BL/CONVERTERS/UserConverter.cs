@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.CONVERTERS
 {
+    /// <summary>
+    /// UserConverter is in charge of converting between different layers and the database
+    /// </summary>
     public static class UserConverter
     {
         public static User ConvertUserToDAL(UserDTO user)

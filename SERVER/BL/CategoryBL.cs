@@ -9,8 +9,15 @@ using System.Threading.Tasks;
 
 namespace BL
 {
+    /// <summary>
+    /// CategoryBL contains methods which do operations with the database
+    /// </summary>
     public class CategoryBL
     {
+        /// <summary>
+        /// get all categories of food
+        /// </summary>
+        /// <returns> list of categories </returns>
         public static List<CategoryDTO> GetAllCategories()
         {
             using (RecipezeEntities db = new RecipezeEntities())
@@ -19,6 +26,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// get category name from database by category Id
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns> category name </returns>
         public static string GetCurrentCategory(int categoryId)
         {
             using (RecipezeEntities db = new RecipezeEntities())
@@ -28,41 +40,6 @@ namespace BL
             }
         }
 
-    public static List<string> GetAllergies(int[] whatChecked)
-    {
-            using (RecipezeEntities db = new RecipezeEntities())
-            {
-                List<string> allergies = new List<string>();
-                foreach (var item in whatChecked)
-                {
-                    var allergy = db.Allergies.Where(a => a.AllergyCode == item).ToList();
-                    allergies.Add(allergy[0].AllergyName);
-                }
-                return allergies;
-                //var member = db.Users.Where(a => a.UserId==userId).ToList();
-                //return member[0].Allergies.ToList();
-            }
-        }
-
-        //public static object GetSelectedItem(int selectedCategory)
-        //{
-        //    using (RecipezeEntities db = new RecipezeEntities())
-        //    {
-        //        return CONVERTERS.CategoryConverter.ConvertCategoryListToDTO(db.Categories);
-        //    }
-        //}
-
-        //public static object GoogleSearchString(string selectedCategory)
-        //{
-        //    return BL.WebScraping.GoogleSearch(selectedCategory);
-        //}
-
-        //public static List<CategoryDTO> GetSelectedCategories(string selectedCategory)
-        //{
-        //    using (RecipezeEntities db = new RecipezeEntities())
-        //    {
-        //        return CONVERTERS.CategoryConverter.ConvertCategoryToDTO(db.Categories.Select(b=>b.CategoryName==selectedCategory);
-        //    }
-        //}
+      
     }
 }

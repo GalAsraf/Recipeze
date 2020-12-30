@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.CONVERTERS
 {
+    /// <summary>
+    /// AllergyConverter is in charge of converting between different layers and the database
+    /// </summary>
     public static class AllergyConverter
     {
         public static Allergy ConvertAllergyToDAL(AllergyDTO allergy)
