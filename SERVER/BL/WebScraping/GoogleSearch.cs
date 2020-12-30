@@ -147,33 +147,13 @@ namespace BL.WebScraping
 
 
                 string ingredients = ingredientParentElement.InnerText;
-                List<string> icons = new List<string>();
-                List<char> fixedList = new List<char>();            
-                
-                char[] IngredientsArray = ingredients.ToCharArray();
-                for (int x = 0; x < IngredientsArray.Length; x++)
-                {
-                    if (IngredientsArray[x] == '&' && (IngredientsArray[x + 1] == '#'))
-                    {
-                        while (IngredientsArray[x] != ';')
-                        {
-                            fixedList.Add(IngredientsArray[x]);
-                            x++;
-                        }
-                        fixedList.Add(IngredientsArray[x]);
-                        fixedList.Add(IngredientsArray[x]);
-                        fixedList.Add(IngredientsArray[x]);
-
-
-                        var myString = new string(fixedList.ToArray());
-                        fixedList.Clear();
-                        icons.Add(myString);
-                     }
-                }
-
+              
                 string organizedIngredients;
-               // Console.WriteLine(ingredients);
-                
+                string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string[] array3 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                // Console.WriteLine(ingredients);
+
                 organizedIngredients = ingredients.Replace("1", "\n1");
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
@@ -215,7 +195,31 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("\n&#\n \n \n \n ;", " ");
                 organizedIngredients = organizedIngredients.Replace("&quot;", " ");
 
-                // organizedIngredients = organizedIngredients.Replace("\n&#\n" + p + "\n \n \n \n ;", " ");
+
+                //getting rid of unicode universal character sets from ingredients
+                List<string> icons = new List<string>();
+                List<char> fixedList = new List<char>();
+
+                char[] IngredientsArray = ingredients.ToCharArray();
+                for (int x = 0; x < IngredientsArray.Length; x++)
+                {
+                    if (IngredientsArray[x] == '&' && (IngredientsArray[x + 1] == '#'))
+                    {
+                        while (IngredientsArray[x] != ';')
+                        {
+                            fixedList.Add(IngredientsArray[x]);
+                            x++;
+                        }
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+                        fixedList.Add(IngredientsArray[x]);
+                        var myString = new string(fixedList.ToArray());
+                        fixedList.Clear();
+                        icons.Add(myString); //icons contains all the unicodes for ex. &#7839;
+                    }
+                }
+                //foreach icon found in ingredients checking type of icon (length, number, or letter), and removing it from ingredients so that it won't appear in results
+                //knowing if number or letter by checking if has "\n" before -> if does, it's a number
                 foreach (var ic in icons)
                 {
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
@@ -264,8 +268,6 @@ namespace BL.WebScraping
 
 
 
-                string[] array1 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
-                string[] array2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
                 foreach (var num1 in array1)
                 {
                     foreach(var num2 in array2)
