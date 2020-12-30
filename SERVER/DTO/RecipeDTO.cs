@@ -14,6 +14,10 @@ namespace DTO
         public List<string> Ingredients { get; set; }
         public List<string> Method { get; set; }
         public string RecipeName { get; set; }
+        public string PrepTime { get; set; }
+
+        public string TotalTime { get; set; }
+
         public string Url { get; set; }
         //more things we should add to our site
         public string PictureSource { get; set; }
