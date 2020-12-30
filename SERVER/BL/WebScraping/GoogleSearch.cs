@@ -423,7 +423,6 @@ namespace BL.WebScraping
 
                 organizedIngredients = organizedIngredients.Replace("Ingredients", "");
 
-
                 organizedIngredients = organizedIngredients.Replace("  ", string.Empty);
 
 
@@ -475,7 +474,6 @@ namespace BL.WebScraping
                 directions = directions.Replace("&nbsp;", " ");
                 directions = directions.Replace("&amp;", "&");
                 directions = directions.Replace(";", "");
-
                 directions = directions.Replace("Instructions", "");
                 directions = directions.Replace("Method", "");
                 directions = directions.Replace("&quot;", "");
@@ -539,7 +537,8 @@ namespace BL.WebScraping
                 List<string> src = new List<string>();
                 string jpgSource = null;
                 var flag1 = true;
-                
+                string prepTime=null;
+                string totalTime = null;
                 while (flag)
                 {
                     if (ingredientParentElement == null)
@@ -556,14 +555,10 @@ namespace BL.WebScraping
                         }
                         else
                         {
-                            //flag = false;
-                            //Console.WriteLine("img found!!!!!!!!!!!!!!!");
-                            //HtmlNode[] nodeItem;
                             var nodeItem = ingredientParentElement.Descendants("img").ToList();
 
                             foreach (var item in nodeItem)
                             {
-
                                 if (item.Attributes["src"] == null)
                                     src.Add(item.Attributes["data-src"].Value);
                                 else
@@ -591,6 +586,105 @@ namespace BL.WebScraping
                             }
                         }
                     }
+                }
+
+                //extracting prep time
+
+                var prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Prep Time']");
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Prep Time:']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Prep Time: ']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Prep Time:']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Prep']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Prep:']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='prep time']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='prep time:']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='prep']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='prep:']");
+                }
+                if (prepElement == null)
+                {
+                    prepElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='active']");
+                }
+                if (prepElement != null)
+                {
+                    Console.WriteLine(prepElement.InnerText);
+                    Console.WriteLine("prep time element found");
+                    var prepParentElement = prepElement.ParentNode;
+                    prepTime = prepParentElement.InnerText;
+                    Console.WriteLine(prepTime);
+                }
+
+                //extracting total time
+
+                var totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Total Time']");
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Total Time:']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Total Time: ']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Total Time:']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Total']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Total:']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='total time']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='total time:']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='total']");
+                }
+                if (totalElement == null)
+                {
+                    totalElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='total:']");
+                }
+
+                if (totalElement != null)
+                {
+                    var totalParentElement = totalElement.ParentNode;
+                    totalTime = totalParentElement.InnerText;
+                    Console.WriteLine(totalTime);
                 }
                 #region image
                 ////Declare the URL
@@ -650,6 +744,8 @@ namespace BL.WebScraping
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;
+                recipe.PrepTime = prepTime;
+                recipe.TotalTime = totalTime;
                 recipe.PictureSource = jpgSource;
                 recipe.Url = links[i];
                 //inside checking if the recipe object contains allergic ingredients.

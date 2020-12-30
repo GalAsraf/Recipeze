@@ -25,27 +25,38 @@
     </div>
     <div class="modal-body" style="color: black;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;" />
+
+      <div style=" float:left;   margin:10px">
+        <h6>{{currentRecipe.PrepTime}}</h6>
+      </div>
+      <div style=" float:left; height:100px;  margin:10px">
+        <h6>{{currentRecipe.TotalTime}}</h6>
+      </div>
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       <h3>Method</h3>
       <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
     </div>
     <div class="modal-footer">
-      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm">To View Recipe Source Click Here</a>
-      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> glyphicon glyphicon-play-circle  start <i class="fas fa-play"></i></button>
-      <button (click)="pause()">glyphicon glyphicon-pause  pause </button>
-      <button (click)="resume()">glyphicon glyphicon-play resume  <i class="far fa-play-circle"></i></button>
+      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63;"
+        class="btn btn-common btn-rm">To View Recipe Source Click Here</a>
+      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> glyphicon
+        glyphicon-play-circle start <i class="fas fa-play"></i></button>
+      <button (click)="pause()">glyphicon glyphicon-pause pause </button>
+      <button (click)="resume()">glyphicon glyphicon-play resume <i class="far fa-play-circle"></i></button>
       <br>
       <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
 
 
-      <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm" >Add To CookBook</button>
+      <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)"
+        style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm">Add To CookBook</button>
       <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
       <button (click)="print(currentRecipe.RecipeName)"><i class="lni lni-printer"></i> </button>
-      <a [href]="sentEmail1" target="_blank" style="color: black;"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+      <a [href]="sentEmail1" target="_blank" style="color: black;"><i class="fa fa-envelope-o"
+          aria-hidden="true"></i></a>
     </div>
   </ng-template>
   <!-- end popup modal-->
