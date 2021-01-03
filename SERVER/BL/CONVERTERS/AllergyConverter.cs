@@ -37,7 +37,7 @@ namespace BL.CONVERTERS
 
         public static List<AllergyDTO> ConvertAllergyListToDTO(IEnumerable<Allergy> allergies)
         {
-            return allergies.Select(c => ConvertAllergyToDTO(c)).ToList();
+            return allergies.Select(c => ConvertAllergyToDTO(c)).OrderBy(n => n.AllergyName).ToList();
         }
 
 

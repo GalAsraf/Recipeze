@@ -5,6 +5,7 @@ export class Recipe
      Method:string[];
      RecipeName:string;
      PrepTime:string;
+     CookTime: string;
      TotalTime:string;
      Url:string;
      PictureSource:string;

@@ -38,8 +38,6 @@ namespace BL
                 var c = db.Categories.Where(a => a.CategoryId == categoryId).ToList();
                 return c[0].CategoryName;
             }
-        }
-
-      
+        }     
     }
 }

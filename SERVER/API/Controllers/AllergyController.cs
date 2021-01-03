@@ -13,6 +13,7 @@ namespace API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllAllergies()
         {
+            //get all allergies
             return Ok(BL.AllergyBL.getAllAllergies());
         }
 
@@ -20,6 +21,7 @@ namespace API.Controllers
         [HttpGet]
         public IHttpActionResult getCurrentUserAllergies(int userId)
         {
+            //getcurrent user's allergies
             return Ok(BL.AllergyBL.getCurrentUserAllergies(userId));
         }
 
@@ -27,6 +29,7 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult DefineAllergiesForUser(int userId,List<int> allergies)
         {
+            //define allergies for current user
             return Ok(BL.AllergyBL.DefineAllergiesForUser(userId,allergies));
         }
 
@@ -34,19 +37,8 @@ namespace API.Controllers
         [HttpGet]
         public IHttpActionResult getSubstitutes(int userId)
         {
+            //get substitutes for allergies
             return Ok(BL.AllergyBL.getSubstitutes(userId));
         }
-
-
-        //[Route("AddAllergy"), HttpPost]
-        //public IHttpActionResult AddAllergy(AllergyDTO allergy)
-        //{
-        //    BL.AllergyBL.AddAllergy(allergy);
-        //    return Ok("run");
-        //}
-
-
     }
-
-
 }

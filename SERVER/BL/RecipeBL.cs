@@ -11,6 +11,7 @@ namespace BL
     /// <summary>
     /// RecipeBL contains methods that do database operations that have to do with recipes in cookbook
     /// </summary>
+    
     public class RecipeBL
     {
         /// <summary>

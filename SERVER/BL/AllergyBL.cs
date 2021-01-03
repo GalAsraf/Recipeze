@@ -41,7 +41,6 @@ namespace BL
             }
         }
 
-
         /// <summary>
         /// define allergies for current user, add new ones and delete old ones
         /// </summary>
@@ -90,7 +89,6 @@ namespace BL
             }
             
         }
-
 
         /// <summary>
         /// get all allergies from database

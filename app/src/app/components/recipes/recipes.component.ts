@@ -107,15 +107,6 @@ export class RecipesComponent implements OnInit {
   }
 
 
-  // showRecipe(recipe: Recipe) {
-  //   this.router.navigate(['current-recipe', JSON.stringify(recipe)]);
-  //   const ref = this.dialogService.open(CurrentRecipeComponent, {
-  //     data: { currentRecipe: recipe },
-  //     header: recipe.RecipeName,
-  //     width: '70%'
-  //   });
-  // }
-
 
   open(content, recipe) {
     this.currentRecipe = recipe;
@@ -159,6 +150,7 @@ export class RecipesComponent implements OnInit {
   }
 
   email(subject: string, ingredients: string[], method: string[]) {
+    debugger
     this.sentEmail1 = this.sentEmail1.concat(subject);
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail2);
     this.sentEmail1 = this.sentEmail1.concat("%0A"+"ingredients"+"%0A");

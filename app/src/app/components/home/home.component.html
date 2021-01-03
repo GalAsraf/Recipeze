@@ -28,7 +28,8 @@
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <h1 class="wow fadeInDown heading" data-wow-delay=".4s">Easiest Way To Find Your Recipe</h1>
-          <a class="nav-link" routerLink="category" routerLinkActive="activeLink" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">Get Started</a>
+          <a class="nav-link" routerLink="category" routerLinkActive="activeLink"
+            class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">Get Started</a>
         </div>
       </div>
       <div class="carousel-item">
@@ -37,7 +38,8 @@
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s">Recipeze Invites You To Experience The Food </p>
           <h1 class="wow bounceIn heading" data-wow-delay=".7s">From Your Point Of View</h1>
-          <a class="nav-link" routerLink="allergies" routerLinkActive="activeLink" class="fadeInUp wow btn btn-border btn-lg" data-wow-delay=".8s">Set Your Sensitivities</a>
+          <a class="nav-link" routerLink="allergies" routerLinkActive="activeLink"
+            class="fadeInUp wow btn btn-border btn-lg" data-wow-delay=".8s">Set Your Sensitivities</a>
         </div>
       </div>
       <div class="carousel-item">
@@ -73,10 +75,53 @@
   </div>
   <!-- Main Carousel Section End -->
 
-  <br><br><br><br>
+  
+
+  <!-- last recipes -->
+  <section id="team" class="section-padding text-center" *ngIf="lastRecipes!=null">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title-header text-center">
+            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Last Recipes You Searched For</h1>
+            <i class="fab fa-accessible-icon"></i>
+            <p class="wow fadeInDown" data-wow-delay="0.2s">Save Your Time And Peek Your Recipe</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let lastRecipe of lastRecipes; let i=index">
+          <!-- Team Item Starts -->
+          <div class="team-item wow fadeInUp" data-wow-delay="0.2s">
+            <div class="team-img">
+              <img class="img-fluid" src={{lastRecipe.PictureSource}} style="width: 310px; height: 310px;" alt="">
+              <div class="team-overlay">
+                <div class="overlay-social-icon text-center">
+                  <ul class="social-icons">
+                    <li><a href="#"><i class="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="lni-linkedin-filled" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="lni-behance" aria-hidden="true"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="info-text">
+              <h3><a (click)="open(mymodal, lastRecipe)" style="width: 650px">{{lastRecipe.RecipeName}}</a></h3>
+            </div>
+          </div>
+          <!-- Team Item Ends -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- last recipes End -->
 
 
-  <!-- Ticket Pricing Area Start -->
+
+  <!-- substitutes Start -->
 
   <section id="pricing" class="section-padding" *ngIf="login == true && substitutes != null">
 
@@ -118,7 +163,7 @@
     </div>
 
   </section>
-  <!-- Ticket Pricing Area End -->
+  <!-- substitutes End -->
 
 
 
@@ -167,51 +212,8 @@
 
 
 
-  <!-- Team Section Start -->
-  <section id="team" class="section-padding text-center" *ngIf="lastRecipes!=null">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="section-title-header text-center">
-            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Last Recipes You Searched For</h1>
-            <i class="fab fa-accessible-icon"></i>
-            <p class="wow fadeInDown" data-wow-delay="0.2s">Save Your Time And Peek Your Recipe</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let lastRecipe of lastRecipes; let i=index">
-          <!-- Team Item Starts -->
-          <div class="team-item wow fadeInUp" data-wow-delay="0.2s">
-            <div class="team-img">
-              <img class="img-fluid" src={{lastRecipe.PictureSource}} style="width: 310px; height: 310px;" alt="">
-              <div class="team-overlay">
-                <div class="overlay-social-icon text-center">
-                  <ul class="social-icons">
-                    <li><a href="#"><i class="lni-facebook-filled" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="lni-twitter-filled" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="lni-linkedin-filled" aria-hidden="true"></i></a></li>
-                    <li><a href="#"><i class="lni-behance" aria-hidden="true"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="info-text">
-              <h3><a (click)="open(mymodal, lastRecipe)" style="width: 650px">{{lastRecipe.RecipeName}}</a></h3>
-            </div>
-          </div>
-          <!-- Team Item Ends -->
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Team Section End -->
-
-
   <!-- popup modal -->
-  <ng-template #mymodal let-modal>
+  <ng-template #mymodal let-modal style="width: 120%;">
     <div class="modal-header" style="color: black;">
       <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -220,6 +222,19 @@
     </div>
     <div class="modal-body" id="printElement" style="color: black;">
       <img src={{currentRecipe.PictureSource}} style="width: 310px; height: 310px;" />
+      <br>
+      <div>
+        <div style=" float:left;   margin:5px; width: 30%;">
+          <h6>{{currentRecipe.PrepTime}}</h6>
+        </div>
+        <div style=" float:left;   margin:5px;  width: 30%;">
+          <h6>{{currentRecipe.TotalTime}}</h6>
+        </div>
+        <div style=" float:left;  margin:5px; width: 30%;">
+          <h6>{{currentRecipe.CookTime}}</h6>
+        </div>
+      </div>
+      <br>
       <h3>Ingredients</h3>
       <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       <h3>Method</h3>
@@ -230,7 +245,6 @@
       <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> start</button>
       <button (click)="pause()"> pause </button>
       <button (click)="resume()"> resume </button>
-      <i class="far fa-pause-circle"></i>
       <br>
 
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
@@ -266,7 +280,7 @@
               <i class="lni-heart"></i>
             </div>
             <div class="services-content">
-              <h3><a href={{article.Link}}>{{article.LinkName}}</a></h3>
+              <h3><a href={{article.Link}} target="_blank">{{article.LinkName}}</a></h3>
             </div>
           </div>
         </div>
