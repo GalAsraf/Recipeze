@@ -8,6 +8,8 @@ import { RecipeService } from 'src/app/shared/services/recipe.service';
 import { JsonpInterceptor } from '@angular/common/http';
 import Speech from 'speak-tts';
 import { DOCUMENT } from '@angular/common';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 
 @Component({
@@ -44,21 +46,63 @@ export class RecipesComponent implements OnInit {
   result = '';
   speech: any;
   speechData: any;
-  stringToRead:string="";
+  stringToRead: string = "";
+  mark: boolean = false;
+  bold: boolean = false;
+  regular: boolean = true;
+  contentttt: any;
+  fontSize = 14;
+  @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,
     private router: Router, public dialogService: DialogService,
     private modalService: NgbModal, private recipeService: RecipeService) {
-   
-      this.speech = new Speech() // will throw an exception if not browser supported
+    this.mark = false;
+    this.bold = false;
+    this.regular = true;
+    this.speechConstractor();
+
+  }
+
+  //The first parameter is the component to be rendered in the modal's content
+  //The second parameter is the modal's configuration
+
+
+
+  ngOnInit(): void {
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.sentEmail2 = "&body=";
+    this.sentEmail3 = "&tf=1";
+    let allergies: number[];
+
+    // this.route.params.subscribe(
+    //   p => {
+    //     allergies = JSON.parse(p.whatChecked)
+    //     this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
+    //       res => {
+    //         this.recipes = res;
+    //         console.log(res)
+    //         localStorage.setItem('last-search', JSON.stringify(res))
+    //       },
+    //       err => { console.error(err) }
+    //     )
+    //   }
+    // );
+
+    this.recipes = JSON.parse(localStorage.getItem('last-search'))
+
+  }
+
+  speechConstractor() {
+    this.speech = new Speech() // will throw an exception if not browser supported
     if (this.speech.hasBrowserSupport()) { // returns a boolean
       console.log("speech synthesis supported")
       this.speech.init({
         'volume': 1,
-        'lang': 'en-GB',
-        'rate': 1,
+        'lang': 'en-US',
+        'rate': 0.7,
         'pitch': 1,
-        'voice': 'Google UK English Male',
+        'voice': 'Google US English',
         'splitSentences': true,
         'listeners': {
           'onvoiceschanged': (voices) => {
@@ -76,61 +120,41 @@ export class RecipesComponent implements OnInit {
         console.error("An error occured while initializing : ", e)
       })
     }
-
   }
-  
-  //The first parameter is the component to be rendered in the modal's content
-  //The second parameter is the modal's configuration
-
-
-
-  ngOnInit(): void {
-    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
-    this.sentEmail2 = "&body=";
-    this.sentEmail3 = "&tf=1";
-    let allergies: number[];
-    this.route.params.subscribe(
-      p => {
-        allergies = JSON.parse(p.whatChecked)
-        this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
-          res => {
-            this.recipes = res;
-            console.log(res)
-            localStorage.setItem('last-search', JSON.stringify(res))
-          },
-          err => { console.error(err) }
-        )
-      }
-    );
-    //this.recipes = JSON.parse(localStorage.getItem('last-search'))
-
-  }
-
-
 
   open(content, recipe) {
+    this.mark = false;
+    this.bold = false;
+    this.regular = true;
+    this.contentttt = content;
     this.currentRecipe = recipe;
+    this.creatingString(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
     this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.email(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
     this.recipeService.checkIfRecipeExist(this.currentRecipe).subscribe(
       res => {
         this.inOrOut = res
         console.log(res)
-        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
+          this.end();
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.end();
           this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
         });
       });
-
   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.end();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.end();
       return 'by clicking on a backdrop';
     } else {
+      this.end();
       return `with: ${reason}`;
     }
   }
@@ -150,16 +174,15 @@ export class RecipesComponent implements OnInit {
   }
 
   email(subject: string, ingredients: string[], method: string[]) {
-    debugger
     this.sentEmail1 = this.sentEmail1.concat(subject);
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail2);
-    this.sentEmail1 = this.sentEmail1.concat("%0A"+"ingredients"+"%0A");
-    ingredients.forEach(a =>
-      { 
-         this.sentEmail1 = this.sentEmail1.concat(a+"%0A")}
-      );
-      this.sentEmail1 = this.sentEmail1.concat("%0A"+"instruction"+"%0A");
-    method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a+"%0A"));
+    this.sentEmail1 = this.sentEmail1.concat("%0A" + "ingredients" + "%0A");
+    ingredients.forEach(a => {
+      this.sentEmail1 = this.sentEmail1.concat(a + "%0A")
+    }
+    );
+    this.sentEmail1 = this.sentEmail1.concat("%0A" + "instruction" + "%0A");
+    method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a + "%0A"));
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail3);
     console.log(this.sentEmail1)
   }
@@ -189,32 +212,37 @@ export class RecipesComponent implements OnInit {
 
 
   start(recipeName, ingredient, method) {
-    this.creatingString(recipeName, ingredient, method);
-    console.log("sts=art")
+    console.log("sts=art start talking")
     this.speech.speak({
       text: this.stringToRead,
-      //text: "How are you gal? how you doing?",
     }).then(() => {
       console.log("Success !")
     }).catch(e => {
       console.error("An error occurred :", e)
     })
+    //this.stringToRead="";
   }
-  creatingString(recipeName, ingredient, method){
-    this.stringToRead = this.stringToRead.concat(recipeName+". ");
-    this.stringToRead = this.stringToRead.concat("ingredients:");
-    ingredient.forEach(a => this.stringToRead = this.stringToRead.concat(a+". "));
-    this.stringToRead = this.stringToRead.concat("instructions:");
-    method.forEach(a => this.stringToRead = this.stringToRead.concat(a+". "));
-    this.stringToRead = this.stringToRead.concat("enjoy your meal!!")
 
-    }
+  creatingString(recipeName: string, ingredient: string[], method: string[]) {
+    this.stringToRead = "";
+    this.stringToRead = this.stringToRead.concat(recipeName);
+    this.stringToRead = this.stringToRead.concat(".....ingredients...............");
+    ingredient.forEach(a => this.stringToRead = this.stringToRead.concat(a + ". "));
+    this.stringToRead = this.stringToRead.concat(".......instructions..........");
+    method.forEach(a => this.stringToRead = this.stringToRead.concat(a + ". "));
+    this.stringToRead = this.stringToRead.concat("......enjoy your meal!!")
+  }
 
   pause() {
     this.speech.pause();
   }
   resume() {
     this.speech.resume();
+  }
+  end() {
+    console.log("canceling");
+    this.speech.cancel();
+    this.speechConstractor();
   }
 
   setLanguage(i) {
@@ -224,6 +252,39 @@ export class RecipesComponent implements OnInit {
     this.speech.setVoice(this.speechData.voices[i].name);
   }
 
+  changeFont(operator) {
+    operator === '+' ? this.fontSize++ : this.fontSize--;
+    console.log(operator);
+    console.log(this.contentttt);    
+    console.log(this.contentttt.nativeElement);    
+    (this.contentttt.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    //.(this.para.nativeElement as HTMLParagraphElement)
+  }
+
+  marking() {
+    if (this.mark == true) {
+      this.mark = false;
+      this.regular = true;
+      this.bold = false;
+    }
+    else {
+      this.mark = true;
+      this.bold = false;
+      this.regular = false;
+    }
+  }
+
+  bolding() {
+    if (this.bold == true) {
+      this.bold = false;
+      this.regular = true;
+      this.mark = false;
+    }
+    else
+      this.bold = true;
+    this.mark = false;
+    this.regular = false;
+  }
 }
 
 

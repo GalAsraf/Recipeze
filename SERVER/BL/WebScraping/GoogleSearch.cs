@@ -62,57 +62,70 @@ namespace BL.WebScraping
         /// <returns type="List<DTO.RecipeDTO>"> list of recipes which were extracted from web pages </returns>
         #region ParseSearchResultHtml function
 
-        public static  List<DTO.RecipeDTO> ParseSearchResultHtml(string searchLine, string html, List<string> allergiesForUser)
+        public static List<DTO.RecipeDTO> ParseSearchResultHtml(string searchLine, string html, List<string> allergiesForUser)
         {
             List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
             List<List<DTO.RecipeDTO>> recipesLists = new List<List<DTO.RecipeDTO>>();
             List<string> searchResults = new List<string>();
             //if (count >= 10)
             //    return recipesList;
-            
+
             //using package called HtmlAgilityPack to extract data from a website
             var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(html);
+            doc.LoadHtml(html);
 
-                //extracts all links from google result web page's HTML, by taking the content of the href in every <a> element.
-                var nodes = (from node in doc.DocumentNode.SelectNodes("//a")
-                             let href = node.Attributes["href"]
-                             where null != href
-                             where href.Value.Contains("/url?") || href.Value.Contains("?url=")
-                             select href.Value).ToList();
 
-         
+            //var googlePageUrl = "https://www.google.com/search?gs_ssp=eJzj4tTP1Tcwt0zJMTdgdGDw4kvOyE_Oz0ksSVVITsxOBQB2Hwi1&q=chocolate+cake&rlz=1C1JZAP_iwIL899IL899&oq=chco&aqs=chrome.2.69i57j0j46i10l2j0i10j46i10j0i10j46i10.2208j0j7&sourceid=chrome&ie=UTF-8";
+            //HtmlWeb web2 = new HtmlWeb();
+            //var htmlDoc2 = web2.Load(googlePageUrl);
+            //var nextElements = doc.DocumentNode.SelectSingleNode("//a[id='pnnext']");
+            //var nextParentElement = nextElements.Attributes["href"].Value;
+
+
+
+
+            //extracts all links from google result web page's HTML, by taking the content of the href in every <a> element.
+            var nodes = (from node in doc.DocumentNode.SelectNodes("//a")
+                         let href = node.Attributes["href"]
+                         where null != href
+                         where href.Value.Contains("/url?") || href.Value.Contains("?url=")
+                         select href.Value).ToList();
+
+
             //var nextLink = nextParentElement.Attributes["href"];
 
             //filtering multiplied links, putting links in a new list.
             foreach (var node in nodes)
-                {
-                    var match = extractUrl.Match(node);
-                    string test = HttpUtility.UrlDecode(match.Groups[1].Value);
-                    if (searchResults.Contains(test))
-                        continue;
-                    else
-                        searchResults.Add(test);
-                    HtmlWeb hw = new HtmlWeb();
-                    HtmlDocument resultdoc = hw.Load(test);
-                }
+            {
+                var match = extractUrl.Match(node);
+                string test = HttpUtility.UrlDecode(match.Groups[1].Value);
+                if (searchResults.Contains(test))
+                    continue;
+                else
+                    searchResults.Add(test);
+                HtmlWeb hw = new HtmlWeb();
+                HtmlDocument resultdoc = hw.Load(test);
+            }
 
-              
-                //calling RecipeScraping method where the process of recipe scraping- recipe extracting, is done
-                recipesList = RecipeScraping(searchLine, searchResults, allergiesForUser);
+
+            //calling RecipeScraping method where the process of recipe scraping- recipe extracting, is done
+            recipesList = RecipeScraping(searchLine, searchResults, allergiesForUser);
             //recipesLists.Add(recipesList);
 
-            //var googlePageUrl = doc;
-            //HtmlWeb web2 = new HtmlWeb();
-            //var htmlDoc2 = web2.Load(googlePageUrl);
+           
+            //var nextElement = (from node in doc.DocumentNode.SelectNodes("//a")
+            //                    let href = node.Attributes["href"]
+            //                    where null != href
+            //                    where href.Value.Contains("/search?")
+            //                    select href.Value).ToList();
 
-            //var nextElement = htmlDoc2.DocumentNode.SelectSingleNode("//*[text()='הבא']");
 
-            //var nextParentElement = nextElement.ParentNode.ParentNode.InnerText;
+           
+            //var nextParentElement = nextElement.Attributes["href"].;
             ////var nextLink = nextParentElement.Attributes["href"];
             //Console.WriteLine(nextParentElement);
 
-            
+
             ////recursive
             //ParseSearchResultHtml(searchLine , webClient.DownloadString(doc), allergiesForUser);
 
@@ -659,6 +672,7 @@ namespace BL.WebScraping
                     Console.WriteLine("prep time element found");
                     var prepParentElement = prepElement.ParentNode;
                     prepTime = prepParentElement.InnerText;
+                    prepTime = prepTime.Replace("&nbsp;", "");
                     Console.WriteLine(prepTime);
                 }
 
@@ -760,6 +774,7 @@ namespace BL.WebScraping
                     Console.WriteLine("cook time element found");
                     var cookParentElement = cookElement.ParentNode;
                     cookTime = cookParentElement.InnerText;
+                    cookTime = cookTime.Replace("&nbsp;", "");
                     Console.WriteLine(cookElement);
                 }
 
@@ -811,8 +826,12 @@ namespace BL.WebScraping
                 {
                     var totalParentElement = totalElement.ParentNode;
                     totalTime = totalParentElement.InnerText;
+                    totalTime = totalTime.Replace("&nbsp;", "");
                     Console.WriteLine(totalTime);
                 }
+
+
+
                 #region image
                 ////Declare the URL
                 // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";

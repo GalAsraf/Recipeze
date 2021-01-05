@@ -22,8 +22,8 @@
 
     <!-- Main Carousel Section Start -->
     <div id="main-slide" class="carousel slide" data-ride="carousel">
-       
-       
+
+
         <div class="carousel-inner">
 
             <div class="carousel-item active">
@@ -67,9 +67,9 @@
         </a>
     </div>
     <!-- Main Carousel Section End -->
-   
+
     <br>
- 
+
     <form [formGroup]="SearchForm" (submit)="googleSearch()">
 
         <div class="input-group mb-3">
@@ -122,8 +122,9 @@
 
         <!-- end of tryings -->
 
-        <div >
-            <select (change)="selectChangeHandler($event,j)"  *ngFor="let category of categoriesToSelect; let j=index"  class="custom-select" style="width:230px">
+        <div>
+            <select (change)="selectChangeHandler($event,j)" *ngFor="let category of categoriesToSelect; let j=index"
+                class="custom-select" style="width:230px">
                 <option value="202" disabled selected> Select category: &nbsp;</option>
 
                 <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
@@ -187,16 +188,7 @@
     </form>
 
 
-    <!-- <div>
-        <h4>categories</h4>
 
-        <div>
-            <div *ngFor="let category of categories;let i=index ">
-                <p>{{categories[i].CategoryName}} </p>
-
-            </div>
-        </div>
-    </div> -->
 </body>
 
 </html>

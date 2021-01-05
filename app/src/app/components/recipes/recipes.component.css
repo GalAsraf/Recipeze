@@ -18,3 +18,8 @@ body{
   .container {
     padding: 2px 16px;
   }
+/* 
+  ::ng-deep .my-class . modal-dialog{
+max-width: 80%;
+width: 80%;
+  } */
