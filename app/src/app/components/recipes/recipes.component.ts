@@ -254,10 +254,10 @@ export class RecipesComponent implements OnInit {
 
   changeFont(operator) {
     operator === '+' ? this.fontSize++ : this.fontSize--;
-    console.log(operator);
-    console.log(this.contentttt);    
-    console.log(this.contentttt.nativeElement);    
-    (this.contentttt.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    // console.log(operator);
+    // console.log(this.contentttt);    
+    // console.log(this.contentttt.nativeElement);    
+    (this.para.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
     //.(this.para.nativeElement as HTMLParagraphElement)
   }
 
@@ -284,6 +284,16 @@ export class RecipesComponent implements OnInit {
       this.bold = true;
     this.mark = false;
     this.regular = false;
+  }
+
+
+
+  openWheelchair(wc){
+    this.modalService.open(wc, {ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 }
 

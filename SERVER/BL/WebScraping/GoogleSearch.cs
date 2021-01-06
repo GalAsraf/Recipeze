@@ -832,6 +832,7 @@ namespace BL.WebScraping
 
 
 
+
                 #region image
                 ////Declare the URL
                 // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
@@ -886,7 +887,10 @@ namespace BL.WebScraping
                 //}
                 #endregion
 
+
                 DTO.RecipeDTO recipe = new DTO.RecipeDTO();
+
+
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;

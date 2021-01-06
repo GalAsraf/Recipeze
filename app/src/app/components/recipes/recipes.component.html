@@ -74,19 +74,25 @@
     <!-- end header -->
 
     <!-- body -->
+
+    <!-- <div class="share-button">
+      <span class="btn btn-outline-dark"><i class="fa fa-wheelchair-alt"></i></span>
+      <a  href="#"><i class="fa fa-wheelchair-alt"></i></a>
+    </div> -->
+
     <div class="modal-body" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
         <div style=" float:left;   margin:10px">
-          <span><i class="lni-alarm-clock"></i></span>
+          <span class="btn btn-outline-dark"><i class="lni-alarm-clock"></i></span>
           <h6 *ngIf="mark==true"><mark>{{currentRecipe.PrepTime}}</mark></h6>
           <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.PrepTime}}</h6>
           <h6 *ngIf="bold==true"><strong>{{currentRecipe.PrepTime}}</strong></h6>
         </div>
         <br>
         <div style=" float:left;  margin:10px">
-          <span><i class="lni-timer"></i></span>
+          <span class="btn btn-outline-dark"><i class="lni-timer"></i></span>
           <h6 *ngIf="mark==true"><mark>{{currentRecipe.CookTime}}</mark></h6>
           <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.CookTime}}</h6>
           <h6 *ngIf="bold==true"><strong>{{currentRecipe.CookTime}}</strong></h6>
@@ -104,7 +110,7 @@
       <div *ngIf="mark==true">
         <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
       </div>
-      <div *ngIf="regular == true || (bold==false && mark==false);">
+      <div #para *ngIf="regular == true || (bold==false && mark==false);">
         <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
@@ -128,35 +134,76 @@
     <!-- footer -->
 
     <div class="modal-footer">
-      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63;"
-        class="btn btn-common btn-rm">To View Recipe Source Click Here <i class="fa fa-external-link" aria-hidden="true"></i></a>
-      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-        
-      <button (click)="pause()">pause <i class="fa fa-pause-circle" aria-hidden="true"></i> </button> 
-      <button (click)="resume()">resume <i class="fa fa-play-circle"></i> </button>
-      <button><i class="fa fa-wheelchair-alt"></i></button>
-      <!-- <button (click)="end()"><i class="lni lni-stop"></i></button> -->
-
-      <br>
-      <button (click)="marking()">mark <i class="lni lni-highlight-alt"></i> <i class="lni lni-brush"></i><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
-      <button (click)="bolding()">bold<i class="lni lni-bold"></i></button>
-      <h1 #para>font size</h1>
-
-      <button (click)="changeFont('+')">+ <i class="fa fa-volume-up" aria-hidden="true"></i></button>
-      <button (click)="changeFont('-')">- <i class="fa fa-volume-down" aria-hidden="true"></i></button>
+      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 20px;" class="button5"><i class="fa fa-wheelchair-alt"></i></button>
+ 
+      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63; margin-right: 20px;"
+        class="btn btn-common btn-rm"><i class="fa fa-external-link" aria-hidden="true"></i>View Recipe Source</a>
 
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)"
-        style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm">Add To CookBook <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-      <button (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" aria-hidden="true"></i> </button>
-      <a [href]="sentEmail1" target="_blank" style="color: black;"><i class="fa fa-envelope"
-          aria-hidden="true"></i></a>
+        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i class="fa fa-plus-circle"
+          aria-hidden="true"></i>Add To CookBook</button>
+
+      <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm" (click)="print(currentRecipe.RecipeName)"><i
+          class="fa fa-print" aria-hidden="true"></i> </button>
+
+      <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
+        style="color: black;"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+
+      <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
 
     </div>
     <!-- end footer -->
 
+    <ng-template #wheelchairModal let-modal>
+      <div class="modal-header" style="color: black;">
+        <h4 class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
+          Accessibility Controls Menu</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="color: black;">
+
+        
+
+        <h3>Font Display</h3>
+
+        <button type="button" class="btn btn-outline-dark" (click)="marking()">mark <i
+            class="lni lni-highlight-alt"></i>
+          <i class="lni lni-brush"></i><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
+      
+        <button type="button" class="btn btn-outline-dark" (click)="bolding()">bold <i
+            class="lni lni-bold"></i></button>
+        <br>
+        <h3> Resize Font</h3>
+        <button type="button" class="btn btn-outline-dark" (click)="changeFont('+')"> <i class="fa fa-plus-circle"
+            aria-hidden="true"></i> </button>
+        <button type="button" class="btn btn-outline-dark" (click)="changeFont('-')"> <i class="fa fa-minus-circle"
+            aria-hidden="true"></i> </button>
+        <br>
+        <h3> Recipe Voice Reading</h3>
+        <button type="button" class="btn btn-outline-dark"
+          (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)">start <i
+            class="fa fa-microphone" aria-hidden="true"></i></button>
+
+        <button type="button" class="btn btn-outline-dark" (click)="pause()">pause <i class="fa fa-pause-circle"
+            aria-hidden="true"></i> </button>
+        <button type="button" class="btn btn-outline-dark" (click)="resume()">resume <i class="fa fa-play-circle"></i>
+        </button>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      </div>
+    </ng-template>
+
+
   </ng-template>
   <!-- end popup modal-->
+
+
   <!-- <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
   height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button> -->
 
@@ -186,22 +233,10 @@
   </section>
 
 
-  <!-- google translate-->
-  <!-- <div id="google_translate_element"></div>
-
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement(
-        { pageLanguage: 'en' },
-        'google_translate_element'
-      );
-    }  
-  </script>
-
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js? 
-        cb=googleTranslateElementInit">
-        </script> -->
-
+  <!-- tooltip -->
+        <!-- <div class="tooltip">Hover over me
+          <span class="tooltiptext">Tooltip text</span>
+        </div> -->
 
 </body>
 
