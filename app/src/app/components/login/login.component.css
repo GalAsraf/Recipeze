@@ -1,6 +1,8 @@
 body{
    /*  font-family: "Comic Sans MS", cursive, sans-serif;
     color: white; */
+    /* background: url('/assets/picturesSource/p2.jpg') no-repeat center 290px; */
+
 }
 .form-group{
    /*  width:400px */
@@ -11,4 +13,20 @@ body{
    margin-top: -25px;
    position: relative;
    z-index: 2;
+ }
+
+ .bg {
+   /* The image used */
+   background-image: url("/assets/picturesSource/p2.jpg");
+   /* Full height */
+  
+   opacity: 0.8;
+   /* blurring */
+   /* filter: blur(8px);
+   -webkit-filter: blur(8px);
+  */
+   /* Center and scale the image nicely */
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
  }

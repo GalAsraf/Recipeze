@@ -1,0 +1,14 @@
+.bg {
+    /* The image used */
+    background-image: url("/src/assets/picturesSource/p37.jpg");
+    
+  
+    /* Full height */
+    height: 50%; 
+    opacity: 0.5;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

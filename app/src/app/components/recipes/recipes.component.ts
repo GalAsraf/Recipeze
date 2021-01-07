@@ -51,6 +51,7 @@ export class RecipesComponent implements OnInit {
   bold: boolean = false;
   regular: boolean = true;
   contentttt: any;
+  stop:boolean=false;
   fontSize = 14;
   @ViewChild('para', { static: true }) para: ElementRef;
 
@@ -60,6 +61,7 @@ export class RecipesComponent implements OnInit {
     this.mark = false;
     this.bold = false;
     this.regular = true;
+    this.stop = false;
     this.speechConstractor();
 
   }
@@ -75,21 +77,22 @@ export class RecipesComponent implements OnInit {
     this.sentEmail3 = "&tf=1";
     let allergies: number[];
 
-    // this.route.params.subscribe(
-    //   p => {
-    //     allergies = JSON.parse(p.whatChecked)
-    //     this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
-    //       res => {
-    //         this.recipes = res;
-    //         console.log(res)
-    //         localStorage.setItem('last-search', JSON.stringify(res))
-    //       },
-    //       err => { console.error(err) }
-    //     )
-    //   }
-    // );
+    this.route.params.subscribe(
+      p => {
+        allergies = JSON.parse(p.whatChecked)
+        this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
+          res => {
+      this.stop = true;
+            this.recipes = res;
+            console.log(res)
+            localStorage.setItem('last-search', JSON.stringify(res))
+          },
+          err => { console.error(err) }
+        )
+      }
+    );
 
-    this.recipes = JSON.parse(localStorage.getItem('last-search'))
+    //this.recipes = JSON.parse(localStorage.getItem('last-search'))
 
   }
 

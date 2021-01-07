@@ -15,7 +15,7 @@
 
 <body>
   <!-- Main Carousel Section Start -->
-  <div id="main-slide" class="carousel slide" data-ride="carousel">
+  <!-- <div id="main-slide" class="carousel slide" data-ride="carousel">
 
 
     <div class="carousel-inner">
@@ -53,7 +53,7 @@
       <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-right"></i></span>
       <span class="sr-only">Next</span>
     </a>
-  </div>
+  </div> -->
   <!-- Main Carousel Section End -->
 
 
@@ -134,22 +134,24 @@
     <!-- footer -->
 
     <div class="modal-footer">
-      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 20px;" class="button5"><i class="fa fa-wheelchair-alt"></i></button>
- 
+      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 20px;" class="button5"><i
+          class="fa fa-wheelchair-alt"></i></button>
+
       <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63; margin-right: 20px;"
         class="btn btn-common btn-rm"><i class="fa fa-external-link" aria-hidden="true"></i>View Recipe Source</a>
 
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)"
-        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i class="fa fa-plus-circle"
-          aria-hidden="true"></i>Add To CookBook</button>
+        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i
+          class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
 
-      <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm" (click)="print(currentRecipe.RecipeName)"><i
-          class="fa fa-print" aria-hidden="true"></i> </button>
+      <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
         style="color: black;"><i class="fa fa-envelope" aria-hidden="true"></i></a>
 
-      <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
+        (click)="modal.close('Save click')">Close</button>
 
     </div>
     <!-- end footer -->
@@ -165,14 +167,14 @@
 
       <div class="modal-body" style="color: black;">
 
-        
+
 
         <h3>Font Display</h3>
 
         <button type="button" class="btn btn-outline-dark" (click)="marking()">mark <i
             class="lni lni-highlight-alt"></i>
           <i class="lni lni-brush"></i><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
-      
+
         <button type="button" class="btn btn-outline-dark" (click)="bolding()">bold <i
             class="lni lni-bold"></i></button>
         <br>
@@ -217,6 +219,28 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="stop == false">
+        <br><br><br><br><br><br><br>
+      </div>
+      
+      <!-- loading part -->
+      <div *ngIf="stop == false" class="bookshelf_wrapper">
+        
+        <ul class="books_list">
+          <li class="book_item first"></li>
+          <li class="book_item second"></li>
+          <li class="book_item third"></li>
+          <li class="book_item fourth"></li>
+          <li class="book_item fifth"></li>
+          <li class="book_item sixth"></li>
+        </ul>
+        <div class="shelf"></div>
+      </div>
+
+
+
+
       <div class="row">
         <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let recipe of recipes">
           <div class="about-item">
@@ -234,7 +258,7 @@
 
 
   <!-- tooltip -->
-        <!-- <div class="tooltip">Hover over me
+  <!-- <div class="tooltip">Hover over me
           <span class="tooltiptext">Tooltip text</span>
         </div> -->
 
