@@ -26,7 +26,7 @@ export class CategoriesComponent implements OnInit {
   searchText: string;
 
   SearchForm: any;
-
+  color: any;
 
   constructor(private categoryService: CategoryService,
     private allergiesService: AllergyService,
@@ -39,8 +39,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.color = "black";
     this.SearchForm = this.formBuilder.group({
       'search': ['', Validators.required]
     });
@@ -63,7 +62,7 @@ export class CategoriesComponent implements OnInit {
   //saves the selected value of the first combobox
   selectChangeHandler(event: any, index: number) {
     this.selected = event.target.value;
-    
+
     let len = this.categoriesToSelect.length
     if (index < len - 1) {
       this.categoriesToSelect.splice(index + 1, len - (index + 1));
@@ -74,11 +73,10 @@ export class CategoriesComponent implements OnInit {
   googleSearch() {
     //, this.checked
     //this.router.navigate(['recipes', this.selected]);
-    
+
     this.searchText = this.SearchForm.value.search;
-    if (this.searchText == "")
-    {
-      localStorage.setItem('search-line',this.selected )
+    if (this.searchText == "") {
+      localStorage.setItem('search-line', this.selected)
       this.router.navigate(['recipes', this.selected, JSON.stringify(this.selectedAllergies)]);
     }
     else

@@ -78,8 +78,10 @@ namespace BL.WebScraping
             //var googlePageUrl = "https://www.google.com/search?gs_ssp=eJzj4tTP1Tcwt0zJMTdgdGDw4kvOyE_Oz0ksSVVITsxOBQB2Hwi1&q=chocolate+cake&rlz=1C1JZAP_iwIL899IL899&oq=chco&aqs=chrome.2.69i57j0j46i10l2j0i10j46i10j0i10j46i10.2208j0j7&sourceid=chrome&ie=UTF-8";
             //HtmlWeb web2 = new HtmlWeb();
             //var htmlDoc2 = web2.Load(googlePageUrl);
-            //var nextElements = doc.DocumentNode.SelectSingleNode("//a[id='pnnext']");
-            //var nextParentElement = nextElements.Attributes["href"].Value;
+            //var nextElements = htmlDoc2.DocumentNode.SelectSingleNode("*[@id=\"pnnext\"]");
+            //string hrefNext = htmlDoc2.GetElementbyId("pnnext").GetAttributeValue("href", "");
+
+          //  var nextParentElement = nextElements.Attributes["href"].Value;
 
 
 
@@ -162,6 +164,8 @@ namespace BL.WebScraping
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
                     links[i].Contains("delish") ||
+                    links[i].Contains("thepioneerwoman") ||
+                    links[i].Contains("thekitchn") ||
                     links[i].Contains("myfoodstory") ||
                     links[i].Contains("littlehouseliving") ||
                     links[i].Contains("NatashasKitchen") ||
@@ -169,6 +173,7 @@ namespace BL.WebScraping
                     links[i].Contains("asweetpeachef") ||
                     links[i].Contains("HERSHEY's") ||
                     links[i].Contains("wholesomeyum") ||
+                    links[i].Contains("fussfreeflavours") ||
                     links[i].Contains("rasamalaysia") ||
                     links[i].Contains("leitesculinaria"))
                     continue;
@@ -188,12 +193,12 @@ namespace BL.WebScraping
                     title = titleElement.InnerText;
                     title = title.Replace("&amp", "&");
                     title = title.Replace("&#039", "'");
-                    title = title.Replace("&#034", "") ;
-                    title = title.Replace(";", "") ;
-                    title = title.Replace("&ndash", "-") ;
-                    title = title.Replace("&frasl", "/") ;
-                    title = title.Replace("&quot", "") ;
-                                   }
+                    title = title.Replace("&#034", "");
+                    title = title.Replace(";", "");
+                    title = title.Replace("&ndash", "-");
+                    title = title.Replace("&frasl", "/");
+                    title = title.Replace("&quot", "");
+                }
                 else
                 {
                     title = searchLine;
@@ -833,6 +838,7 @@ namespace BL.WebScraping
 
 
 
+
                 #region image
                 ////Declare the URL
                 // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
@@ -909,7 +915,7 @@ namespace BL.WebScraping
 
                 bool contains;
                 foreach (var r in recipe.Ingredients)
-                {
+                {                  
                     foreach (var allergy in listOfAllergies)
                     {
                         contains = r.IndexOf(allergy, StringComparison.OrdinalIgnoreCase) >= 0;

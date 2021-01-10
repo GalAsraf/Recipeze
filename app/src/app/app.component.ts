@@ -10,10 +10,16 @@ import { LoginService } from './shared/services/login.service';
 export class AppComponent {
   title = 'Recipeze';
   isLogin: any;
+  color:any;
   constructor(private loginService: LoginService, private router:Router) {
     this.isLogin = loginService.CurrnetUser
   }
 
+  ngOnInit(): void {
+    this.color="white";
+  }
+
+  
   userLogedIn() {
     
 

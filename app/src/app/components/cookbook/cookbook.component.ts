@@ -6,12 +6,25 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Speech from 'speak-tts';
 import { DOCUMENT } from '@angular/common';
+import { ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
   selector: 'app-cookbook',
   templateUrl: './cookbook.component.html',
-  styleUrls: ['./cookbook.component.css']
+  styleUrls: ['./cookbook.component.css'],
+  styles: [`
+  .dark-modal .modal-content {
+    background-color: #292b2c;
+    color: white;
+  }
+  .dark-modal .close {
+    color: white;
+  }
+  .light-blue-backdrop {
+    background-color: #5cb3fd;
+  }
+`]
 })
 export class CookbookComponent implements OnInit {
   cookbookList: Recipe[] = [];
@@ -28,20 +41,42 @@ export class CookbookComponent implements OnInit {
   speech: any;
   speechData: any;
   stringToRead:string="";
-
+  mark: boolean = false;
+  bold: boolean = false;
+  regular: boolean = true;
+  contentttt: any;
+  stop:boolean=false;
+  fontSize = 14;
+  @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
     private router: Router) { 
+      this.mark = false;
+      this.bold = false;
+      this.regular = true;
+      this.stop = false;
+      this.loadRecipes();
+      this.speechConstractor();
+    }
 
-      this.speech = new Speech() // will throw an exception if not browser supported
+  ngOnInit(): void {
+    this.loadRecipes();
+    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+    this.sentEmail2 = "&body=";
+    this.sentEmail3 = "&tf=1";
+
+  }
+
+  speechConstractor() {
+    this.speech = new Speech() // will throw an exception if not browser supported
     if (this.speech.hasBrowserSupport()) { // returns a boolean
       console.log("speech synthesis supported")
       this.speech.init({
         'volume': 1,
-        'lang': 'en-GB',
-        'rate': 1,
+        'lang': 'en-US',
+        'rate': 0.7,
         'pitch': 1,
-        'voice': 'Google UK English Male',
+        'voice': 'Google US English',
         'splitSentences': true,
         'listeners': {
           'onvoiceschanged': (voices) => {
@@ -59,16 +94,6 @@ export class CookbookComponent implements OnInit {
         console.error("An error occured while initializing : ", e)
       })
     }
-
-    }
-  // public dialogService: DialogService
-
-  ngOnInit(): void {
-    this.loadRecipes();
-    this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
-    this.sentEmail2 = "&body=";
-    this.sentEmail3 = "&tf=1";
-
   }
 
   loadRecipes() {
@@ -116,22 +141,37 @@ export class CookbookComponent implements OnInit {
 
 
   open(content, recipe) {
+    this.mark = false;
+    this.bold = false;
+    this.regular = true;
+    this.contentttt = content;
     this.currentRecipe = recipe;
+    this.creatingString(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
     this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
-    });
+    this.email(this.currentRecipe.RecipeName, this.currentRecipe.Ingredients, this.currentRecipe.Method);
+    this.recipeService.checkIfRecipeExist(this.currentRecipe).subscribe(
+      res => {
+        console.log(res)
+        this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+          this.end();
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.end();
+          this.sentEmail1 = "https://mail.google.com/mail/u/0/?view=cm&fs=1&su=";
+        });
+      });
   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      this.end();
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      this.end();
       return 'by clicking on a backdrop';
     } else {
+      this.end();
       return `with: ${reason}`;
     }
   }
@@ -148,13 +188,13 @@ export class CookbookComponent implements OnInit {
   email(subject: string, ingredients: string[], method: string[]) {
     this.sentEmail1 = this.sentEmail1.concat(subject);
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail2);
-    this.sentEmail1 = this.sentEmail1.concat("%0A"+"ingredients"+"%0A");
-    ingredients.forEach(a =>
-      { 
-         this.sentEmail1 = this.sentEmail1.concat(a+"%0A")}
-      );
-      this.sentEmail1 = this.sentEmail1.concat("%0A"+"instruction"+"%0A");
-    method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a+"%0A"));
+    this.sentEmail1 = this.sentEmail1.concat("%0A" + "ingredients" + "%0A");
+    ingredients.forEach(a => {
+      this.sentEmail1 = this.sentEmail1.concat(a + "%0A")
+    }
+    );
+    this.sentEmail1 = this.sentEmail1.concat("%0A" + "instruction" + "%0A");
+    method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a + "%0A"));
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail3);
     console.log(this.sentEmail1)
   }
@@ -184,32 +224,37 @@ export class CookbookComponent implements OnInit {
 
 
   start(recipeName, ingredient, method) {
-    this.creatingString(recipeName, ingredient, method);
-    console.log("sts=art")
+    console.log("sts=art start talking")
     this.speech.speak({
       text: this.stringToRead,
-      //text: "How are you gal? how you doing?",
     }).then(() => {
       console.log("Success !")
     }).catch(e => {
       console.error("An error occurred :", e)
     })
+    //this.stringToRead="";
   }
-  creatingString(recipeName, ingredient, method){
-    this.stringToRead = this.stringToRead.concat(recipeName+". ");
-    this.stringToRead = this.stringToRead.concat("ingredients:");
-    ingredient.forEach(a => this.stringToRead = this.stringToRead.concat(a+". "));
-    this.stringToRead = this.stringToRead.concat("instructions:");
-    method.forEach(a => this.stringToRead = this.stringToRead.concat(a+". "));
-    this.stringToRead = this.stringToRead.concat("enjoy your meal!!")
 
-    }
+  creatingString(recipeName: string, ingredient: string[], method: string[]) {
+    this.stringToRead = "";
+    this.stringToRead = this.stringToRead.concat(recipeName);
+    this.stringToRead = this.stringToRead.concat(".....ingredients...............");
+    ingredient.forEach(a => this.stringToRead = this.stringToRead.concat(a + ". "));
+    this.stringToRead = this.stringToRead.concat(".......instructions..........");
+    method.forEach(a => this.stringToRead = this.stringToRead.concat(a + ". "));
+    this.stringToRead = this.stringToRead.concat("......enjoy your meal!!")
+  }
 
   pause() {
     this.speech.pause();
   }
   resume() {
     this.speech.resume();
+  }
+  end() {
+    console.log("canceling");
+    this.speech.cancel();
+    this.speechConstractor();
   }
 
   setLanguage(i) {
@@ -218,7 +263,48 @@ export class CookbookComponent implements OnInit {
     this.speech.setLanguage(this.speechData.voices[i].lang);
     this.speech.setVoice(this.speechData.voices[i].name);
   }
+
+  changeFont(operator) {
+    operator === '+' ? this.fontSize++ : this.fontSize--;
+    // console.log(operator);
+    // console.log(this.contentttt);    
+    // console.log(this.contentttt.nativeElement);    
+    (this.para.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
+    //.(this.para.nativeElement as HTMLParagraphElement)
+  }
+
+  marking() {
+    if (this.mark == true) {
+      this.mark = false;
+      this.regular = true;
+      this.bold = false;
+    }
+    else {
+      this.mark = true;
+      this.bold = false;
+      this.regular = false;
+    }
+  }
+
+  bolding() {
+    if (this.bold == true) {
+      this.bold = false;
+      this.regular = true;
+      this.mark = false;
+    }
+    else
+      this.bold = true;
+    this.mark = false;
+    this.regular = false;
+  }
+
+
+
+  openWheelchair(wc){
+    this.modalService.open(wc, {ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 }
-
-
-

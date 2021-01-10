@@ -80,51 +80,53 @@
       <a  href="#"><i class="fa fa-wheelchair-alt"></i></a>
     </div> -->
 
-    <div class="modal-body" style="color: black;float: left;">
+    <div class="modal-body" id="printElement" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
-        <div style=" float:left;   margin:10px">
-          <span class="btn btn-outline-dark"><i class="lni-alarm-clock"></i></span>
+        <div *ngIf="currentRecipe.PrepTime!=null" style=" float:left;   margin:10px">
+          <span><i class="lni lni-timer" style="font-size: 25px;"></i></span>
           <h6 *ngIf="mark==true"><mark>{{currentRecipe.PrepTime}}</mark></h6>
-          <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.PrepTime}}</h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.PrepTime}} </h6>
           <h6 *ngIf="bold==true"><strong>{{currentRecipe.PrepTime}}</strong></h6>
         </div>
-        <br>
-        <div style=" float:left;  margin:10px">
-          <span class="btn btn-outline-dark"><i class="lni-timer"></i></span>
-          <h6 *ngIf="mark==true"><mark>{{currentRecipe.CookTime}}</mark></h6>
-          <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.CookTime}}</h6>
-          <h6 *ngIf="bold==true"><strong>{{currentRecipe.CookTime}}</strong></h6>
+        <div *ngIf="currentRecipe.CookTime!=null" style=" float:left;  margin:10px">
+          <span><i class="lni lni-alarm-clock" style="font-size: 25px;"></i></span>
+          <h6 *ngIf="mark==true"><mark> | {{currentRecipe.CookTime}}</mark></h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);"> | {{currentRecipe.CookTime}} </h6>
+          <h6 *ngIf="bold==true"><strong> | {{currentRecipe.CookTime}}</strong></h6>
         </div>
-        <br>
-        <div style=" float:left;   margin:10px">
-          <h6 *ngIf="mark==true"><mark>{{currentRecipe.TotalTime}}</mark></h6>
-          <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.TotalTime}}</h6>
-          <h6 *ngIf="bold==true"><strong>{{currentRecipe.TotalTime}}</strong></h6>
+        <div *ngIf="currentRecipe.TotalTime!=null" style=" float:left;   margin:10px">
+          <span><i class="fa fa-clock-o" aria-hidden="true" style="font-size: 25px;"></i></span>
+          <h6 *ngIf="mark==true"><mark> | {{currentRecipe.TotalTime}}</mark></h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);"> | {{currentRecipe.TotalTime}}</h6>
+          <h6 *ngIf="bold==true"><strong> | {{currentRecipe.TotalTime}}</strong></h6>
         </div>
 
       </div>
-      <br>
-      <h3>Ingredients</h3>
+      <div *ngIf="currentRecipe.PrepTime!=null || currentRecipe.CookTime!=null || currentRecipe.TotalTime!=null">
+        <br><br><br><br>
+      </div>
+      
+      <h1>Ingredients</h1>
       <div *ngIf="mark==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
+        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></h4>
       </div>
       <div #para *ngIf="regular == true || (bold==false && mark==false);">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</h4>
       </div>
       <div *ngIf="bold==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
+        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></h4>
       </div>
 
-      <h3>Method</h3>
+      <h1>Method</h1>
       <div *ngIf="mark==true">
-        <li *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
-      <div *ngIf="regular == true ||(bold==false && mark==false);">
+      <div style="font-size: 18px;" *ngIf="regular == true ||(bold==false && mark==false);">
         <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
-      <div *ngIf="bold==true">
+      <div style="font-size: 18px;" *ngIf="bold==true">
         <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
       </div>
 
@@ -145,10 +147,11 @@
           class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
 
       <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
-        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" aria-hidden="true"></i> </button>
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px;"
+          aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
-        style="color: black;"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px;" aria-hidden="true"></i></a>
 
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
@@ -223,10 +226,10 @@
       <div *ngIf="stop == false">
         <br><br><br><br><br><br><br>
       </div>
-      
+
       <!-- loading part -->
       <div *ngIf="stop == false" class="bookshelf_wrapper">
-        
+
         <ul class="books_list">
           <li class="book_item first"></li>
           <li class="book_item second"></li>
@@ -238,6 +241,13 @@
         <div class="shelf"></div>
       </div>
 
+      <div *ngIf="stop == false">
+        <br><br><br><br>
+      </div>
+      <!-- loading word effect-->
+      <div class="sign" *ngIf="stop == false">
+        <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
+      </div>
 
 
 

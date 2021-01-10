@@ -17,8 +17,8 @@ body{
 
  .bg {
    /* The image used */
-   background-image: url("/assets/picturesSource/p2.jpg");
-   /* Full height */
+/*    background-image: url("/assets/picturesSource/p2.jpg");
+ */   /* Full height */
   
    opacity: 0.8;
    /* blurring */
@@ -29,4 +29,5 @@ body{
    background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
+   background-color: black;
  }
