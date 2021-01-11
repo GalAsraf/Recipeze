@@ -17,7 +17,7 @@
 
 <body>
   
-    <br><br><br><br><br>
+    <br><br><br><br><br><br>
     <form (submit)="defineAllergies()">
         <!--  <h1>Here you can define all your allergies. <br> Just select your allergies and they will be considered when you
             search for a recipe.</h1> <br> -->
@@ -29,18 +29,20 @@
                     from your ingredients when searching for a recipe</p>
             </div>
         </div>
+        
         <div style="text-align: center;">
             <button type="submit" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30"
-                name="submit" id="submit" style="font-family: inherit;">
-                <span class="ladda-label"><i class="lni-check-box"></i>
+                name="submit" id="submit" style="font-family: inherit; border-color: black;">
+                <span class="ladda-label"><i class="fa fa-check" aria-hidden="true"></i>
                     submit</span>
             </button>
-            <button onclick="skip()" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30"
-                style="font-family: inherit;">
-                <span class="ladda-label">
+            <button (click)="skip()" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30"
+                style="font-family: inherit; margin-left: 30px; border-color: black;">
+                <span class="ladda-label"> <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     skip</span>
             </button>
         </div>
+        <br><br>
 
         <div style="text-align: center; margin-left: 100px;">
             <div id="middle" *ngFor="let allergy of allergies; ;let i=index ">

@@ -8,6 +8,7 @@ import { healthArticles } from 'src/app/shared/models/healthArticles.modal';
 import { HealthArticlesService } from 'src/app/shared/services/health-articles.service';
 import Speech from 'speak-tts';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private allergiesService: AllergyService, private modalService: NgbModal,
     private recipeService: RecipeService, private healthArticlesService: HealthArticlesService,
-    @Inject(DOCUMENT) document) {
+    @Inject(DOCUMENT) document, private router: Router) {
     this.places = ['fadeInLeft', 'fadeInUp', 'fadeInRight'];
     this.mark = false;
     this.bold = false;
@@ -280,5 +281,15 @@ export class HomeComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+
+  skipToAllergy() {
+    this.router.navigate(['/allergies'])
+  }
+  skipToCategory() {
+    this.router.navigate(['/category'])
+  }
+
+
 
 }

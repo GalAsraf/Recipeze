@@ -33,6 +33,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 })
 
 export class RecipesComponent implements OnInit {
+  style: boolean = false;
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
@@ -51,13 +52,14 @@ export class RecipesComponent implements OnInit {
   bold: boolean = false;
   regular: boolean = true;
   contentttt: any;
-  stop:boolean=false;
+  stop: boolean = false;
   fontSize = 14;
   @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,
     private router: Router, public dialogService: DialogService,
     private modalService: NgbModal, private recipeService: RecipeService) {
+    this.style = false;
     this.mark = false;
     this.bold = false;
     this.regular = true;
@@ -82,7 +84,8 @@ export class RecipesComponent implements OnInit {
         allergies = JSON.parse(p.whatChecked)
         this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
           res => {
-      this.stop = true;
+            this.stop = true;
+            this.style = true;
             this.recipes = res;
             console.log(res)
             localStorage.setItem('last-search', JSON.stringify(res))
@@ -291,8 +294,8 @@ export class RecipesComponent implements OnInit {
 
 
 
-  openWheelchair(wc){
-    this.modalService.open(wc, {ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+  openWheelchair(wc) {
+    this.modalService.open(wc, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

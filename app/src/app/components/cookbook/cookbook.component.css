@@ -1,3 +1,9 @@
+body{
+   background-image: url('../../../assets/backgroundImages/p33.jpg');
+   background-size: 100%;
+   background-repeat: no-repeat;
+   background-position: top;
+}
 .button5 {
     background-color: white;
     color: black;

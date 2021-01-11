@@ -8,8 +8,7 @@
 </head>
 
 <body>
-  <br><br> <br>
-
+  <br><br> <br>  <br><br> <br> 
   <!-- popup modal -->
   <ng-template #mymodal let-modal>
     <!-- header -->
@@ -172,15 +171,16 @@
       </div>
       <ul class="list-group list-group-flush">
         <!-- results of ngFor is passed to appFilter with argument searchText -->
-        <li class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
+        <p class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
           [searchedWord]="searchText" [content]="c.RecipeName" [classToApply]="'font-weight-bold'" [setTitle]="'true'"
           (click)="open(mymodal, c)">
-          {{c.RecipeName}}
-        </li>
+         <!-- <span><i style="font-size: 30px;" class="fa fa-book" aria-hidden="true"></i> {{c.RecipeName}}</span> -->
+      </p>
 
       </ul>
     </div>
   </div>
+  <br><br> <br>
 </body>
 
 </html>

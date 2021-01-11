@@ -4,16 +4,19 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
 
  body{
-    text-align: center;
-background: none ;
-color: black !important;
-font-family: 'Raleway', sans-serif;
-/* background-image: url("assets/picturesSource/p28.jpg");
-opacity: inherit; */
-
-font-weight: 400;
-    font-family: 'Lato', sans-serif;
+  text-align: center;
+  background: none ;
+  color: black !important;
+  font-family: 'Raleway', sans-serif;
+  background-image: url('../../../assets/backgroundImages/p666.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  /* opacity: inherit; */
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
  }
+ 
 p{
     margin-bottom: 0px;
 }

@@ -1,7 +1,11 @@
 body{
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    color: white;
-}
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: white;
+  background-image: url('../../../assets/backgroundImages/p9.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  }
 
 .card {
     /* Add shadows to create the "card" effect */

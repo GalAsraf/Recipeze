@@ -81,11 +81,14 @@ overflow-y: scroll;
   } */
   body{
     text-align: center;
-background: none;
-color: black;
-
-font-weight: 400;
+    background: none;
+    color: black;
+    font-weight: 400;
     font-family: 'Lato', sans-serif;
+    background-image: url('../../../assets/backgroundImages/p888.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top;
  }
 p{
     margin-bottom: 0px;
