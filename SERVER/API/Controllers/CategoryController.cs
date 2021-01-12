@@ -20,6 +20,22 @@ namespace API.Controllers
             return Ok(BL.CategoryBL.GetAllCategories());
         }
 
+
+        [Route("getSearchText")]
+        [HttpGet]
+        public IHttpActionResult getSearchText(string searchText)
+        {
+            //get search text 
+            string search;
+            int errorCounter = Regex.Matches(searchText, @"[a-zA-Z]").Count;
+            if (errorCounter > 0)
+                search = searchText;
+            else
+                search = BL.CategoryBL.GetCurrentCategory(int.Parse(searchText));
+            return Ok(search);
+        }
+        
+
         [Route("GetSelectedCategories/{userId}/{selectedCategory}")]
         [HttpPost]
         public IHttpActionResult GetSelectedCategories(int userId, string selectedCategory, int[] whatChecked)

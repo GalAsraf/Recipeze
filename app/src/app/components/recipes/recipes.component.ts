@@ -48,6 +48,7 @@ export class RecipesComponent implements OnInit {
   speech: any;
   speechData: any;
   stringToRead: string = "";
+  searchText: string;
   mark: boolean = false;
   bold: boolean = false;
   regular: boolean = true;
@@ -82,6 +83,12 @@ export class RecipesComponent implements OnInit {
     this.route.params.subscribe(
       p => {
         allergies = JSON.parse(p.whatChecked)
+        // this.categoryService.searchText(p.search).subscribe(
+        //   res => {
+        //     this.searchText = res;
+        //   });
+        this.searchText = p.search;
+
         this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
           res => {
             this.stop = true;
