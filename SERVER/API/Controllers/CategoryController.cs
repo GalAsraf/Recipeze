@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
 
-        [Route("getSearchText")]
+        [Route("getSearchText/{searchText}")]
         [HttpGet]
         public IHttpActionResult getSearchText(string searchText)
         {

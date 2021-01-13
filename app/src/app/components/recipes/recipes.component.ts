@@ -53,8 +53,9 @@ export class RecipesComponent implements OnInit {
   bold: boolean = false;
   regular: boolean = true;
   contentttt: any;
-  stop: boolean = false;
-  fontSize = 14;
+  stop: boolean = true;
+  fontSize = 18;
+  imageSrc= 'url("../../../assets/backgroundImages/p9.jpg")';
   @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,
@@ -99,8 +100,8 @@ export class RecipesComponent implements OnInit {
           },
           err => { console.error(err) }
         )
-      }
-    );
+
+      });
 
     //this.recipes = JSON.parse(localStorage.getItem('last-search'))
 
@@ -224,7 +225,7 @@ export class RecipesComponent implements OnInit {
 
 
 
-  start(recipeName, ingredient, method) {
+  start() {
     console.log("sts=art start talking")
     this.speech.speak({
       text: this.stringToRead,
@@ -266,12 +267,7 @@ export class RecipesComponent implements OnInit {
   }
 
   changeFont(operator) {
-    operator === '+' ? this.fontSize++ : this.fontSize--;
-    // console.log(operator);
-    // console.log(this.contentttt);    
-    // console.log(this.contentttt.nativeElement);    
-    (this.para.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
-    //.(this.para.nativeElement as HTMLParagraphElement)
+    operator === '+' ? this.fontSize++ : this.fontSize--; 
   }
 
   marking() {

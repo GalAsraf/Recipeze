@@ -13,7 +13,7 @@
   }
 </style>
 
-<body>
+<body [style.background-image]="stop ? '' : imageSrc">
 
   <!-- popup modal -->
   <ng-template #mymodal let-modal>
@@ -37,7 +37,7 @@
       <a  href="#"><i class="fa fa-wheelchair-alt"></i></a>
     </div> -->
 
-    <div class="modal-body" id="printElement" style="color: black;float: left;">
+    <div #para class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
@@ -67,9 +67,9 @@
       
       <h1>Ingredients</h1>
       <div *ngIf="mark==true">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></h4>
+        <h4  [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></h4>
       </div>
-      <div #para *ngIf="regular == true || (bold==false && mark==false);">
+      <div *ngIf="regular == true || (bold==false && mark==false);">
         <h4 *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</h4>
       </div>
       <div *ngIf="bold==true">
@@ -78,12 +78,12 @@
 
       <h1>Method</h1>
       <div *ngIf="mark==true">
-        <li style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li  *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
-      <div style="font-size: 18px;" *ngIf="regular == true ||(bold==false && mark==false);">
+      <div  *ngIf="regular == true ||(bold==false && mark==false);">
         <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
-      <div style="font-size: 18px;" *ngIf="bold==true">
+      <div  *ngIf="bold==true">
         <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
       </div>
 
@@ -146,14 +146,12 @@
         <br>
         <h3> Recipe Voice Reading</h3>
         <button type="button" class="btn btn-outline-dark"
-          (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)">start <i
-            class="fa fa-microphone" aria-hidden="true"></i></button>
+          (click)="start()">start <i class="fa fa-microphone" aria-hidden="true"></i></button>
 
         <button type="button" class="btn btn-outline-dark" (click)="pause()">pause <i class="fa fa-pause-circle"
             aria-hidden="true"></i> </button>
         <button type="button" class="btn btn-outline-dark" (click)="resume()">resume <i class="fa fa-play-circle"></i>
         </button>
-
 
       </div>
       <div class="modal-footer">
@@ -166,15 +164,12 @@
   <!-- end popup modal-->
 
 
-  <!-- <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
-  height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button> -->
-
   <section id="about" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="section-title-header text-center">
-            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}}  Recipes</h1>
+            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
             <p class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
           </div>
         </div>
@@ -198,11 +193,9 @@
         <div class="shelf"></div>
       </div>
 
-      <div *ngIf="stop == false">
-        <br><br><br><br>
-      </div>
       <!-- loading word effect-->
       <div class="sign" *ngIf="stop == false">
+        <br><br><br><br>
         <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
       </div>
 

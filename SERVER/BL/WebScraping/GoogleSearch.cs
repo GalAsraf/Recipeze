@@ -170,13 +170,14 @@ namespace BL.WebScraping
                     links[i].Contains("littlehouseliving") ||
                     links[i].Contains("NatashasKitchen") ||
                     links[i].Contains("taste") ||
+                    links[i].Contains("forksnflipflops") ||
                     links[i].Contains("asweetpeachef") ||
                     links[i].Contains("HERSHEY's") ||
                     links[i].Contains("wholesomeyum") ||
                     links[i].Contains("fussfreeflavours") ||
                     links[i].Contains("rasamalaysia") ||
                     links[i].Contains("leitesculinaria"))
-                    continue;
+                continue;
 
                 var htmlurl = links[i];//the link to scrape
 
@@ -243,7 +244,9 @@ namespace BL.WebScraping
                 string[] array3 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
 
-                organizedIngredients = ingredients.Replace("1", "\n1");
+                organizedIngredients = ingredients.Replace("\n"," ");
+                organizedIngredients = organizedIngredients.Replace("1", "\n1");
+
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
                 organizedIngredients = organizedIngredients.Replace("4", "\n4");
