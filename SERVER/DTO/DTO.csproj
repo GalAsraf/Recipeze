@@ -45,6 +45,7 @@
     <Compile Include="CategoryDTO.cs" />
     <Compile Include="HealthArticlesDTO.cs" />
     <Compile Include="RecipeDTO.cs" />
+    <Compile Include="SubstitutesDTO.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

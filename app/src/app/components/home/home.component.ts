@@ -9,6 +9,7 @@ import { HealthArticlesService } from 'src/app/shared/services/health-articles.s
 import Speech from 'speak-tts';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { substitutes } from 'src/app/shared/models/substitutes.modal';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   login: boolean = true;
-  substitutes: string[];
+  substitutes: substitutes[]=[];
   allergiesForUser: Allergy[] = [];
   places: string[];
   lastRecipes: Recipe[]
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
   regular: boolean = true;
   contentttt: any;
   stop: boolean = false;
+  added : boolean = false;
   fontSize = 14;
   @ViewChild('para', { static: true }) para: ElementRef;
 
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit {
     this.bold = false;
     this.regular = true;
     this.stop = false;
+    this.added = false;
     this.speechConstractor();
     }
 
@@ -118,11 +121,15 @@ export class HomeComponent implements OnInit {
   addRecipeToCookbook(recipe: Recipe) {
     this.inOrOut = true;
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
-      res => console.log(res)),
+      res => {console.log(res)
+        this.added= true;
+      },
       err => this.inOrOut = false
+    );
   }
 
   open(content, recipe) {
+    this.added = false;
     this.mark = false;
     this.bold = false;
     this.regular = true;

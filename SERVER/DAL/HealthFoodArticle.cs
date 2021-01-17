@@ -17,5 +17,6 @@ namespace DAL
         public int LinkId { get; set; }
         public string Link { get; set; }
         public string LinkName { get; set; }
+        public string logo { get; set; }
     }
 }

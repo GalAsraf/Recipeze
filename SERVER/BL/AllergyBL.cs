@@ -70,7 +70,7 @@ namespace BL
         /// </summary>
         /// <param name="userId"></param>
         /// <returns> list of substitutes </returns>
-        public static List<string> getSubstitutes(int userId)
+        public static List<SubstitutesDTO> getSubstitutes(int userId)
         {
             using (RecipezeEntities db = new RecipezeEntities())
             {
@@ -78,12 +78,12 @@ namespace BL
                 List<AllergyDTO> allergies = getCurrentUserAllergies(userId);
                 if (allergies == null)
                     return null;
-                List<string> substitutes = new List<string>();
+                List<SubstitutesDTO> substitutes = new List<SubstitutesDTO>();
                 //get matching substitutes for each allergy
                 allergies.ForEach(a =>
                 {
                    var ans = db.Substitutes.Where(s => s.AllergyId == a.AllergyCode).ToList();
-                   substitutes.Add(ans[0].SubstituteName);
+                   substitutes.Add(new SubstitutesDTO() { SubstitutesName = ans[0].SubstituteName , SubstitutesIcon = ans[0].icon});
                 });
                 return substitutes;
             }

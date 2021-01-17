@@ -31,7 +31,7 @@
         <div class="carousel-caption d-md-block">
           <h1 class="wow fadeInDown heading" data-wow-delay=".6s">Easiest Way To Find Your Recipe</h1>
           <a (click)="skipToCategory()" class="fadeInUp wow btn btn-common btn-lg" data-wow-delay=".6s">Get Started</a>
-            
+
         </div>
       </div>
       <div class="carousel-item">
@@ -40,27 +40,30 @@
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s">Recipeze Invites You To Experience The Food </p>
           <h1 class="wow bounceIn heading" data-wow-delay=".7s">From Your Point Of View</h1>
-          <a (click)="skipToAllergy()" class="fadeInUp wow btn btn-border btn-lg" data-wow-delay=".8s">Set Your Sensitivities</a>
+          <a (click)="skipToAllergy()" class="fadeInUp wow btn btn-border btn-lg" data-wow-delay=".8s">Set Your
+            Sensitivities</a>
         </div>
       </div>
-     
+
       <div class="carousel-item">
         <img class="d-block w-100" src="assets/picturesSource/p3.jpg" alt="forth slide"
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s"></p>
           <h1 class="wow fadeInUp heading" data-wow-delay=".6s">Wanna Open The Last Recipe You Were Looking For?</h1>
-          <a href="#team" class="fadeInUp wow btn btn-common btn-lg" data-wow-delay=".6s">Click Here!</a>
+          <br>
+          <a href="#team" style="color: white; font-size: 22px;" data-wow-delay=".6s">Click Here!</a>
         </div>
       </div>
-     
-     
+
+
       <div class="carousel-item">
         <img class="d-block w-100" src="assets/picturesSource/p4.jpg" alt="seventh slide"
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s"></p>
-          <h1 class="wow fadeInUp heading" data-wow-delay=".6s">enjoy? we would love to see it expressed in our grade <span> <i style="font-size: 45px;" class="fa fa-smile-o" aria-hidden="true"></i></span></h1>
+          <h1 class="wow fadeInUp heading" data-wow-delay=".6s">enjoy? we would love to see it expressed in our grade
+            <span> <i style="font-size: 45px;" class="fa fa-smile-o" aria-hidden="true"></i></span></h1>
         </div>
       </div>
       <div class="carousel-item">
@@ -71,7 +74,7 @@
           <h1 class="wow fadeInUp heading" data-wow-delay=".6s">try an experience you never knew</h1>
         </div>
       </div>
-      
+
     </div>
 
     <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
@@ -98,7 +101,7 @@
       </div>
     </div>
   </div> -->
-<br>
+  <br>
   <!-- last recipes -->
   <section id="team" class="section-padding text-center" *ngIf="lastRecipes!=null">
     <div class="container">
@@ -139,7 +142,7 @@
   <!-- last recipes End -->
 
 
-<br><br>
+  <br><br>
   <!-- substitutes Start -->
 
   <section id="pricing" class="section-padding" *ngIf="login == true && substitutes != null">
@@ -163,10 +166,10 @@
           <div [class]="'price-block-wrapper wow '+places[i%3]+ ' animated'" data-wow-delay="0.4s"
             style="visibility: visible;-webkit-animation-delay: 0.3s; -moz-animation-delay: 0.3s; animation-delay: 0.3s;">
             <div class="icon">
-              <i class="lni-write"></i>
+              <img class="img-fluid" src={{subs.SubstitutesIcon}} style="width: 90px; height: 90px;" alt="">
             </div>
             <div class="colmun-title">
-              <h5>{{subs}}</h5>
+              <h5>{{subs.SubstitutesName}}</h5>
             </div>
             <div class="price">
               <h2>instead of</h2>
@@ -184,7 +187,7 @@
   </section>
   <!-- substitutes End -->
 
-<br><br>
+  <br><br>
 
   <!-- Counter Area Start-->
   <section class="counter-section section-padding">
@@ -231,10 +234,10 @@
 
 
 
-  
 
 
-<br>
+
+  <br>
 
   <!-- Services Section Start -->
   <section id="services" class="services section-padding" *ngIf="login==true">
@@ -251,11 +254,12 @@
         <!-- Services item -->
         <div class="col-md-6 col-lg-4 col-xs-12 padding-none" *ngFor="let article of articles; let i = index">
           <div class="services-item wow fadeInDown" data-wow-delay="0.6s">
-            <div class="icon">
-              <i class="lni-heart"></i>
+            <div style="margin-bottom: 30px;" class="icon">
+              <img class="img-fluid" src={{article.Logo}} alt="">
             </div>
+
             <div class="services-content">
-              <h3><a href={{article.Link}} target="_blank">{{article.LinkName}}</a></h3>
+              <h3><a href={{article.Link}} target="_blank" style="font-weight:bolder;">{{article.LinkName}}</a></h3>
             </div>
           </div>
         </div>
@@ -283,14 +287,17 @@
 
 
 
-   <!-- popup modal -->
-   <ng-template #mymodal let-modal>
+  <!-- popup modal -->
+  <ng-template #mymodal let-modal>
     <!-- header -->
     <div class="modal-header" style="color: black;">
-      <h4 style="font-size: 25px;" *ngIf="mark==true;" class="modal-title" id="modal-basic-title"><mark>{{currentRecipe.RecipeName}}</mark></h4>
-      <h4 style="font-size: 25px;" *ngIf="regular == true || (bold==false && mark==false);" class="modal-title" id="modal-basic-title">
+      <h4 style="font-size: 25px;" *ngIf="mark==true;" class="modal-title" id="modal-basic-title">
+        <mark>{{currentRecipe.RecipeName}}</mark></h4>
+      <h4 style="font-size: 25px;" *ngIf="regular == true || (bold==false && mark==false);" class="modal-title"
+        id="modal-basic-title">
         {{currentRecipe.RecipeName}}</h4>
-      <h4 style="font-size: 25px;" *ngIf="bold==true;" class="modal-title" id="modal-basic-title"><strong>{{currentRecipe.RecipeName}}</strong>
+      <h4 style="font-size: 25px;" *ngIf="bold==true;" class="modal-title" id="modal-basic-title">
+        <strong>{{currentRecipe.RecipeName}}</strong>
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
@@ -332,7 +339,7 @@
       <div *ngIf="currentRecipe.PrepTime!=null || currentRecipe.CookTime!=null || currentRecipe.TotalTime!=null">
         <br><br><br><br>
       </div>
-      
+
       <h2>Ingredients</h2>
       <div *ngIf="mark==true">
         <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
@@ -368,18 +375,24 @@
         class="btn btn-common btn-rm"><i class="fa fa-external-link" aria-hidden="true"></i>View Recipe Source</a>
 
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)"
-        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i
+        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm" href="#popup"> <i
           class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
 
       <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
-        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i> </button>
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;"
+          aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
-        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i></a>
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;"
+          aria-hidden="true"></i></a>
 
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
 
+        <div style="margin-right: 250px;" *ngIf="added == true" class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Added successfully!</strong>
+        </div>
     </div>
     <!-- end footer -->
 
@@ -433,7 +446,7 @@
   <!-- end popup modal-->
 
 
-  
+
 
 </body>
 
