@@ -19,10 +19,10 @@
   <ng-template #mymodal let-modal>
     <!-- header -->
     <div class="modal-header" style="color: black;">
-      <h4 *ngIf="mark==true;" class="modal-title" id="modal-basic-title"><mark>{{currentRecipe.RecipeName}}</mark></h4>
-      <h4 *ngIf="regular == true || (bold==false && mark==false);" class="modal-title" id="modal-basic-title">
+      <h4 *ngIf="mark==true;" style="font-size: 25px;" class="modal-title" id="modal-basic-title"><mark>{{currentRecipe.RecipeName}}</mark></h4>
+      <h4 *ngIf="regular == true || (bold==false && mark==false);" style="font-size: 25px;" class="modal-title" id="modal-basic-title">
         {{currentRecipe.RecipeName}}</h4>
-      <h4 *ngIf="bold==true;" class="modal-title" id="modal-basic-title"><strong>{{currentRecipe.RecipeName}}</strong>
+      <h4 *ngIf="bold==true;" style="font-size: 25px;" class="modal-title" id="modal-basic-title"><strong>{{currentRecipe.RecipeName}}</strong>
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
@@ -32,12 +32,7 @@
 
     <!-- body -->
 
-    <!-- <div class="share-button">
-      <span class="btn btn-outline-dark"><i class="fa fa-wheelchair-alt"></i></span>
-      <a  href="#"><i class="fa fa-wheelchair-alt"></i></a>
-    </div> -->
-
-    <div #para class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
+    <div class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
@@ -64,28 +59,30 @@
       <div *ngIf="currentRecipe.PrepTime!=null || currentRecipe.CookTime!=null || currentRecipe.TotalTime!=null">
         <br><br><br><br>
       </div>
-      
-      <h1>Ingredients</h1>
+
+      <h2>Ingredients</h2>
       <div *ngIf="mark==true">
-        <h4  [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></h4>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">
+          <mark>{{Ingredient}}</mark></li>
       </div>
       <div *ngIf="regular == true || (bold==false && mark==false);">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</h4>
+        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></h4>
+        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
       </div>
-
-      <h1>Method</h1>
+      <br><br>
+      <h2>Method</h2>
       <div *ngIf="mark==true">
-        <li  *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
-      <div  *ngIf="regular == true ||(bold==false && mark==false);">
+      <div *ngIf="regular == true ||(bold==false && mark==false);">
         <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
-      <div  *ngIf="bold==true">
+      <div *ngIf="bold==true">
         <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
       </div>
+      <br><br>
 
     </div>
     <!-- end body -->
@@ -104,11 +101,11 @@
           class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
 
       <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
-        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px;"
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;"
           aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
-        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px;" aria-hidden="true"></i></a>
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i></a>
 
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
@@ -118,7 +115,7 @@
 
     <ng-template #wheelchairModal let-modal>
       <div class="modal-header" style="color: black;">
-        <h4 class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
+        <h4 style="font-size: 25px;" class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
           Accessibility Controls Menu</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">×</span>
@@ -145,8 +142,8 @@
             aria-hidden="true"></i> </button>
         <br>
         <h3> Recipe Voice Reading</h3>
-        <button type="button" class="btn btn-outline-dark"
-          (click)="start()">start <i class="fa fa-microphone" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-outline-dark" (click)="start()">start <i class="fa fa-microphone"
+            aria-hidden="true"></i></button>
 
         <button type="button" class="btn btn-outline-dark" (click)="pause()">pause <i class="fa fa-pause-circle"
             aria-hidden="true"></i> </button>
@@ -193,11 +190,19 @@
         <div class="shelf"></div>
       </div>
 
-      <!-- loading word effect-->
-      <div class="sign" *ngIf="stop == false">
-        <br><br><br><br>
-        <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
+      <div *ngIf="stop == false">
+        <br><br><br><br><br><br>
       </div>
+
+      <!-- <div *ngIf="stop == false">
+        <br><br><br><br>
+      </div> -->
+
+      <!-- loading word effect-->
+      <!-- <div class="sign" *ngIf="stop == false">
+
+        <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
+      </div> -->
 
 
 

@@ -84,10 +84,10 @@ export class RecipesComponent implements OnInit {
     this.route.params.subscribe(
       p => {
         allergies = JSON.parse(p.whatChecked)
-        // this.categoryService.searchText(p.search).subscribe(
-        //   res => {
-        //     this.searchText = res;
-        //   });
+        this.categoryService.searchText(p.search).subscribe(
+          res => {
+            this.searchText = res;
+          });
         this.searchText = p.search;
 
         this.categoryService.googleSearch(p.search, JSON.parse(p.whatChecked)).subscribe(
@@ -103,7 +103,7 @@ export class RecipesComponent implements OnInit {
 
       });
 
-    //this.recipes = JSON.parse(localStorage.getItem('last-search'))
+   // this.recipes = JSON.parse(localStorage.getItem('last-search'))
 
   }
 
@@ -163,12 +163,15 @@ export class RecipesComponent implements OnInit {
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       this.end();
+      this.fontSize = 18;
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       this.end();
+      this.fontSize = 18;
       return 'by clicking on a backdrop';
     } else {
       this.end();
+      this.fontSize = 18;
       return `with: ${reason}`;
     }
   }
@@ -301,9 +304,20 @@ export class RecipesComponent implements OnInit {
     this.modalService.open(wc, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = `Dismissed ${this.getDismissReason2(reason)}`;
     });
   }
+
+  private getDismissReason2(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 }
 
 

@@ -103,7 +103,7 @@
                                     <!-- password -->
                                     <div class="col-md-12 form-line">
                                         <div class="form-group">
-                                            <input id="password-field" [type]="currentStatus1" class="form-control"
+                                            <input style="display: inline-block; width: 96%;" id="password-field" [type]="currentStatus1" class="form-control"
                                                 formControlName="password" placeholder="password" required
                                                 data-error="Please enter your password">
                                             <span [class]="currenttype1" (click)="toggle1()"></span>
@@ -114,8 +114,8 @@
                                     <!-- confim password-->
                                     <div class="col-md-12 form-line">
                                         <div class="form-group">
-                                            <input id="confirmPassword" [type]="currentStatus2" class="form-control"
-                                                formControlName="password" placeholder="password" required
+                                            <input style="display: inline-block; width: 96%;" id="confirmPassword" [type]="currentStatus2" class="form-control"
+                                                formControlName="password" placeholder="confirm password" required
                                                 data-error="Please enter your password">
                                             <span [class]="currenttype2" (click)="toggle2()"></span>
                                             <div class="help-block with-errors"></div>

@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
     this.loginService.setCurrentUser(currentUser);
     console.log(currentUser);
     
-    this.router.navigate(['/allergies'])
+    this.router.navigate(['/login'])
 
   }
 

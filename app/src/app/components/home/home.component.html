@@ -287,10 +287,10 @@
    <ng-template #mymodal let-modal>
     <!-- header -->
     <div class="modal-header" style="color: black;">
-      <h4 *ngIf="mark==true;" class="modal-title" id="modal-basic-title"><mark>{{currentRecipe.RecipeName}}</mark></h4>
-      <h4 *ngIf="regular == true || (bold==false && mark==false);" class="modal-title" id="modal-basic-title">
+      <h4 style="font-size: 25px;" *ngIf="mark==true;" class="modal-title" id="modal-basic-title"><mark>{{currentRecipe.RecipeName}}</mark></h4>
+      <h4 style="font-size: 25px;" *ngIf="regular == true || (bold==false && mark==false);" class="modal-title" id="modal-basic-title">
         {{currentRecipe.RecipeName}}</h4>
-      <h4 *ngIf="bold==true;" class="modal-title" id="modal-basic-title"><strong>{{currentRecipe.RecipeName}}</strong>
+      <h4 style="font-size: 25px;" *ngIf="bold==true;" class="modal-title" id="modal-basic-title"><strong>{{currentRecipe.RecipeName}}</strong>
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
@@ -333,18 +333,18 @@
         <br><br><br><br>
       </div>
       
-      <h1>Ingredients</h1>
+      <h2>Ingredients</h2>
       <div *ngIf="mark==true">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></h4>
+        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
       </div>
-      <div #para *ngIf="regular == true || (bold==false && mark==false);">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</h4>
+      <div *ngIf="regular == true || (bold==false && mark==false);">
+        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
-        <h4 *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></h4>
+        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
       </div>
 
-      <h1>Method</h1>
+      <h2>Method</h2>
       <div *ngIf="mark==true">
         <li style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
@@ -372,10 +372,10 @@
           class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
 
       <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
-        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px;" aria-hidden="true"></i> </button>
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
-        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px;" aria-hidden="true"></i></a>
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i></a>
 
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
@@ -385,7 +385,7 @@
 
     <ng-template #wheelchairModal let-modal>
       <div class="modal-header" style="color: black;">
-        <h4 class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
+        <h4 style="font-size: 25px;" class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
           Accessibility Controls Menu</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">×</span>
