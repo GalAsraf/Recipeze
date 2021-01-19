@@ -34,6 +34,7 @@ import { ViewChild, ElementRef } from '@angular/core';
 
 export class RecipesComponent implements OnInit {
   style: boolean = false;
+  added : boolean = false;
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
@@ -65,6 +66,7 @@ export class RecipesComponent implements OnInit {
     this.mark = false;
     this.bold = false;
     this.regular = true;
+    this.added = false;
     this.stop = false;
     this.speechConstractor();
 
@@ -137,6 +139,7 @@ export class RecipesComponent implements OnInit {
   }
 
   open(content, recipe) {
+    this.added = false;
     this.mark = false;
     this.bold = false;
     this.regular = true;
@@ -181,7 +184,9 @@ export class RecipesComponent implements OnInit {
   addRecipeToCookbook(recipe: Recipe) {
     this.inOrOut = true;
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
-      res => console.log(res)),
+      res => {console.log(res);
+        this.added= true;
+      }),
       err => this.inOrOut = false
   }
 

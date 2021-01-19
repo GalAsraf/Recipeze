@@ -81,27 +81,33 @@
     <!-- footer -->
 
     <div class="modal-footer">
-      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 20px;" class="button5"><i
+      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 30px;" class="button5"><i
           class="fa fa-wheelchair-alt"></i></button>
 
-      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63; margin-right: 20px;"
+      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63; margin-right: 30px;"
         class="btn btn-common btn-rm"><i class="fa fa-external-link" aria-hidden="true"></i>View Recipe Source</a>
 
-      <button (click)="deleteRecipeFromCookbook(currentRecipe)"
-        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i
-          class="fa fa-plus-circle" aria-hidden="true"></i>Remove</button>
+        <button [disabled]="inOrOut!=true" (click)="deleteRecipeFromCookbook(currentRecipe)"
+        style="color: black;border-color: #E91E63; margin-right: 30px;" class="btn btn-common btn-rm"> <i
+          class="fa fa-minus-circle" aria-hidden="true"></i>Remove</button>
 
-      <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
+      <button style="color: black; margin-right: 30px;" class="btn btn-common btn-rm"
         (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;"
           aria-hidden="true"></i> </button>
 
       <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
-        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;" aria-hidden="true"></i></a>
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;"
+          aria-hidden="true"></i></a>
 
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
 
+        <div style="margin-right: 250px;" *ngIf="added == true" class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Added successfully!</strong>
+        </div>
     </div>
+    
     <!-- end footer -->
 
     <ng-template #wheelchairModal let-modal>
@@ -171,7 +177,7 @@
       </div>
       <ul class="list-group list-group-flush">
         <!-- results of ngFor is passed to appFilter with argument searchText -->
-        <p class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
+        <p style="font-size: 20px;" class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
           [searchedWord]="searchText" [content]="c.RecipeName" [classToApply]="'font-weight-bold'" [setTitle]="'true'"
           (click)="open(mymodal, c)">
          <!-- <span><i style="font-size: 30px;" class="fa fa-book" aria-hidden="true"></i> {{c.RecipeName}}</span> -->

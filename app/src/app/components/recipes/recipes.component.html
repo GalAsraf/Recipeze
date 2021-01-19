@@ -110,6 +110,11 @@
       <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
         (click)="modal.close('Save click')">Close</button>
 
+        <div id='hideMe' style="margin-right: 250px;" *ngIf="added == true" class="alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Added successfully!</strong>
+        </div>
+
     </div>
     <!-- end footer -->
 
@@ -160,14 +165,16 @@
   </ng-template>
   <!-- end popup modal-->
 
-
+<br><br><br><br>
   <section id="about" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="section-title-header text-center">
-            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
-            <p class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
+            <h1 *ngIf="stop==false" style="color: white;" class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
+            <h1 *ngIf="stop==true" class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
+            <p *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
+            <p *ngIf="stop==true" style="color: black;" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
           </div>
         </div>
       </div>

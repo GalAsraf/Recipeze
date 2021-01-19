@@ -29,6 +29,9 @@ import { ViewChild, ElementRef } from '@angular/core';
 export class CookbookComponent implements OnInit {
   cookbookList: Recipe[] = [];
   cookbookToShow: Recipe[] = [];
+  deleted : boolean = false;
+  inOrOut: boolean = true;
+  added : boolean = false;
   title = "angular-text-search-hightlight";
   searchText = '';
   currentRecipe: Recipe;
@@ -97,7 +100,6 @@ export class CookbookComponent implements OnInit {
   }
 
   loadRecipes() {
-    debugger
     this.recipeService.getUserCookbook().subscribe(
       res => {
         this.cookbookList = res;
@@ -117,30 +119,25 @@ export class CookbookComponent implements OnInit {
   }
 
 
-  removeRecipeFromCookbook(recipe: Recipe) {
-    this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
-      res => {
-        console.log(res);
-       
-      }
-    );
-  }
-
-  
+  // removeRecipeFromCookbook(recipe: Recipe) {
+  //   this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
+  //     res => {
+  //       console.log(res);
+  //       this.loadRecipes(); 
+  //     }
+  //   );
+  // }
+ 
 
   showRecipe(recipe: Recipe) {
     this.router.navigate(['current-recipe', JSON.stringify(recipe)]);
-
-
-    //   const ref = this.dialogService.open(CurrentRecipeComponent, {
-    //     data: {currentRecipe:recipe},
-    //     header: recipe.RecipeName,
-    //     width: '70%'
-    // });
   }
 
 
   open(content, recipe) {
+    this.added = false;
+    this.inOrOut = true;
+    this.deleted=false;
     this.mark = false;
     this.bold = false;
     this.regular = true;
@@ -177,8 +174,10 @@ export class CookbookComponent implements OnInit {
   }
 
   deleteRecipeFromCookbook(recipe: Recipe) {
+    this.inOrOut = false;
     this.recipeService.deleteRecipeFromCookbook(recipe).subscribe(
       res => {
+        this.added= true;
         console.log(res);
         this.loadRecipes(); 
       });
