@@ -132,6 +132,7 @@ namespace BL.WebScraping
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
                     links[i].Contains("delish") ||
+                    links[i].Contains("pinchofyum") ||
                     links[i].Contains("dadcooksdinner") ||
                     links[i].Contains("thepioneerwoman") ||
                     links[i].Contains("thekitchn") ||
@@ -142,6 +143,8 @@ namespace BL.WebScraping
                     links[i].Contains("forksnflipflops") ||
                     links[i].Contains("asweetpeachef") ||
                     links[i].Contains("HERSHEY's") ||
+                    links[i].Contains("myalbanianfood") ||
+                    links[i].Contains("biggerbolderbaking") ||
                     links[i].Contains("wholesomeyum") ||
                     links[i].Contains("fussfreeflavours") ||
                     links[i].Contains("rasamalaysia") ||
@@ -234,6 +237,7 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("½", "\n½");
                 organizedIngredients = organizedIngredients.Replace("¼", "\n¼");
                 organizedIngredients = organizedIngredients.Replace("⅓", "\n⅓");
+                //organizedIngredients = organizedIngredients.Replace("&#32;", " ");
                 organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "");
                 //the problem here is, how can I make it print 1 1/2 ?
                 organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
@@ -299,7 +303,10 @@ namespace BL.WebScraping
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
                 }
+                
                 organizedIngredients = organizedIngredients.Replace("&#x", "");
+                organizedIngredients = organizedIngredients.Replace("&#\n32", " ");
+
 
                 foreach (var num1 in array1)
                 {
@@ -339,6 +346,7 @@ namespace BL.WebScraping
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n" + num2, num1 + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + " \n" + num2, num1 + " " + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + " - \n" + num2, num1 + "-" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " -\n" + num2, num1 + "-" + num2);
                         organizedIngredients = organizedIngredients.Replace(" - \n" + num2, " -" + num2);
                         organizedIngredients = organizedIngredients.Replace(" -\n" + num2, " -" + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 + "-" + num2);
@@ -397,6 +405,7 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("*", "");
                 organizedIngredients = organizedIngredients.Replace("&ndash","-");
                 organizedIngredients = organizedIngredients.Replace("&frasl", "/");
+                organizedIngredients = organizedIngredients.Replace("&#\n32", " ");
 
 
 
@@ -424,16 +433,16 @@ namespace BL.WebScraping
                 //foreach (var count in counting)
                 //{
                 //    counting = counting.Replace("\n", " ");
-                //}
-                for (int z = 0; z < parenthesis.Count; z++)
-                {
-                    if (parenthesis[z] == "\n")
-                    {
-                        organizedIngredients = organizedIngredients.Replace(parenthesis[z] , "");
+                ////}
+                //for (int z = 0; z < parenthesis.Count; z++)
+                //{
+                //    if (parenthesis[z] == "\n")
+                //    {
+                //        organizedIngredients = organizedIngredients.Replace(parenthesis[z] , "");
 
-                    }
-                }
-                parenthesis.Clear();
+                //    }
+                //}
+                //parenthesis.Clear();
                 //for (int g = 0; g < counting.Count; g++) 
                 //{
                 //    organizedIngredients = organizedIngredients.Replace(counting[g]+"\n", counting[g]+" ");
@@ -497,7 +506,12 @@ namespace BL.WebScraping
                 directions = directions.Replace("Instructions", "");
                 directions = directions.Replace("Method", "");
                 directions = directions.Replace("&quot;", "");
-                directions = directions.Replace("&#8217;", "'");
+                directions = directions.Replace("&#8217", "'");
+                directions = directions.Replace("&#8211", "'");
+                directions = directions.Replace("&#039", "'");
+                directions = directions.Replace("&#39", "'");
+                directions = directions.Replace("&#x", "'");
+                directions = directions.Replace("&#x27", "'");
                 directions = directions.Replace("25a2", "");
                 foreach (var num1 in array1)
                 {
@@ -509,6 +523,7 @@ namespace BL.WebScraping
                 }
 
                 //getting rid of &#...;
+
                 //List<string> directionicons = new List<string>();
                 //List<char> directionfixedlist = new List<char>();
 
@@ -581,7 +596,10 @@ namespace BL.WebScraping
                             foreach (var item in nodeItem)
                             {
                                 if (item.Attributes["src"] == null)
-                                    src.Add(item.Attributes["data-src"].Value);
+                                {
+                                    if (item.Attributes["data-src"] != null)
+                                        src.Add(item.Attributes["data-src"].Value);
+                                }
                                 else
                                     src.Add(item.Attributes["src"].Value);
 
@@ -887,6 +905,7 @@ namespace BL.WebScraping
                 recipe.PictureSource = jpgSource;
                 recipe.Url = links[i];
                 //inside checking if the recipe object contains allergic ingredients.
+
                 var checkAllergy = 0;
                 List<string> listOfAllergies = new List<string>();
                 allergiesForUser.ForEach(a =>
@@ -896,7 +915,7 @@ namespace BL.WebScraping
 
                 bool contains;
                 foreach (var r in recipe.Ingredients)
-                {                  
+                {
                     foreach (var allergy in listOfAllergies)
                     {
                         contains = r.IndexOf(allergy, StringComparison.OrdinalIgnoreCase) >= 0;
@@ -907,6 +926,8 @@ namespace BL.WebScraping
                         }
                     }
                 }
+
+
 
                 if (checkAllergy == 0)
                     recipes.Add(recipe);

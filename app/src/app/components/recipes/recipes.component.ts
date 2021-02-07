@@ -38,6 +38,7 @@ export class RecipesComponent implements OnInit {
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
+  isEmpty: Recipe[];
   closeResult: string;
   currentRecipe: Recipe;
   inOrOut: boolean;
@@ -96,6 +97,7 @@ export class RecipesComponent implements OnInit {
           res => {
             this.stop = true;
             this.style = true;
+            this.isEmpty = res;
             this.recipes = res;
             console.log(res)
             localStorage.setItem('last-search', JSON.stringify(res))
