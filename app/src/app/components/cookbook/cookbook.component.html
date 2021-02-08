@@ -171,13 +171,15 @@
   <div class="content" role="main" style="width: 50%; margin-left: 350px;">
     <div class="card">
       <div class="form-group">
-        <label for="search-text" style="text-align: center;">Search a Recipe</label>
+        
+        <label style="font-size: 20px; color: black; text-align: center;" for="search-text" >Search a Recipe</label>
+        <br>
         <input type="email" class="form-control" id="search-text" aria-describedby="search-text"
           [(ngModel)]="searchText" placeholder="Enter text to search a recipe from your cookbook" autofocus>
       </div>
       <ul class="list-group list-group-flush">
         <!-- results of ngFor is passed to appFilter with argument searchText -->
-        <p style="font-size: 20px;" class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
+        <p style="font-size: 20px; color: black;" class="list-group-item" *ngFor="let c of cookbookToShow | appFilter: searchText" appHighlight
           [searchedWord]="searchText" [content]="c.RecipeName" [classToApply]="'font-weight-bold'" [setTitle]="'true'"
           (click)="open(mymodal, c)">
          <!-- <span><i style="font-size: 30px;" class="fa fa-book" aria-hidden="true"></i> {{c.RecipeName}}</span> -->

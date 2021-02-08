@@ -58,6 +58,7 @@ export class RecipesComponent implements OnInit {
   stop: boolean = true;
   fontSize = 18;
   imageSrc= 'url("../../../assets/backgroundImages/p9.jpg")';
+  Src2= 'url("../../../assets/backgroundImages/p99.jpg")';
   @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,

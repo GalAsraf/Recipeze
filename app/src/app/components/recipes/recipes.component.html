@@ -13,8 +13,10 @@
   }
 </style>
 
-<body [style.background-image]="stop ? '' : imageSrc">
-
+<body [style.background-image]="stop ? Src2 : imageSrc">
+<!-- 
+  <body [style.background-image]="stop ? '' : imageSrc">
+-->
   <!-- popup modal -->
   <ng-template #mymodal let-modal>
     <!-- header -->
@@ -176,6 +178,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
+          <br><br>
           <div class="section-title-header text-center">
             <h1 *ngIf="stop==false" style="color: white;" class="section-title wow fadeInUp" data-wow-delay="0.2s">
               {{searchText}} Recipes</h1>

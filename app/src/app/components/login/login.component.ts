@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit {
     this.user.Password = this.loginForm.controls.password.value
     this.userService.getUserExist(this.user).subscribe(
       res => { localStorage.setItem('currentUser', res.toString()) },
-      err => { alert("user not found");
+      err => {console.log("user not found");
+       alert("user not found");
     this.loginAlert==true; }
       //console.error(err)
     )

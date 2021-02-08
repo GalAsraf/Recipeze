@@ -1,15 +1,11 @@
 body{
-   /*  font-family: "Comic Sans MS", cursive, sans-serif;
-    color: white; */
-    /* background: url('/assets/backgroundImage/bananas.jpg') no-repeat center 290px; */
+  
     background-image: url('../../../assets/backgroundImages/p4.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: top;
 }
-.form-group{
-   /*  width:400px */
-}
+
 .field-icon {
    float: right;
    margin-left: -25px;
