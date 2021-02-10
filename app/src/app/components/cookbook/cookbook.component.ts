@@ -49,7 +49,7 @@ export class CookbookComponent implements OnInit {
   regular: boolean = true;
   contentttt: any;
   stop:boolean=false;
-  fontSize = 14;
+  fontSize = 18;
   @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private modalService: NgbModal, private route: ActivatedRoute, private recipeService: RecipeService,
@@ -264,12 +264,7 @@ export class CookbookComponent implements OnInit {
   }
 
   changeFont(operator) {
-    operator === '+' ? this.fontSize++ : this.fontSize--;
-    // console.log(operator);
-    // console.log(this.contentttt);    
-    // console.log(this.contentttt.nativeElement);    
-    (this.para.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
-    //.(this.para.nativeElement as HTMLParagraphElement)
+    operator === '+' ? this.fontSize++ : this.fontSize--; 
   }
 
   marking() {

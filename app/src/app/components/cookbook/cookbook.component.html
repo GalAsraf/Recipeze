@@ -25,7 +25,7 @@
     <!-- end header -->
 
     <!-- body -->
-    <div class="modal-body" id="printElement" style="color: black;float: left;">
+    <div class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
@@ -55,24 +55,24 @@
 
       <h2>Ingredients</h2>
       <div *ngIf="mark==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
       </div>
       <div *ngIf="regular == true || (bold==false && mark==false);">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
       </div>
 
       <h2>Method</h2>
       <div *ngIf="mark==true">
-        <li style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li [style.font-size]="fontSize+'px'" style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
       <div style="font-size: 18px;" *ngIf="regular == true ||(bold==false && mark==false);">
-        <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
       <div style="font-size: 18px;" *ngIf="bold==true">
-        <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
       </div>
 
     </div>
@@ -132,7 +132,7 @@
         <button type="button" class="btn btn-outline-dark" (click)="bolding()">bold <i
             class="lni lni-bold"></i></button>
         <br>
-        <h3> Resize Font</h3>
+         <h3> Resize Font</h3>
         <button type="button" class="btn btn-outline-dark" (click)="changeFont('+')"> <i class="fa fa-plus-circle"
             aria-hidden="true"></i> </button>
         <button type="button" class="btn btn-outline-dark" (click)="changeFont('-')"> <i class="fa fa-minus-circle"
@@ -164,7 +164,7 @@
   <div class="col-12">
     <div class="section-title-header text-center">
       <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">My Cookbook</h1>
-      <p class="wow fadeInDown" data-wow-delay="0.2s">View your saved recipes from your cookbook</p>
+      <p style="color: black; font-size: 20px;" class="wow fadeInDown" data-wow-delay="0.2s">View your saved recipes from your cookbook</p>
     </div>
   </div>
 

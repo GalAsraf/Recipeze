@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   contentttt: any;
   stop: boolean = false;
   added : boolean = false;
-  fontSize = 14;
+  fontSize = 18;
   @ViewChild('para', { static: true }) para: ElementRef;
 
 
@@ -246,12 +246,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeFont(operator) {
-    operator === '+' ? this.fontSize++ : this.fontSize--;
-    // console.log(operator);
-    // console.log(this.contentttt);    
-    // console.log(this.contentttt.nativeElement);    
-    (this.para.nativeElement as HTMLParagraphElement).style.fontSize = `${this.fontSize}px`;
-    //.(this.para.nativeElement as HTMLParagraphElement)
+    operator === '+' ? this.fontSize++ : this.fontSize--; 
   }
 
   marking() {

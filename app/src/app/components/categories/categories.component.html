@@ -74,13 +74,14 @@
                             <div id="middle" *ngFor="let sens of allergies;let i=index " style="margin-left: 100px;">
                                 <label class="container11" style="font-size: 20px; float: left; margin-top: 5px;">
                                     <input type="checkbox" [value]="allergies[i].AllergyName"
-                                        id={{allergies[i].AllergyName}}
+                                        id={{allergies[i].AllergyName}} 
                                         (change)="toggleAllergy(allergies[i].AllergyCode)" style="margin-left: 250px;">
                                     {{allergies[i].AllergyName}}
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+                        <h3 *ngIf="selectedAllergies.length>2">hello my amigo! we suggest you choose no more then 2 options to make the searching more usefull</h3>
 
                     </div>
                 </div>

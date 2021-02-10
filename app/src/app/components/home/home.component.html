@@ -46,7 +46,7 @@
       </div>
 
       <div class="carousel-item">
-        <img class="d-block w-100" src="assets/picturesSource/p3.jpg" alt="forth slide"
+        <img class="d-block w-100" src="assets/picturesSource/p3.jpg" alt="third slide"
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s"></p>
@@ -58,7 +58,7 @@
 
 
       <div class="carousel-item">
-        <img class="d-block w-100" src="assets/picturesSource/p4.jpg" alt="seventh slide"
+        <img class="d-block w-100" src="assets/picturesSource/p4.jpg" alt="forth slide"
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s"></p>
@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="carousel-item">
-        <img class="d-block w-100" src="assets/picturesSource/p5.jpg" alt="eighth slide"
+        <img class="d-block w-100" src="assets/picturesSource/p5.jpg" alt="fifth slide"
           style="width: 1920px; height:700px">
         <div class="carousel-caption d-md-block">
           <p class="fadeInUp wow" data-wow-delay=".6s"></p>
@@ -306,13 +306,7 @@
     <!-- end header -->
 
     <!-- body -->
-
-    <!-- <div class="share-button">
-      <span class="btn btn-outline-dark"><i class="fa fa-wheelchair-alt"></i></span>
-      <a  href="#"><i class="fa fa-wheelchair-alt"></i></a>
-    </div> -->
-
-    <div class="modal-body" id="printElement" style="color: black;float: left;">
+    <div class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
@@ -342,23 +336,23 @@
 
       <h2>Ingredients</h2>
       <div *ngIf="mark==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><mark>{{Ingredient}}</mark></li>
       </div>
       <div *ngIf="regular == true || (bold==false && mark==false);">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
       </div>
 
       <h2>Method</h2>
       <div *ngIf="mark==true">
-        <li style="font-size: 18px;" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
-      <div style="font-size: 18px;" *ngIf="regular == true ||(bold==false && mark==false);">
-        <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
+      <div *ngIf="regular == true ||(bold==false && mark==false);">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
-      <div style="font-size: 18px;" *ngIf="bold==true">
+      <div *ngIf="bold==true">
         <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
       </div>
 

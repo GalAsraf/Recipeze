@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Recipies</title>
 </head>
 <style>
   #grad1 {
@@ -14,7 +14,7 @@
 </style>
 
 <body [style.background-image]="stop ? Src2 : imageSrc">
-<!-- 
+  <!-- 
   <body [style.background-image]="stop ? '' : imageSrc">
 -->
   <!-- popup modal -->
@@ -73,21 +73,23 @@
         </li>
       </div>
       <div *ngIf="regular == true || (bold==false && mark==false);">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
       </div>
       <div *ngIf="bold==true">
-        <li *ngFor="let Ingredient of currentRecipe.Ingredients"><strong>{{Ingredient}}</strong></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">
+          <strong>{{Ingredient}}</strong></li>
       </div>
       <br><br>
       <h2>Method</h2>
       <div *ngIf="mark==true">
-        <li *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
       </div>
       <div *ngIf="regular == true ||(bold==false && mark==false);">
-        <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method">{{method}}</li>
       </div>
       <div *ngIf="bold==true">
-        <li *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong></li>
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong>
+        </li>
       </div>
       <br><br>
 
@@ -183,8 +185,8 @@
             <h1 *ngIf="stop==false" style="color: white;" class="section-title wow fadeInUp" data-wow-delay="0.2s">
               {{searchText}} Recipes</h1>
             <h1 *ngIf="stop==true" class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
-            <p *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
-            <p *ngIf="stop==true" style="color: black;" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to
+            <p style="font-size: 20px;" *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
+            <p *ngIf="stop==true" style="color: black; font-size: 20px;" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to
               view</p>
           </div>
         </div>
@@ -222,14 +224,15 @@
         <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
       </div> -->
 
-
-
+      <div *ngIf="stop == true">
+        <h3 style="color: black; text-align:  center;" *ngIf="isEmpty.length == 0">sorry! there are no suitable results! try again...</h3>
+      </div>
       <div class="row">
         <!-- <div *ngIf="recipes.length == 0">
           <h1 style="color: black;">Sorry! There are no recipes that match the type of search you have done!</h1>
         </div> -->
         <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let recipe of recipes">
-          
+
           <div class="about-item">
             <img class="img-fluid" src={{recipe.PictureSource}} alt=""
               style="width: 268px; height: 268px;margin-left: 5px; margin-right: 5px;">
@@ -240,16 +243,16 @@
           </div>
         </div>
 
-       
+
       </div>
-    
+
 
     </div>
 
-  
+
   </section>
 
-  
+
 
   <!-- tooltip -->
   <!-- <div class="tooltip">Hover over me
