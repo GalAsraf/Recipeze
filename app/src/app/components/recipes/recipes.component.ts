@@ -9,6 +9,8 @@ import { JsonpInterceptor } from '@angular/common/http';
 import Speech from 'speak-tts';
 import { DOCUMENT } from '@angular/common';
 import { ViewChild, ElementRef } from '@angular/core';
+import { VoteService } from 'src/app/shared/services/vote.service';
+import { Vote } from 'src/app/shared/models/vote.model';
 
 
 
@@ -34,7 +36,8 @@ import { ViewChild, ElementRef } from '@angular/core';
 
 export class RecipesComponent implements OnInit {
   style: boolean = false;
-  added : boolean = false;
+  added: boolean = false;
+  voteRec: Vote = new Vote();
   categoryToSearchBy: string;
   treatSens: string;
   recipes: Recipe[];
@@ -42,6 +45,7 @@ export class RecipesComponent implements OnInit {
   closeResult: string;
   currentRecipe: Recipe;
   inOrOut: boolean;
+  voted: boolean = false;
   sentEmail1: string;
   sentEmail2: string;
   sentEmail3: string;
@@ -57,13 +61,14 @@ export class RecipesComponent implements OnInit {
   contentttt: any;
   stop: boolean = true;
   fontSize = 18;
-  imageSrc= 'url("../../../assets/backgroundImages/p9.jpg")';
-  Src2= 'url("../../../assets/backgroundImages/p99.jpg")';
+  imageSrc = 'url("../../../assets/backgroundImages/p9.jpg")';
+  Src2 = 'url("../../../assets/backgroundImages/p99.jpg")';
   @ViewChild('para', { static: true }) para: ElementRef;
 
   constructor(private route: ActivatedRoute, private categoryService: CategoryService,
     private router: Router, public dialogService: DialogService,
-    private modalService: NgbModal, private recipeService: RecipeService) {
+    private modalService: NgbModal, private recipeService: RecipeService,
+    private voteService: VoteService) {
     this.style = false;
     this.mark = false;
     this.bold = false;
@@ -108,7 +113,7 @@ export class RecipesComponent implements OnInit {
 
       });
 
-   // this.recipes = JSON.parse(localStorage.getItem('last-search'))
+    //this.recipes = JSON.parse(localStorage.getItem('last-search'))
 
   }
 
@@ -132,9 +137,9 @@ export class RecipesComponent implements OnInit {
         // The "data" object contains the list of available voices and the voice synthesis params
         console.log("Speech is ready, voices are available", data)
         this.speechData = data;
-        data.voices.forEach(voice => {
-          console.log(voice.name + " " + voice.lang)
-        });
+        // data.voices.forEach(voice => {
+        //   console.log(voice.name + " " + voice.lang)
+        // });
       }).catch(e => {
         console.error("An error occured while initializing : ", e)
       })
@@ -142,6 +147,12 @@ export class RecipesComponent implements OnInit {
   }
 
   open(content, recipe) {
+
+    // if (localStorage.getItem('voted-item') == recipe.url)
+    //   this.voted = true;
+    // else
+      this.voted = false;
+
     this.added = false;
     this.mark = false;
     this.bold = false;
@@ -187,8 +198,9 @@ export class RecipesComponent implements OnInit {
   addRecipeToCookbook(recipe: Recipe) {
     this.inOrOut = true;
     this.recipeService.addRecipeToCookbook(recipe).subscribe(
-      res => {console.log(res);
-        this.added= true;
+      res => {
+        console.log(res);
+        this.added = true;
       }),
       err => this.inOrOut = false
   }
@@ -209,7 +221,7 @@ export class RecipesComponent implements OnInit {
     this.sentEmail1 = this.sentEmail1.concat("%0A" + "instruction" + "%0A");
     method.forEach(a => this.sentEmail1 = this.sentEmail1.concat(a + "%0A"));
     this.sentEmail1 = this.sentEmail1.concat(this.sentEmail3);
-    console.log(this.sentEmail1)
+    //console.log(this.sentEmail1)
   }
 
 
@@ -271,14 +283,14 @@ export class RecipesComponent implements OnInit {
   }
 
   setLanguage(i) {
-    console.log(i);
-    console.log(this.speechData.voices[i].lang + this.speechData.voices[i].name);
+    //console.log(i);
+    //console.log(this.speechData.voices[i].lang + this.speechData.voices[i].name);
     this.speech.setLanguage(this.speechData.voices[i].lang);
     this.speech.setVoice(this.speechData.voices[i].name);
   }
 
   changeFont(operator) {
-    operator === '+' ? this.fontSize++ : this.fontSize--; 
+    operator === '+' ? this.fontSize++ : this.fontSize--;
   }
 
   marking() {
@@ -324,6 +336,21 @@ export class RecipesComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+
+  addingVote(votedRecipe: Recipe) {
+    //convert recipe to vote
+    this.voteRec.siteName = votedRecipe.Url;
+    this.voteRec.voteNumbers = 1;
+    this.voteService.addVote(this.voteRec).subscribe(
+      res => {
+        console.log(res);
+        //unable the button  - like adding recipe to cookbook
+        this.voted = true;
+      });
+
+   // localStorage.setItem('voted-item', votedRecipe.Url)
   }
 
 }

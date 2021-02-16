@@ -87,5 +87,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Votes">
+      <EntityTypeMapping TypeName="RecipezeModel.Vote">
+        <MappingFragment StoreEntitySet="Votes">
+          <ScalarProperty Name="siteId" ColumnName="siteId" />
+          <ScalarProperty Name="voteNumbers" ColumnName="voteNumbers" />
+          <ScalarProperty Name="siteName" ColumnName="siteName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

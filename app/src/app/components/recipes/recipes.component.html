@@ -39,6 +39,15 @@
     <!-- body -->
 
     <div class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
+      <!-- voting button-->
+      <div>
+        <button [disabled]="voted == true" style="color: black;border-color: #E91E63; margin-right: 20px; text-align: center;"
+          class="btn btn-common btn-rm" (click)="addingVote(currentRecipe)">if you don't like it, vote it <i style="font-size: 30px; margin-left: 3px;" class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+      </div><br>
+      <div id='hideMe' style="text-align: center;" *ngIf="voted == true" class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Thank you for your voting!</strong>
+      </div>
       <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
       <div>
@@ -77,7 +86,8 @@
       </div>
       <div *ngIf="bold==true">
         <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">
-          <strong>{{Ingredient}}</strong></li>
+          <strong>{{Ingredient}}</strong>
+        </li>
       </div>
       <br><br>
       <h2>Method</h2>
@@ -185,8 +195,10 @@
             <h1 *ngIf="stop==false" style="color: white;" class="section-title wow fadeInUp" data-wow-delay="0.2s">
               {{searchText}} Recipes</h1>
             <h1 *ngIf="stop==true" class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
-            <p style="font-size: 20px;" *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
-            <p *ngIf="stop==true" style="color: black; font-size: 20px;" class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to
+            <p style="font-size: 20px;" *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any
+              recipe to view</p>
+            <p *ngIf="stop==true" style="color: black; font-size: 20px;" class="wow fadeInDown" data-wow-delay="0.2s">
+              click any recipe to
               view</p>
           </div>
         </div>
@@ -225,7 +237,8 @@
       </div> -->
 
       <div *ngIf="stop == true">
-        <h3 style="color: black; text-align:  center;" *ngIf="isEmpty.length == 0">sorry! there are no suitable results! try again...</h3>
+        <h3 style="color: black; text-align:  center;" *ngIf="isEmpty.length == 0">sorry! there are no suitable results!
+          try again...</h3>
       </div>
       <div class="row">
         <!-- <div *ngIf="recipes.length == 0">

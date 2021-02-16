@@ -29,6 +29,7 @@
       <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
       <End Role="Ingredient" EntitySet="Ingredients" />
     </AssociationSet>
+    <EntitySet Name="Votes" EntityType="RecipezeModel.Vote" />
   </EntityContainer>
   <EntityType Name="Allergy">
     <Key>
@@ -162,4 +163,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Vote">
+    <Key>
+      <PropertyRef Name="siteId" />
+    </Key>
+    <Property Name="siteName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="voteNumbers" Type="Int32" />
+    <Property Name="siteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
 </Schema>

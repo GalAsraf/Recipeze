@@ -16,8 +16,9 @@
         <AssociationConnector Association="RecipezeModel.FK__Substitut__Aller__160F4887" />
         <EntityTypeShape EntityType="RecipezeModel.Category" Width="1.5" PointX="5" PointY="0.5" />
         <EntityTypeShape EntityType="RecipezeModel.HealthFoodArticle" Width="1.5" PointX="7" PointY="0.5" />
-        <EntityTypeShape EntityType="RecipezeModel.Ingredient" Width="1.5" PointX="7.125" PointY="3.5" />
+        <EntityTypeShape EntityType="RecipezeModel.Ingredient" Width="1.5" PointX="6.875" PointY="2.875" />
         <AssociationConnector Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE" />
+        <EntityTypeShape EntityType="RecipezeModel.Vote" Width="1.5" PointX="5.375" PointY="5.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

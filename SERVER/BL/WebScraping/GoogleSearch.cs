@@ -118,10 +118,14 @@ namespace BL.WebScraping
         {
             List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
             //loops over list of links, and axtract recipe from each links HTMl page
+            List<Vote> votedSites = BL.VotesBL.CheckingNumOfVotes(links);
+            //List<string> voteSite = new List<string>(); unusfull!!!!!
+            //votedSites.ForEach(a => voteSite.Add(a.siteName));
             for (var i = 0; i < links.Count; i++)
             {
                 //websites to ignore and not scrape because there HTML structure is irregular
-                if (links[i].Contains("bbcgoodfood") ||
+                if (
+                    links[i].Contains("bbcgoodfood") ||
                     links[i].Contains("bbcfood") ||
                     links[i].Contains("bbc") ||
                     links[i].Contains("sugarfreemom") ||
@@ -148,8 +152,19 @@ namespace BL.WebScraping
                     links[i].Contains("wholesomeyum") ||
                     links[i].Contains("fussfreeflavours") ||
                     links[i].Contains("rasamalaysia") ||
-                    links[i].Contains("leitesculinaria"))
+                    links[i].Contains("leitesculinaria")
+                    )
                 continue;
+
+                //checking if a voted site is here
+                var stop = false;
+                votedSites.ForEach(
+                    a => { if (links[i].Contains(a.siteName))
+                            stop = true;
+                    }
+                    );
+                if (stop == true)
+                    continue;
 
                 var htmlurl = links[i];//the link to scrape
 

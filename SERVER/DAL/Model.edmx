@@ -83,6 +83,14 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Votes">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="voteNumbers" Type="int" />
+          <Property Name="siteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <Association Name="FK__AllergieF__Aller__5DCAEF64">
           <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
           <End Role="AllergieForUsers" Type="Self.AllergieForUsers" Multiplicity="*" />
@@ -165,6 +173,7 @@
           <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Votes" EntityType="Self.Votes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
             <End Role="Allergies" EntitySet="Allergies" />
             <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
@@ -223,6 +232,7 @@
             <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
             <End Role="Ingredient" EntitySet="Ingredients" />
           </AssociationSet>
+          <EntitySet Name="Votes" EntityType="RecipezeModel.Vote" />
           </EntityContainer>
         <EntityType Name="Allergy">
           <Key>
@@ -356,6 +366,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="voteNumbers" Type="Int32" />
+          <Property Name="siteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -445,6 +463,15 @@
                 <ScalarProperty Name="Index" ColumnName="Index" />
                 <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
                 <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Votes">
+            <EntityTypeMapping TypeName="RecipezeModel.Vote">
+              <MappingFragment StoreEntitySet="Votes">
+                <ScalarProperty Name="siteId" ColumnName="siteId" />
+                <ScalarProperty Name="voteNumbers" ColumnName="voteNumbers" />
+                <ScalarProperty Name="siteName" ColumnName="siteName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

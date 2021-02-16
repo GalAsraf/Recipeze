@@ -75,13 +75,13 @@ namespace BL
             {
                 var user = db.Users.Where(a => a.UserId == userId).ToList();
                 var recp = CONVERTERS.RecipeConverter.ConvertRecipeToDAL(recipe, userId);
-                var c = db.CookbookRecipes.ToList().FirstOrDefault(a => a.userId == user[0].UserId&&a.recipeName==recipe.RecipeName && a.recipeImage==recipe.PictureSource); 
-               //if recipe already exists, returns true.
-               if(c!=null)
+                var c = db.CookbookRecipes.ToList().FirstOrDefault(a => a.userId == user[0].UserId && a.recipeName == recipe.RecipeName && a.recipeImage == recipe.PictureSource);
+                //if recipe already exists, returns true.
+                if (c != null)
                     return true;
                 else
                     return false;
-                             
+
             }
         }
     }

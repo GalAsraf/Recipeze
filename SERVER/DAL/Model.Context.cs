@@ -33,5 +33,6 @@ namespace DAL
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<HealthFoodArticle> HealthFoodArticles { get; set; }
         public virtual DbSet<Ingredient> Ingredients { get; set; }
+        public virtual DbSet<Vote> Votes { get; set; }
     }
 }

@@ -92,11 +92,13 @@
     <Compile Include="CONVERTERS\CategoryConverter.cs" />
     <Compile Include="CONVERTERS\HealthArticlesConverter.cs" />
     <Compile Include="CONVERTERS\RecipeConverter.cs" />
+    <Compile Include="CONVERTERS\VotesConverter.cs" />
     <Compile Include="HealthArticlesBL.cs" />
     <Compile Include="RecipeBL.cs" />
     <Compile Include="UserBL.cs" />
     <Compile Include="CONVERTERS\UserConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VotesBL.cs" />
     <Compile Include="WebScraping\GoogleSearch.cs" />
   </ItemGroup>
   <ItemGroup>
