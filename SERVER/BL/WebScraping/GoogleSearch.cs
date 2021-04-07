@@ -67,6 +67,7 @@ namespace BL.WebScraping
             List<string> searchResults = new List<string>();
             //using package called HtmlAgilityPack to extract data from a website
             var doc = new HtmlAgilityPack.HtmlDocument();
+
             doc.LoadHtml(html);
 
             //extracts all links from google result web page's HTML, by taking the content of the href in every <a> element.
