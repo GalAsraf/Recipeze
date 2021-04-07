@@ -19,10 +19,11 @@ namespace API.Controllers
         public IHttpActionResult GetUserExist([FromBody]UserDTO user)
         {
             int u = BL.UserBL.GetUserExist(user.Email, user.Password);
-            if (u != -1)
-                return Ok(u);
-            else
-                return NotFound();
+            return Ok(u);
+            //if (u != -1)
+            //    return Ok(u);
+            //else
+            //    return NotFound();
         }
 
         [Route("AddUser"), HttpPost]

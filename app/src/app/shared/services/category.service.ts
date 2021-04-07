@@ -17,12 +17,11 @@ export class CategoryService {
     return this.http.get<Category[]>(environment.url + "category/getAllCategories")
   }
 
+  searchText(searchText: string): Observable<string> {
+    return this.http.get<string>(environment.url + 'category/getSearchText/'+ searchText);
+  }
+  
 
-
-  //  googleSearch(categories: string): Observable<string> {
-  //    let userId=localStorage.getItem('currentUser');
-  //    return this.http.get<string>(environment.url + 'category/getSelectedCategories/'+categories)
-  //  }
 
   googleSearch(categories: string, whatChecked: number[]): Observable<Recipe[]> {
     let userId=localStorage.getItem('currentUser');

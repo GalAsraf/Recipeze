@@ -9,7 +9,7 @@
 		background: #fff;
 		h3{
 			font-size: 16px;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			font-weight: 500;
 			a{
 				color: #212121;
@@ -83,13 +83,13 @@
 			font-size: 15px;
 		    color: #fff;
 		    font-weight: 700;
-		    text-transform: uppercase;
+		    text-transform: capitalize;
 		}
 		span{
 			color: #fefefe;
 			font-size: 12px;
 			font-weight: 400;
-			text-transform: uppercase;
+			text-transform: capitalize;
 		}
 	}
 

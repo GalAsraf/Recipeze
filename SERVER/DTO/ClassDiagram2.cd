@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DTO.AllergyDTO">
+    <Position X="30" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAAAACAAAAAA=</HashCode>
+      <FileName>AllergyDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.CategoryDTO">
+    <Position X="31.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgBAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CategoryDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.HealthArticlesDTO">
+    <Position X="30" Y="22" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAgAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>HealthArticlesDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.RecipeDTO">
+    <Position X="31.75" Y="22" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAQAAAAAAAAAAgAKAAAAAAAAEACAAACAAQAAA=</HashCode>
+      <FileName>RecipeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.UserDTO">
+    <Position X="30" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAgAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

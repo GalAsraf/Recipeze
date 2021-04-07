@@ -17,6 +17,7 @@ namespace DAL
         public int AllergyId { get; set; }
         public int SubstituteId { get; set; }
         public string SubstituteName { get; set; }
+        public string icon { get; set; }
     
         public virtual Allergy Allergy { get; set; }
     }

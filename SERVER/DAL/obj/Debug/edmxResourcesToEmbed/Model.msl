@@ -48,19 +48,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Ingredients">
-      <EntityTypeMapping TypeName="RecipezeModel.Ingredient">
-        <MappingFragment StoreEntitySet="Ingredients">
-          <ScalarProperty Name="recipeId" ColumnName="recipeId" />
-          <ScalarProperty Name="Index" ColumnName="Index" />
-          <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
-          <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Substitutes">
       <EntityTypeMapping TypeName="RecipezeModel.Substitute">
         <MappingFragment StoreEntitySet="Substitutes">
+          <ScalarProperty Name="icon" ColumnName="icon" />
           <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
           <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
           <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
@@ -79,9 +70,29 @@
     <EntitySetMapping Name="HealthFoodArticles">
       <EntityTypeMapping TypeName="RecipezeModel.HealthFoodArticle">
         <MappingFragment StoreEntitySet="HealthFoodArticles">
+          <ScalarProperty Name="logo" ColumnName="logo" />
           <ScalarProperty Name="LinkName" ColumnName="LinkName" />
           <ScalarProperty Name="Link" ColumnName="Link" />
           <ScalarProperty Name="LinkId" ColumnName="LinkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ingredients">
+      <EntityTypeMapping TypeName="RecipezeModel.Ingredient">
+        <MappingFragment StoreEntitySet="Ingredients">
+          <ScalarProperty Name="recipeId" ColumnName="recipeId" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
+          <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Votes">
+      <EntityTypeMapping TypeName="RecipezeModel.Vote">
+        <MappingFragment StoreEntitySet="Votes">
+          <ScalarProperty Name="siteId" ColumnName="siteId" />
+          <ScalarProperty Name="voteNumbers" ColumnName="voteNumbers" />
+          <ScalarProperty Name="siteName" ColumnName="siteName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

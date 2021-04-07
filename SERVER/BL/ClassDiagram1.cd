@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BL.AllergyBL">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAEAAAAAAAAAAAAoQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AllergyBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CategoryBL">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>CategoryBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.HealthArticlesBL">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HealthArticlesBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.RecipeBL">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>RecipeBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.UserBL">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>UserBL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CONVERTERS.AllergyConverter">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAASAAAAAAAAAA=</HashCode>
+      <FileName>CONVERTERS\AllergyConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CONVERTERS.CategoryConverter">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAACAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CONVERTERS\CategoryConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CONVERTERS.HealthArticlesConverter">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAkAAAAAAAAAAA=</HashCode>
+      <FileName>CONVERTERS\HealthArticlesConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CONVERTERS.RecipeConverter">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>CONVERTERS\RecipeConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.CONVERTERS.UserConverter">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAA=</HashCode>
+      <FileName>CONVERTERS\UserConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BL.WebScraping.GoogleSearch">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAABAQAAAACAACAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>WebScraping\GoogleSearch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

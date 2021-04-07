@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Recipies</title>
 </head>
 <style>
   #grad1 {
@@ -13,68 +13,239 @@
   }
 </style>
 
-<body>
-
+<body [style.background-image]="stop ? Src2 : imageSrc">
+  <!-- 
+  <body [style.background-image]="stop ? '' : imageSrc">
+-->
   <!-- popup modal -->
   <ng-template #mymodal let-modal>
+    <!-- header -->
     <div class="modal-header" style="color: black;">
-      <h4 class="modal-title" id="modal-basic-title">{{currentRecipe.RecipeName}}</h4>
+      <h4 *ngIf="mark==true;" style="font-size: 25px;" class="modal-title" id="modal-basic-title">
+        <mark>{{currentRecipe.RecipeName}}</mark>
+      </h4>
+      <h4 *ngIf="regular == true || (bold==false && mark==false);" style="font-size: 25px;" class="modal-title"
+        id="modal-basic-title">
+        {{currentRecipe.RecipeName}}</h4>
+      <h4 *ngIf="bold==true;" style="font-size: 25px;" class="modal-title" id="modal-basic-title">
+        <strong>{{currentRecipe.RecipeName}}</strong>
+      </h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="modal-body" style="color: black;">
-      <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;" />
+    <!-- end header -->
 
-      <div style=" float:left;   margin:10px">
-        <h6>{{currentRecipe.PrepTime}}</h6>
+    <!-- body -->
+
+    <div class="modal-body" id="printElement" [style.font-size]="fontSize+'px'" style="color: black;float: left;">
+      <!-- voting button-->
+      <div>
+        <button [disabled]="voted == true" style="color: black;border-color: #E91E63; margin-right: 20px; text-align: center;"
+          class="btn btn-common btn-rm" (click)="addingVote(currentRecipe)">if you don't like it, vote it <i style="font-size: 30px; margin-left: 3px;" class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+      </div><br>
+      <div id='hideMe' style="text-align: center;" *ngIf="voted == true" class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Thank you for your voting!</strong>
       </div>
-      <div style=" float:left; height:100px;  margin:10px">
-        <h6>{{currentRecipe.TotalTime}}</h6>
-      </div>
-      <h3>Ingredients</h3>
-      <li *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
-      <h3>Method</h3>
-      <li *ngFor="let method of currentRecipe.Method">{{method}}</li>
-    </div>
-    <div class="modal-footer">
-      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63;"
-        class="btn btn-common btn-rm">To View Recipe Source Click Here</a>
-      <button (click)="start(currentRecipe.RecipeName, currentRecipe.Ingredients, currentRecipe.Method)"> glyphicon
-        glyphicon-play-circle start <i class="fas fa-play"></i></button>
-      <button (click)="pause()">glyphicon glyphicon-pause pause </button>
-      <button (click)="resume()">glyphicon glyphicon-play resume <i class="far fa-play-circle"></i></button>
+      <img src={{currentRecipe.PictureSource}} style="width:310px; height: 310px;">
       <br>
-      <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+      <div>
+        <div *ngIf="currentRecipe.PrepTime!=null" style=" float:left;   margin:10px">
+          <span><i class="lni lni-timer" style="font-size: 25px;"></i></span>
+          <h6 *ngIf="mark==true"><mark>{{currentRecipe.PrepTime}}</mark></h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);">{{currentRecipe.PrepTime}} </h6>
+          <h6 *ngIf="bold==true"><strong>{{currentRecipe.PrepTime}}</strong></h6>
+        </div>
+        <div *ngIf="currentRecipe.CookTime!=null" style=" float:left;  margin:10px">
+          <span><i class="lni lni-alarm-clock" style="font-size: 25px;"></i></span>
+          <h6 *ngIf="mark==true"><mark> | {{currentRecipe.CookTime}}</mark></h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);"> | {{currentRecipe.CookTime}} </h6>
+          <h6 *ngIf="bold==true"><strong> | {{currentRecipe.CookTime}}</strong></h6>
+        </div>
+        <div *ngIf="currentRecipe.TotalTime!=null" style=" float:left;   margin:10px">
+          <span><i class="fa fa-clock-o" aria-hidden="true" style="font-size: 25px;"></i></span>
+          <h6 *ngIf="mark==true"><mark> | {{currentRecipe.TotalTime}}</mark></h6>
+          <h6 *ngIf="regular == true || (bold==false && mark==false);"> | {{currentRecipe.TotalTime}}</h6>
+          <h6 *ngIf="bold==true"><strong> | {{currentRecipe.TotalTime}}</strong></h6>
+        </div>
 
+      </div>
+      <div *ngIf="currentRecipe.PrepTime!=null || currentRecipe.CookTime!=null || currentRecipe.TotalTime!=null">
+        <br><br><br><br>
+      </div>
+
+      <h2>Ingredients</h2>
+      <div *ngIf="mark==true">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">
+          <mark>{{Ingredient}}</mark>
+        </li>
+      </div>
+      <div *ngIf="regular == true || (bold==false && mark==false);">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">{{Ingredient}}</li>
+      </div>
+      <div *ngIf="bold==true">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let Ingredient of currentRecipe.Ingredients">
+          <strong>{{Ingredient}}</strong>
+        </li>
+      </div>
+      <br><br>
+      <h2>Method</h2>
+      <div *ngIf="mark==true">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><mark>{{method}}</mark></li>
+      </div>
+      <div *ngIf="regular == true ||(bold==false && mark==false);">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method">{{method}}</li>
+      </div>
+      <div *ngIf="bold==true">
+        <li [style.font-size]="fontSize+'px'" *ngFor="let method of currentRecipe.Method"><strong>{{method}}</strong>
+        </li>
+      </div>
+      <br><br>
+
+    </div>
+    <!-- end body -->
+
+    <!-- footer -->
+
+    <div class="modal-footer">
+      <button (click)="openWheelchair(wheelchairModal)" type="button" style="margin-right: 20px;" class="button5"><i
+          class="fa fa-wheelchair-alt"></i></button>
+
+      <a href={{currentRecipe.Url}} target="_blank" style="color: black;border-color: #E91E63; margin-right: 20px;"
+        class="btn btn-common btn-rm"><i class="fa fa-external-link" aria-hidden="true"></i>View Recipe Source</a>
 
       <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)"
-        style="color: black;border-color: #E91E63;" class="btn btn-common btn-rm">Add To CookBook</button>
-      <label *ngIf="inOrOut==true">recipe exist in your cookbook</label>
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-      <button (click)="print(currentRecipe.RecipeName)"><i class="lni lni-printer"></i> </button>
-      <a [href]="sentEmail1" target="_blank" style="color: black;"><i class="fa fa-envelope-o"
+        style="color: black;border-color: #E91E63; margin-right: 20px;" class="btn btn-common btn-rm"> <i
+          class="fa fa-plus-circle" aria-hidden="true"></i>Add To CookBook</button>
+
+      <button style="color: black; margin-right: 20px;" class="btn btn-common btn-rm"
+        (click)="print(currentRecipe.RecipeName)"><i class="fa fa-print" style="font-size: 17px; margin-left: 3px;"
+          aria-hidden="true"></i> </button>
+
+      <a style="color: black; margin-right: 40px;" class="btn btn-common btn-rm" [href]="sentEmail1" target="_blank"
+        style="color: black;"><i class="fa fa-envelope" style="font-size: 17px; margin-left: 3px;"
           aria-hidden="true"></i></a>
+
+      <button type="button" style="margin-left: 20px; margin-right: 20px;" class="btn btn-outline-dark"
+        (click)="modal.close('Save click')">Close</button>
+
+      <div id='hideMe' style="margin-right: 250px;" *ngIf="added == true" class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Added Successfully!</strong>
+      </div>
+
     </div>
+    <!-- end footer -->
+
+    <ng-template #wheelchairModal let-modal>
+      <div class="modal-header" style="color: black;">
+        <h4 style="font-size: 25px;" class="modal-title" id="modal-basic-title"><i class="fa fa-wheelchair-alt"></i>
+          Accessibility Controls Menu</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="color: black;">
+
+
+
+        <h3>Font Display</h3>
+
+        <button type="button" class="btn btn-outline-dark" (click)="marking()">mark <i
+            class="lni lni-highlight-alt"></i>
+          <i class="lni lni-brush"></i><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
+
+        <button type="button" class="btn btn-outline-dark" (click)="bolding()">bold <i
+            class="lni lni-bold"></i></button>
+        <br>
+        <h3> Resize Font</h3>
+        <button type="button" class="btn btn-outline-dark" (click)="changeFont('+')"> <i class="fa fa-plus-circle"
+            aria-hidden="true"></i> </button>
+        <button type="button" class="btn btn-outline-dark" (click)="changeFont('-')"> <i class="fa fa-minus-circle"
+            aria-hidden="true"></i> </button>
+        <br>
+        <h3> Recipe Voice Reading</h3>
+        <button type="button" class="btn btn-outline-dark" (click)="start()">start <i class="fa fa-microphone"
+            aria-hidden="true"></i></button>
+
+        <button type="button" class="btn btn-outline-dark" (click)="pause()">pause <i class="fa fa-pause-circle"
+            aria-hidden="true"></i> </button>
+        <button type="button" class="btn btn-outline-dark" (click)="resume()">resume <i class="fa fa-play-circle"></i>
+        </button>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      </div>
+    </ng-template>
+
+
   </ng-template>
   <!-- end popup modal-->
-  <!-- <button [disabled]="inOrOut==true" (click)="addRecipeToCookbook(currentRecipe)" style="background-color:rgb(209, 113, 61);border-color: white; width: 200px;
-  height:40px;border-radius: 4px;text-align: center;">add recipe to my cookbook</button> -->
 
+  <br><br><br><br>
   <section id="about" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-12">
+          <br><br>
           <div class="section-title-header text-center">
-            <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Recipes</h1>
-            <p class="wow fadeInDown" data-wow-delay="0.2s">click any recipe to view</p>
+            <h1 *ngIf="stop==false" style="color: white;" class="section-title wow fadeInUp" data-wow-delay="0.2s">
+              {{searchText}} Recipes</h1>
+            <h1 *ngIf="stop==true" class="section-title wow fadeInUp" data-wow-delay="0.2s">{{searchText}} Recipes</h1>
+            <p style="font-size: 20px;" *ngIf="stop==false" class="wow fadeInDown" data-wow-delay="0.2s">click any
+              recipe to view</p>
+            <p *ngIf="stop==true" style="color: black; font-size: 20px;" class="wow fadeInDown" data-wow-delay="0.2s">
+              click any recipe to
+              view</p>
           </div>
         </div>
       </div>
+
+      <div *ngIf="stop == false">
+        <br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+
+      <!-- loading part -->
+      <div *ngIf="stop == false" class="bookshelf_wrapper">
+
+        <ul class="books_list">
+          <li class="book_item first"></li>
+          <li class="book_item second"></li>
+          <li class="book_item third"></li>
+          <li class="book_item fourth"></li>
+          <li class="book_item fifth"></li>
+          <li class="book_item sixth"></li>
+        </ul>
+        <div class="shelf"></div>
+      </div>
+
+      <div *ngIf="stop == false">
+        <br><br><br><br><br><br>
+      </div>
+
+      <!-- <div *ngIf="stop == false">
+        <br><br><br><br>
+      </div> -->
+
+      <!-- loading word effect-->
+      <!-- <div class="sign" *ngIf="stop == false">
+
+        <span class="fast-flicker">l</span>oad<span class="flicker">i</span>ng
+      </div> -->
+
+      <div *ngIf="stop == true">
+        <h3 style="color: black; text-align:  center;" *ngIf="isEmpty.length == 0">sorry! there are no suitable results!
+          try again...</h3>
+      </div>
       <div class="row">
+        <!-- <div *ngIf="recipes.length == 0">
+          <h1 style="color: black;">Sorry! There are no recipes that match the type of search you have done!</h1>
+        </div> -->
         <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let recipe of recipes">
+
           <div class="about-item">
             <img class="img-fluid" src={{recipe.PictureSource}} alt=""
               style="width: 268px; height: 268px;margin-left: 5px; margin-right: 5px;">
@@ -84,9 +255,22 @@
             </div>
           </div>
         </div>
+
+
       </div>
+
+
     </div>
+
+
   </section>
+
+
+
+  <!-- tooltip -->
+  <!-- <div class="tooltip">Hover over me
+          <span class="tooltiptext">Tooltip text</span>
+        </div> -->
 
 </body>
 

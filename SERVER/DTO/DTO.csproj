@@ -45,8 +45,14 @@
     <Compile Include="CategoryDTO.cs" />
     <Compile Include="HealthArticlesDTO.cs" />
     <Compile Include="RecipeDTO.cs" />
+    <Compile Include="SubstitutesDTO.cs" />
     <Compile Include="UserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VotesDTO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

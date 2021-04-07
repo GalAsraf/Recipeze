@@ -13,11 +13,7 @@ export class DefineAllergyComponent implements OnInit {
   allergies: Allergy[] = [];
   allergiesForUser: Allergy[] = [];
   selectedAllergies: number[] = [];
-  allergies1: Allergy[] = [];
-  allergies2: Allergy[] = [];
-  allergies3: Allergy[] = [];
-  allergies4: Allergy[] = [];
-  allergies5: Allergy[] = [];
+ 
 
 
   constructor(private allergiesService: AllergyService, private router: Router) { }
@@ -26,23 +22,8 @@ export class DefineAllergyComponent implements OnInit {
     this.allergiesService.getAllAllergies().subscribe(
       res => {
         this.allergies = res;
-        // this.selectSubCategories(null);
-        // this.allergies1 = this.allergies.slice(0, 9);
-        // console.log(this.allergies1);
-        // this.allergies2 = this.allergies.slice(10, 19);
-        // console.log(this.allergies2);
-        // this.allergies3 = this.allergies.splice(20, 29);
-        // console.log(this.allergies3);
-        // this.allergies4 = this.allergies.splice(30, 39);
-        // console.log(this.allergies4);
-        // this.allergies5 = this.allergies.splice(40, 49);
-        // console.log(this.allergies5);
       }
     );
-
-   
-
-
     if (localStorage.getItem('currentUser') != undefined) {
       this.allergiesService.getCurrentUserAllergies().subscribe(
         res => {
@@ -57,7 +38,6 @@ export class DefineAllergyComponent implements OnInit {
 
   defineAllergies() {
     this.allergiesService.defineAllergiesForUser(this.selectedAllergies).subscribe(res => console.log(res));
-    //הוא לא מוציא כאן את הקודמים שהוא כבר הסיר אותם מהרשימה, צריך לטפל בזה!!!
     this.router.navigate(['/home'])
   }
 

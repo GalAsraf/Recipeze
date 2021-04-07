@@ -28,17 +28,17 @@ namespace BL.WebScraping
     /// </summary>
     public class GoogleSearch
     {
+        const int count = 0;
         public static WebClient webClient = new WebClient();
         public static Regex extractUrl = new Regex(@"[&?](?:q|url)=([^&]+)", RegexOptions.Compiled);
-
-
-        #region CustomSearch function
         /// <summary>
         /// Method makes a searchline to search on google
         /// </summary>
         /// <param name="searchText" type="string"> it is the search text that is used to search on google. </param>
         /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities</param>
         /// <returns> the HTML google page of the search result that contains links of websites with recipes to scrape. </returns>
+        #region CustomSearch function
+
         public static string CustomSearch(string searchText, List<string> allergiesForUser)
         {
             StringBuilder sb = new StringBuilder("http://www.google.com/search?q=");
@@ -52,8 +52,6 @@ namespace BL.WebScraping
         }
         #endregion
 
-
-        #region ParseSearchResultHtml function
         /// <summary>
         /// A method that extracts all links from the google result web page and puts it in a list.
         /// the method sends the list of links to the web scraping method: RecipeScraping. 
@@ -62,9 +60,14 @@ namespace BL.WebScraping
         /// <param name="html" type="string"> HTML page that was returned from CustomSearch method, which from it the links are taken</param>
         /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities </param>
         /// <returns type="List<DTO.RecipeDTO>"> list of recipes which were extracted from web pages </returns>
+        #region ParseSearchResultHtml function
+
         public static List<DTO.RecipeDTO> ParseSearchResultHtml(string searchLine, string html, List<string> allergiesForUser)
         {
+            List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
+            List<List<DTO.RecipeDTO>> recipesLists = new List<List<DTO.RecipeDTO>>();
             List<string> searchResults = new List<string>();
+          
             //using package called HtmlAgilityPack to extract data from a website
             var doc = new HtmlAgilityPack.HtmlDocument();
 
@@ -77,6 +80,8 @@ namespace BL.WebScraping
                          where href.Value.Contains("/url?") || href.Value.Contains("?url=")
                          select href.Value).ToList();
 
+
+            //var nextLink = nextParentElement.Attributes["href"];
 
             //filtering multiplied links, putting links in a new list.
             foreach (var node in nodes)
@@ -91,14 +96,15 @@ namespace BL.WebScraping
                 HtmlDocument resultdoc = hw.Load(test);
             }
 
-            List<DTO.RecipeDTO> recipesList = new List<DTO.RecipeDTO>();
+
             //calling RecipeScraping method where the process of recipe scraping- recipe extracting, is done
             recipesList = RecipeScraping(searchLine, searchResults, allergiesForUser);
+        
             return recipesList;
         }
         #endregion
 
-        #region RecipeScraping function
+
         /// <summary>
         /// gets the filtered list of links, extracts a recipe from each link's HTML web page
         /// </summary>
@@ -106,15 +112,21 @@ namespace BL.WebScraping
         /// <param name="links" type="List<string>"> list of links that were extracted from google page  </param>
         /// <param name="allergiesForUser" type="List<string>"> the current user's allergies / sensitivities </param>
         /// <returns type="List<DTO.RecipeDTO>"> list of recipes from the recipe websites </returns>
+        #region RecipeScraping function
+
 
         public static List<DTO.RecipeDTO> RecipeScraping(string searchLine, List<string> links, List<string> allergiesForUser)
         {
             List<DTO.RecipeDTO> recipes = new List<DTO.RecipeDTO>();
             //loops over list of links, and axtract recipe from each links HTMl page
+            List<Vote> votedSites = BL.VotesBL.CheckingNumOfVotes(links);
+            //List<string> voteSite = new List<string>(); unusfull!!!!!
+            //votedSites.ForEach(a => voteSite.Add(a.siteName));
             for (var i = 0; i < links.Count; i++)
             {
                 //websites to ignore and not scrape because there HTML structure is irregular
-                if (links[i].Contains("bbcgoodfood") ||
+                if (
+                    links[i].Contains("bbcgoodfood") ||
                     links[i].Contains("bbcfood") ||
                     links[i].Contains("bbc") ||
                     links[i].Contains("sugarfreemom") ||
@@ -125,17 +137,38 @@ namespace BL.WebScraping
                     links[i].Contains("foodnetwork") ||
                     links[i].Contains("mccormick") ||
                     links[i].Contains("delish") ||
+                    links[i].Contains("pinchofyum") ||
+                    links[i].Contains("dadcooksdinner") ||
+                    links[i].Contains("thepioneerwoman") ||
+                    links[i].Contains("thekitchn") ||
                     links[i].Contains("myfoodstory") ||
                     links[i].Contains("littlehouseliving") ||
                     links[i].Contains("NatashasKitchen") ||
                     links[i].Contains("taste") ||
+                    links[i].Contains("forksnflipflops") ||
                     links[i].Contains("asweetpeachef") ||
                     links[i].Contains("HERSHEY's") ||
+                    links[i].Contains("myalbanianfood") ||
+                    links[i].Contains("biggerbolderbaking") ||
                     links[i].Contains("wholesomeyum") ||
-                    links[i].Contains("leitesculinaria"))
+                    links[i].Contains("fussfreeflavours") ||
+                    links[i].Contains("rasamalaysia") ||
+                    links[i].Contains("leitesculinaria")
+                    )
+                continue;
+
+                //checking if a voted site is here
+                var stop = false;
+                votedSites.ForEach(
+                    a => { if (links[i].Contains(a.siteName))
+                            stop = true;
+                    }
+                    );
+                if (stop == true)
                     continue;
 
                 var htmlurl = links[i];//the link to scrape
+
                 HtmlWeb web1 = new HtmlWeb();
                 var htmlDoc1 = web1.Load(htmlurl);
                 //extracting the recipe's title from the <title> element
@@ -149,11 +182,11 @@ namespace BL.WebScraping
                     title = titleElement.InnerText;
                     title = title.Replace("&amp", "&");
                     title = title.Replace("&#039", "'");
-                    title = title.Replace("&#034", "") ;
-                    title = title.Replace(";", "") ;
-                    title = title.Replace("&ndash", "-") ;
-                    title = title.Replace("&frasl", "/") ;
-                    
+                    title = title.Replace("&#034", "");
+                    title = title.Replace(";", "");
+                    title = title.Replace("&ndash", "-");
+                    title = title.Replace("&frasl", "/");
+                    title = title.Replace("&quot", "");
                 }
                 else
                 {
@@ -199,7 +232,9 @@ namespace BL.WebScraping
                 string[] array3 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
 
-                organizedIngredients = ingredients.Replace("1", "\n1");
+                organizedIngredients = ingredients.Replace("\n"," ");
+                organizedIngredients = organizedIngredients.Replace("1", "\n1");
+
                 organizedIngredients = organizedIngredients.Replace("2", "\n2");
                 organizedIngredients = organizedIngredients.Replace("3", "\n3");
                 organizedIngredients = organizedIngredients.Replace("4", "\n4");
@@ -218,6 +253,7 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("½", "\n½");
                 organizedIngredients = organizedIngredients.Replace("¼", "\n¼");
                 organizedIngredients = organizedIngredients.Replace("⅓", "\n⅓");
+                //organizedIngredients = organizedIngredients.Replace("&#32;", " ");
                 organizedIngredients = organizedIngredients.Replace("&#x\n25a\n2;", "");
                 //the problem here is, how can I make it print 1 1/2 ?
                 organizedIngredients = organizedIngredients.Replace("1 \n1/2", "1 1/2");
@@ -269,27 +305,24 @@ namespace BL.WebScraping
                 {
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ";", "");
-
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", "");
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", "");
-
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
-
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
-
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + ic[4] + "\n" + ic[5] + "\n" + ic[6] + ";", " ");
-
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + ic[5] + "\n" + ic[6] + ";", " ");
-
                     organizedIngredients = organizedIngredients.Replace("&#\n" + ic[2] + "\n" + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
                     organizedIngredients = organizedIngredients.Replace("&#" + ic[2] + ic[3] + "\n" + ic[4] + "\n" + ic[5] + ic[6] + ";", " ");
 
                 }
+                
                 organizedIngredients = organizedIngredients.Replace("&#x", "");
+                organizedIngredients = organizedIngredients.Replace("&#\n32", " ");
+
 
                 foreach (var num1 in array1)
                 {
@@ -329,6 +362,7 @@ namespace BL.WebScraping
                         organizedIngredients = organizedIngredients.Replace(num1 + "\n" + num2, num1 + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + " \n" + num2, num1 + " " + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + " - \n" + num2, num1 + "-" + num2);
+                        organizedIngredients = organizedIngredients.Replace(num1 + " -\n" + num2, num1 + "-" + num2);
                         organizedIngredients = organizedIngredients.Replace(" - \n" + num2, " -" + num2);
                         organizedIngredients = organizedIngredients.Replace(" -\n" + num2, " -" + num2);
                         organizedIngredients = organizedIngredients.Replace(num1 + "- \n" + num2, num1 + "-" + num2);
@@ -372,8 +406,6 @@ namespace BL.WebScraping
                         organizedIngredients = organizedIngredients.Replace(" + \n"+num1, " + "+num1);
                         organizedIngredients = organizedIngredients.Replace(" + \n "+num1, " + "+num1);
                         organizedIngredients = organizedIngredients.Replace(" + \n", " + ");
-                        
-
 
                     }
                 }
@@ -389,11 +421,13 @@ namespace BL.WebScraping
                 organizedIngredients = organizedIngredients.Replace("*", "");
                 organizedIngredients = organizedIngredients.Replace("&ndash","-");
                 organizedIngredients = organizedIngredients.Replace("&frasl", "/");
+                organizedIngredients = organizedIngredients.Replace("&#\n32", " ");
 
 
 
                 List<string> parenthesis = new List<string>();
                 List<char> counting = new List<char>();
+
                 for (int x = 0; x < IngredientsArray.Length; x++)
                 {
                     if (IngredientsArray[x] == '(')
@@ -407,18 +441,29 @@ namespace BL.WebScraping
                         counting.Add(IngredientsArray[x]);
                         counting.Add(IngredientsArray[x]);
                         parenthesis.Add(new string(counting.ToArray()));
+                        //parenthesis = parenthesis[0].Replace();
                         counting.Clear();
-                        
+
                     }
-                }
-                for (int g = 0; g < counting.Count; g++)
-                {
-                    organizedIngredients = organizedIngredients.Replace(counting[i]+"\n", counting[i]+" ");
                 }
                 //foreach (var count in counting)
                 //{
-                //    organizedIngredients = organizedIngredients.Replace(count"\n"," ");
+                //    counting = counting.Replace("\n", " ");
+                ////}
+                //for (int z = 0; z < parenthesis.Count; z++)
+                //{
+                //    if (parenthesis[z] == "\n")
+                //    {
+                //        organizedIngredients = organizedIngredients.Replace(parenthesis[z] , "");
+
+                //    }
                 //}
+                //parenthesis.Clear();
+                //for (int g = 0; g < counting.Count; g++) 
+                //{
+                //    organizedIngredients = organizedIngredients.Replace(counting[g]+"\n", counting[g]+" ");
+                //}
+                
 
 
 
@@ -453,8 +498,7 @@ namespace BL.WebScraping
                         }
                     }
                 }
-
-
+               
                 var parentDirectionsElement = directionsElement.ParentNode;
                 flag = true;
                 while (flag)
@@ -478,7 +522,12 @@ namespace BL.WebScraping
                 directions = directions.Replace("Instructions", "");
                 directions = directions.Replace("Method", "");
                 directions = directions.Replace("&quot;", "");
-                directions = directions.Replace("&#8217;", "'");
+                directions = directions.Replace("&#8217", "'");
+                directions = directions.Replace("&#8211", "'");
+                directions = directions.Replace("&#039", "'");
+                directions = directions.Replace("&#39", "'");
+                directions = directions.Replace("&#x", "'");
+                directions = directions.Replace("&#x27", "'");
                 directions = directions.Replace("25a2", "");
                 foreach (var num1 in array1)
                 {
@@ -490,6 +539,7 @@ namespace BL.WebScraping
                 }
 
                 //getting rid of &#...;
+
                 //List<string> directionicons = new List<string>();
                 //List<char> directionfixedlist = new List<char>();
 
@@ -539,6 +589,7 @@ namespace BL.WebScraping
                 string jpgSource = null;
                 var flag1 = true;
                 string prepTime=null;
+                string cookTime = null;
                 string totalTime = null;
                 while (flag)
                 {
@@ -561,7 +612,10 @@ namespace BL.WebScraping
                             foreach (var item in nodeItem)
                             {
                                 if (item.Attributes["src"] == null)
-                                    src.Add(item.Attributes["data-src"].Value);
+                                {
+                                    if (item.Attributes["data-src"] != null)
+                                        src.Add(item.Attributes["data-src"].Value);
+                                }
                                 else
                                     src.Add(item.Attributes["src"].Value);
 
@@ -638,8 +692,115 @@ namespace BL.WebScraping
                     Console.WriteLine("prep time element found");
                     var prepParentElement = prepElement.ParentNode;
                     prepTime = prepParentElement.InnerText;
+                    prepTime = prepTime.Replace("&nbsp;", "");
                     Console.WriteLine(prepTime);
                 }
+
+
+
+
+
+
+                //extracting cook time
+
+                var cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Cook Time']");
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Cook Time:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Cook Time: ']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Cook Time:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Cook Time']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Cook']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Cook:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='cook time']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='cook time:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='cook']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='cook:']");
+                }
+
+
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Bake Time:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Bake Time']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Bake Time: ']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()=' Bake Time:']");
+                }
+               
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Bake']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='Bake:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='bake time']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='bake time:']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='bake']");
+                }
+                if (cookElement == null)
+                {
+                    cookElement = htmlDoc1.DocumentNode.SelectSingleNode("//*[text()='bake:']");
+                }
+               
+                if (cookElement != null)
+                {
+                    Console.WriteLine(cookElement.InnerText);
+                    Console.WriteLine("cook time element found");
+                    var cookParentElement = cookElement.ParentNode;
+                    cookTime = cookParentElement.InnerText;
+                    cookTime = cookTime.Replace("&nbsp;", "");
+                    Console.WriteLine(cookElement);
+                }
+
+
+
+
 
                 //extracting total time
 
@@ -685,8 +846,14 @@ namespace BL.WebScraping
                 {
                     var totalParentElement = totalElement.ParentNode;
                     totalTime = totalParentElement.InnerText;
+                    totalTime = totalTime.Replace("&nbsp;", "");
                     Console.WriteLine(totalTime);
                 }
+
+
+
+
+
                 #region image
                 ////Declare the URL
                 // var url = "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/";
@@ -741,15 +908,20 @@ namespace BL.WebScraping
                 //}
                 #endregion
 
+
                 DTO.RecipeDTO recipe = new DTO.RecipeDTO();
+
+
                 recipe.Ingredients = organizedIngredients.Split('\n').ToList();
                 recipe.Method = directions.Split('.').ToList();
                 recipe.RecipeName = title;
                 recipe.PrepTime = prepTime;
+                recipe.CookTime = cookTime;
                 recipe.TotalTime = totalTime;
                 recipe.PictureSource = jpgSource;
                 recipe.Url = links[i];
                 //inside checking if the recipe object contains allergic ingredients.
+
                 var checkAllergy = 0;
                 List<string> listOfAllergies = new List<string>();
                 allergiesForUser.ForEach(a =>
@@ -770,6 +942,8 @@ namespace BL.WebScraping
                         }
                     }
                 }
+
+
 
                 if (checkAllergy == 0)
                     recipes.Add(recipe);

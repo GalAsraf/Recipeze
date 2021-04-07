@@ -45,6 +45,7 @@
           <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LinkName" Type="nvarchar(max)" />
+          <Property Name="logo" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -71,6 +72,7 @@
           <Property Name="AllergyId" Type="int" Nullable="false" />
           <Property Name="SubstituteId" Type="int" Nullable="false" />
           <Property Name="SubstituteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="icon" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -80,6 +82,14 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Votes">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="voteNumbers" Type="int" />
+          <Property Name="siteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK__AllergieF__Aller__5DCAEF64">
           <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
@@ -163,6 +173,7 @@
           <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Votes" EntityType="Self.Votes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
             <End Role="Allergies" EntitySet="Allergies" />
             <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />
@@ -201,14 +212,9 @@
           </AssociationSet>
           <EntitySet Name="Instructions" EntityType="RecipezeModel.Instruction" />
           <EntitySet Name="CookbookRecipes" EntityType="RecipezeModel.CookbookRecipe" />
-          <EntitySet Name="Ingredients" EntityType="RecipezeModel.Ingredient" />
           <AssociationSet Name="FK__CookbookR__userI__04E4BC85" Association="RecipezeModel.FK__CookbookR__userI__04E4BC85">
             <End Role="User" EntitySet="Users" />
             <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Ingredien__recip__05D8E0BE" Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE">
-            <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
-            <End Role="Ingredient" EntitySet="Ingredients" />
           </AssociationSet>
           <AssociationSet Name="FK__Instructi__recip__08B54D69" Association="RecipezeModel.FK__Instructi__recip__08B54D69">
             <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
@@ -221,6 +227,12 @@
           </AssociationSet>
           <EntitySet Name="Categories" EntityType="RecipezeModel.Category" />
           <EntitySet Name="HealthFoodArticles" EntityType="RecipezeModel.HealthFoodArticle" />
+          <EntitySet Name="Ingredients" EntityType="RecipezeModel.Ingredient" />
+          <AssociationSet Name="FK__Ingredien__recip__05D8E0BE" Association="RecipezeModel.FK__Ingredien__recip__05D8E0BE">
+            <End Role="CookbookRecipe" EntitySet="CookbookRecipes" />
+            <End Role="Ingredient" EntitySet="Ingredients" />
+          </AssociationSet>
+          <EntitySet Name="Votes" EntityType="RecipezeModel.Vote" />
           </EntityContainer>
         <EntityType Name="Allergy">
           <Key>
@@ -266,18 +278,8 @@
           <Property Name="recipeName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="recipeImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="RecipezeModel.FK__CookbookR__userI__04E4BC85" FromRole="CookbookRecipe" ToRole="User" />
-          <NavigationProperty Name="Ingredients" Relationship="RecipezeModel.FK__Ingredien__recip__05D8E0BE" FromRole="CookbookRecipe" ToRole="Ingredient" />
           <NavigationProperty Name="Instructions" Relationship="RecipezeModel.FK__Instructi__recip__08B54D69" FromRole="CookbookRecipe" ToRole="Instruction" />
-        </EntityType>
-        <EntityType Name="Ingredient">
-          <Key>
-            <PropertyRef Name="IngredientId" />
-          </Key>
-          <Property Name="IngredientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IngredientText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Index" Type="Int32" />
-          <Property Name="recipeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CookbookRecipe" Relationship="RecipezeModel.FK__Ingredien__recip__05D8E0BE" FromRole="Ingredient" ToRole="CookbookRecipe" />
+          <NavigationProperty Name="Ingredients" Relationship="RecipezeModel.FK__Ingredien__recip__05D8E0BE" FromRole="CookbookRecipe" ToRole="Ingredient" />
         </EntityType>
         <Association Name="FK__CookbookR__userI__04E4BC85">
           <End Type="RecipezeModel.User" Role="User" Multiplicity="1" />
@@ -288,18 +290,6 @@
             </Principal>
             <Dependent Role="CookbookRecipe">
               <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Ingredien__recip__05D8E0BE">
-          <End Type="RecipezeModel.CookbookRecipe" Role="CookbookRecipe" Multiplicity="1" />
-          <End Type="RecipezeModel.Ingredient" Role="Ingredient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CookbookRecipe">
-              <PropertyRef Name="recipeId" />
-            </Principal>
-            <Dependent Role="Ingredient">
-              <PropertyRef Name="recipeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -323,6 +313,7 @@
           <Property Name="SubstituteId" Type="Int32" Nullable="false" />
           <Property Name="SubstituteName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Allergy" Relationship="RecipezeModel.FK__Substitut__Aller__160F4887" FromRole="Substitute" ToRole="Allergy" />
+          <Property Name="icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Substitut__Aller__160F4887">
           <End Type="RecipezeModel.Allergy" Role="Allergy" Multiplicity="1" />
@@ -351,6 +342,37 @@
           <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LinkName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="IngredientId" />
+          </Key>
+          <Property Name="IngredientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IngredientText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Index" Type="Int32" />
+          <Property Name="recipeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CookbookRecipe" Relationship="RecipezeModel.FK__Ingredien__recip__05D8E0BE" FromRole="Ingredient" ToRole="CookbookRecipe" />
+        </EntityType>
+        <Association Name="FK__Ingredien__recip__05D8E0BE">
+          <End Type="RecipezeModel.CookbookRecipe" Role="CookbookRecipe" Multiplicity="1" />
+          <End Type="RecipezeModel.Ingredient" Role="Ingredient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CookbookRecipe">
+              <PropertyRef Name="recipeId" />
+            </Principal>
+            <Dependent Role="Ingredient">
+              <PropertyRef Name="recipeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="voteNumbers" Type="Int32" />
+          <Property Name="siteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -405,19 +427,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ingredients">
-            <EntityTypeMapping TypeName="RecipezeModel.Ingredient">
-              <MappingFragment StoreEntitySet="Ingredients">
-                <ScalarProperty Name="recipeId" ColumnName="recipeId" />
-                <ScalarProperty Name="Index" ColumnName="Index" />
-                <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
-                <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Substitutes">
             <EntityTypeMapping TypeName="RecipezeModel.Substitute">
               <MappingFragment StoreEntitySet="Substitutes">
+                <ScalarProperty Name="icon" ColumnName="icon" />
                 <ScalarProperty Name="SubstituteName" ColumnName="SubstituteName" />
                 <ScalarProperty Name="SubstituteId" ColumnName="SubstituteId" />
                 <ScalarProperty Name="AllergyId" ColumnName="AllergyId" />
@@ -436,9 +449,29 @@
           <EntitySetMapping Name="HealthFoodArticles">
             <EntityTypeMapping TypeName="RecipezeModel.HealthFoodArticle">
               <MappingFragment StoreEntitySet="HealthFoodArticles">
+                <ScalarProperty Name="logo" ColumnName="logo" />
                 <ScalarProperty Name="LinkName" ColumnName="LinkName" />
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="LinkId" ColumnName="LinkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredients">
+            <EntityTypeMapping TypeName="RecipezeModel.Ingredient">
+              <MappingFragment StoreEntitySet="Ingredients">
+                <ScalarProperty Name="recipeId" ColumnName="recipeId" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="IngredientText" ColumnName="IngredientText" />
+                <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Votes">
+            <EntityTypeMapping TypeName="RecipezeModel.Vote">
+              <MappingFragment StoreEntitySet="Votes">
+                <ScalarProperty Name="siteId" ColumnName="siteId" />
+                <ScalarProperty Name="voteNumbers" ColumnName="voteNumbers" />
+                <ScalarProperty Name="siteName" ColumnName="siteName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

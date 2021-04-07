@@ -40,6 +40,7 @@
     <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LinkName" Type="nvarchar(max)" />
+    <Property Name="logo" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Ingredients">
     <Key>
@@ -66,6 +67,7 @@
     <Property Name="AllergyId" Type="int" Nullable="false" />
     <Property Name="SubstituteId" Type="int" Nullable="false" />
     <Property Name="SubstituteName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="icon" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -75,6 +77,14 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Votes">
+    <Key>
+      <PropertyRef Name="siteId" />
+    </Key>
+    <Property Name="siteName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="voteNumbers" Type="int" />
+    <Property Name="siteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <Association Name="FK__AllergieF__Aller__5DCAEF64">
     <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
@@ -158,6 +168,7 @@
     <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Substitutes" EntityType="Self.Substitutes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Votes" EntityType="Self.Votes" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__AllergieF__Aller__5DCAEF64" Association="Self.FK__AllergieF__Aller__5DCAEF64">
       <End Role="Allergies" EntitySet="Allergies" />
       <End Role="AllergieForUsers" EntitySet="AllergieForUsers" />

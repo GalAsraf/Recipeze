@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Allergy } from '../models/allergy.model';
 import { environment } from 'src/environments/environment';
+import { substitutes } from '../models/substitutes.modal';
 
 
 @Injectable({
@@ -29,9 +30,9 @@ export class AllergyService {
     return this.http.get<Allergy[]>(environment.url+"allergy/getCurrentUserAllergies/"+userId)
   }
 
-  getSubstitutes():Observable<string[]>{
+  getSubstitutes():Observable<substitutes[]>{
     let userId=localStorage.getItem('currentUser');
-    return this.http.get<string[]>(environment.url+"allergy/getSubstitutes/"+userId)
+    return this.http.get<substitutes[]>(environment.url+"allergy/getSubstitutes/"+userId)
   }
 
 

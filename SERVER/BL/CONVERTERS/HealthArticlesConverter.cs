@@ -19,7 +19,9 @@ namespace BL.CONVERTERS
             {
                 LinkName = articles.LinkName,
                 LinkId = articles.LinkId,
-                Link = articles.Link
+                Link = articles.Link,
+                logo = articles.Logo
+                
             };
         } 
 
@@ -29,7 +31,8 @@ namespace BL.CONVERTERS
             {
                 LinkName = articles.LinkName,
                 LinkId = articles.LinkId,
-                Link = articles.Link
+                Link = articles.Link,
+                Logo = articles.logo
             };
         }
 

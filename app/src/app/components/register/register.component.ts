@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
     this.user.Email = this.userForm.value.email
     this.userService.getUserExist(this.user).subscribe(
       res => {
-        if (res == -1)
+        if (res != -1)
           alert("user allready exist. try again!");
         else {
           this.userService.addUser(this.user).subscribe(
@@ -62,12 +62,11 @@ export class RegisterComponent implements OnInit {
   }
 
   loginUser(user) {
-    //here it's need to get the id of the current user from the services, and ot use it throw the app
     const currentUser = user;
     this.loginService.setCurrentUser(currentUser);
     console.log(currentUser);
-
-    this.router.navigate(['/allergies'])
+    
+    this.router.navigate(['/login'])
 
   }
 

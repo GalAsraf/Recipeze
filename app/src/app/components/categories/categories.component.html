@@ -18,112 +18,31 @@
     integrity="sha384-4ZPLezkTZTsojWFhpdFembdzFudphhoOzIunR1wH6g1WQDzCAiPvDyitaK67mp0+" crossorigin="anonymous">
 
 <body>
+    <br><br> <br>  <br> <br>  <br> 
 
-
-    <!-- Main Carousel Section Start -->
-    <div id="main-slide" class="carousel slide" data-ride="carousel">
-       
-       
-        <div class="carousel-inner">
-
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="assets/Carousel/img1.jpg" alt="First slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img2.jpg" alt="Second slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img3.jpg" alt="Third slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img4.jpg" alt="forth slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img5.jpg" alt="fifth slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img6.jpg" alt="sixth slide"
-                    style="width: 700px; height:130px">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="assets/Carousel/img7.jpg" alt="seventh slide"
-                    style="width: 700px; height:130px">
-            </div>
-
-        </div>
-
-        <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
-            <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-left"></i></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#main-slide" role="button" data-slide="next">
-            <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-right"></i></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-    <!-- Main Carousel Section End -->
-   
-    <br>
- 
     <form [formGroup]="SearchForm" (submit)="googleSearch()">
 
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+        <div class="search__container">
+            <input class="search__input" type="text" placeholder="Search" aria-label="Search"
+                aria-describedby="button-addon2" formControlName="search" id="search">
+        </div>
+     <br>
+
+
+        <!-- <div class="input-group mb-3">
+            <input type="text" style="font-size: large; size: 70px;" class="form-control" placeholder="Search" aria-label="Search"
                 aria-describedby="button-addon2" formControlName="search" id="search">
             <div class="input-group-append">
                 <button style="visibility: visible;" class="fadeInLeft wow btn btn-common btn-lg animated" type="submit"
                     id="button-addon2">
                     <i class="fa fa-search"></i></button>
             </div>
-        </div>
-
-
-        <!-- tryings-->
-
-        <!-- <div id="tt2" class="icon material-icons">print</div>
-        <div class="mdl-tooltip mdl-tooltip--large" for="tt2">
-            Print
         </div> -->
 
 
-
-
-        <!-- <div class="pure-u-1 pure-u-md-1-3">
-            <label for="multi-state">State</label>
-            <select id="multi-state" class="pure-input-1-2">
-                <option>AL</option>
-                <option>CA</option>
-                <option>IL</option>
-            </select>
-        </div>
-
-
-
-
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="true">
-                Dropdown
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div> -->
-
-        <!-- end of tryings -->
-
-        <div >
-            <select (change)="selectChangeHandler($event,j)"  *ngFor="let category of categoriesToSelect; let j=index"  class="custom-select" style="width:230px">
+        <div>
+            <select (change)="selectChangeHandler($event,j)" *ngFor="let category of categoriesToSelect; let j=index"
+                class="custom-select" style="width:230px">
                 <option value="202" disabled selected> Select category: &nbsp;</option>
 
                 <option [value]="subCategory.CategoryId" *ngFor="let subCategory of category;let i=index ">
@@ -133,6 +52,7 @@
                 </option>
             </select>
         </div>
+
         <div class="container" style="margin-bottom: 1px">
             <div class="row">
                 <div class="col-12">
@@ -154,13 +74,14 @@
                             <div id="middle" *ngFor="let sens of allergies;let i=index " style="margin-left: 100px;">
                                 <label class="container11" style="font-size: 20px; float: left; margin-top: 5px;">
                                     <input type="checkbox" [value]="allergies[i].AllergyName"
-                                        id={{allergies[i].AllergyName}}
+                                        id={{allergies[i].AllergyName}} 
                                         (change)="toggleAllergy(allergies[i].AllergyCode)" style="margin-left: 250px;">
                                     {{allergies[i].AllergyName}}
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+                        <h3 *ngIf="selectedAllergies.length>2">hello my amigo! we suggest you choose no more then 2 options to make the searching more usefull</h3>
 
                     </div>
                 </div>
@@ -175,7 +96,7 @@
 
         <button type="submit" class="btn btn-common sub-btn" data-style="zoom-in" data-spinner-size="30" name="submit"
             id="submit" style="font-family: inherit;">
-            <span class="ladda-label"><i class="lni-check-box"></i>
+            <span class="ladda-label"><i class="fa fa-check" aria-hidden="true"></i>
                 Find my recipe</span>
         </button>
         <div id="msgSubmit" class="h3 text-center hidden"></div>
@@ -186,17 +107,8 @@
 
     </form>
 
+    <br>  <br> <br>  <br><br>  <br><br>  <br> <br><br>  <br><br>  <br>
 
-    <!-- <div>
-        <h4>categories</h4>
-
-        <div>
-            <div *ngFor="let category of categories;let i=index ">
-                <p>{{categories[i].CategoryName}} </p>
-
-            </div>
-        </div>
-    </div> -->
 </body>
 
 </html>
